@@ -1,4 +1,4 @@
-# 🚀 bugBook 🌐
+# 🚀 bugbook-social-media-platform 🌐
 
 Welcome to **bugBook**, your go-to social media platform! 🎉
 
