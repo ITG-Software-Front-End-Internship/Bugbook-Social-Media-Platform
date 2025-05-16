@@ -1,5 +1,7 @@
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
-import { Lucia } from "lucia";
+import { Lucia, Session, User } from "lucia";
+import { cookies } from "next/headers";
+import { cache } from "react";
 import prisma from "./lib/prisma";
 
 const adapter = new PrismaAdapter(prisma.session, prisma.user);
@@ -36,3 +38,56 @@ interface DatabaseUserAttributes {
   avatarUrl: string | null;
   googleId: string | null;
 }
+
+type ValidRequestType = { user: User; session: Session };
+type InValidRequestType = { user: null; session: null };
+type ValidateRequest = ValidRequestType | InValidRequestType;
+
+const validateRequest = async (): Promise<ValidateRequest> => {
+  const sessionId =
+    (await cookies()).get(lucia.sessionCookieName)?.value ?? null;
+
+  if (!sessionId) {
+    return {
+      user: null,
+      session: null,
+    };
+  }
+
+  const validatedSessionRecord = await lucia.validateSession(sessionId);
+
+  try {
+    const isValidSession = validatedSessionRecord.session;
+    const isFreshSession = validatedSessionRecord.session?.fresh;
+
+    if (isValidSession && isFreshSession) {
+      const sessionCookie = lucia.createSessionCookie(
+        validatedSessionRecord.session.id,
+      );
+
+      (await cookies()).set(
+        sessionCookie.name,
+        sessionCookie.value,
+        sessionCookie.attributes,
+      );
+    }
+
+    const isSessionExists = validatedSessionRecord.session;
+
+    if (!isSessionExists) {
+      const blankSessionCookie = lucia.createBlankSessionCookie();
+
+      (await cookies()).set(
+        blankSessionCookie.name,
+        blankSessionCookie.value,
+        blankSessionCookie.attributes,
+      );
+    }
+  } catch (error) {
+    console.error(`An error happen while validate request`, error);
+  }
+
+  return validatedSessionRecord;
+};
+
+export const cachedValidateRequest = cache(validateRequest);
