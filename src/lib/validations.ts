@@ -1,16 +1,30 @@
-import { z } from "zod";
+import { z, ZodString } from "zod";
+import { validationsMessages } from "./constants";
 
-const requiredString = z.string().trim().min(1, "Email is Required.");
+export type SignUpValuesType = z.infer<ReturnType<typeof getSignUpSchema>>;
+export type LoginValuesType = z.infer<ReturnType<typeof getLoginSchema>>;
+type TranslationsType = (key: string) => string;
 
+const requiredString: ZodString = z
+  .string()
+  .trim()
+  .min(1, validationsMessages.required);
 const userNameRegex: RegExp = /^[a-zA-Z0-9_-]+$/;
 
-const signUpSchema = z.object({
-  email: requiredString.email("Invalid email."),
-  userName: requiredString.regex(
-    userNameRegex,
-    "Only letters, numbers, - and _ are allowed.",
-  ),
-  password: requiredString.min(8, "Password must be at least 8 characters"),
-});
+export const getSignUpSchema = (t: TranslationsType) => {
+  return z.object({
+    email: requiredString.email(validationsMessages.email.invalid),
+    userName: requiredString.regex(
+      userNameRegex,
+      validationsMessages.userName.invalidChars,
+    ),
+    password: requiredString.min(8, validationsMessages.password.minLength),
+  });
+};
 
-export type SignUpValuesType = z.infer<typeof signUpSchema>;
+export const getLoginSchema = (t: TranslationsType) => {
+  return z.object({
+    userName: requiredString,
+    password: requiredString.min(8, validationsMessages.password.minLength),
+  });
+};

@@ -1,0 +1,14 @@
+{
+  "validations": {
+    "required": "Required",
+    "email": {
+      "invalid": "Invalid email."
+    },
+    "userName": {
+      "invalidChars": "Only letters, numbers, - and _ are allowed."
+    },
+    "password": {
+      "minLength": "Password must be at least 8 characters"
+    }
+  }
+}
