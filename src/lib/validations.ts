@@ -2,7 +2,6 @@ import { z, ZodString } from "zod";
 
 export type SignUpValuesType = z.infer<ReturnType<typeof getSignUpSchema>>;
 export type LoginValuesType = z.infer<ReturnType<typeof getLoginSchema>>;
-type TranslationsType = (key?: string) => string;
 
 const requiredString = (messages: { required: string }) => {
   return z.string().trim().min(1, messages.required);

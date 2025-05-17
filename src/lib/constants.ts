@@ -7,9 +7,13 @@ export const validationsMessages = {
   userName: {
     invalidChars: "validations.userName.invalidChars",
     alreadyTaken: "validations.userName.alreadyTaken",
+    userDoseNotExist: "validations.userName.",
   },
   password: {
     minLength: "validations.password.minLength",
+  },
+  credentials: {
+    invalid: "validations.credentials.invalid",
   },
 } as const;
 
