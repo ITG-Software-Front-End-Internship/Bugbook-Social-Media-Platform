@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -10,6 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import LoadingButton from "@/components/ui/LoadingButton";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 import { validationsMessages } from "@/lib/constants";
 import { getSignUpSchema, SignUpValuesType } from "@/lib/validations";
@@ -52,7 +52,12 @@ export default function SignUpForm() {
 
   return (
     <Form {...signUpForm}>
-      <form onSubmit={signUpForm.handleSubmit(onSubmit)} className="space-y-3">
+      <form
+        onSubmit={signUpForm.handleSubmit(onSubmit, (errors) => {
+          console.log("Validation failed:", errors);
+        })}
+        className="space-y-3"
+      >
         {error && <p className="text-destructive text-center">{error}</p>}
         <FormField
           control={signUpForm.control}
@@ -103,9 +108,10 @@ export default function SignUpForm() {
             );
           }}
         />
-        <Button type="submit" className="w-full">
-          Submit
-        </Button>
+
+        <LoadingButton type="submit" className="w-full" isLoading={isPending}>
+          Create an account
+        </LoadingButton>
       </form>
     </Form>
   );
