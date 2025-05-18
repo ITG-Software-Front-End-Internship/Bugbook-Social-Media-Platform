@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 import { validationsMessages } from "@/lib/constants";
 import { getSignUpSchema, SignUpValuesType } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -95,7 +96,7 @@ export default function SignUpForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="****" type="password" {...field} />
+                  <PasswordInput placeholder="********" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
