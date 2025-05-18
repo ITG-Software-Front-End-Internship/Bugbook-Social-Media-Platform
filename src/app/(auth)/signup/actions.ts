@@ -18,7 +18,6 @@ export async function signUp(
 ): Promise<SignUpReturnType> {
   try {
     const t = await getTranslations("validations");
-
     const signUpSchemaMessages = {
       emailInvalid: t(validationsMessages.email.invalid),
       userNameInvalidChars: t(validationsMessages.userName.invalidChars),
