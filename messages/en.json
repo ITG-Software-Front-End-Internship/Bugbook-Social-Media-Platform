@@ -1,0 +1,23 @@
+{
+  "validations": {
+    "required": "Required",
+    "email": {
+      "invalid": "Invalid email.",
+      "alreadyTaken": "Email already taken."
+    },
+    "userName": {
+      "invalidChars": "Only letters, numbers, - and _ are allowed.",
+      "alreadyTaken": "Username already taken.",
+      "userDoseNotExist": ""
+    },
+    "password": {
+      "minLength": "Password must be at least 8 characters"
+    },
+    "credentials": {
+      "invalid": "Invalid username or password."
+    }
+  },
+  "errors": {
+    "general": "Something went wrong. Please try again."
+  }
+}

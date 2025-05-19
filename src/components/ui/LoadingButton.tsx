@@ -1,0 +1,38 @@
+import { cn } from "@/lib/utils";
+import { VariantProps } from "class-variance-authority";
+import { Loader2 } from "lucide-react";
+import React from "react";
+import { Button, buttonVariants } from "./button";
+
+type LoadingButtonVariantsProps = VariantProps<typeof buttonVariants>;
+
+interface LoadingButtonProps extends React.ComponentProps<"button"> {
+  asChild?: boolean;
+  isLoading: boolean;
+}
+function LoadingButton({
+  variant,
+  size,
+  className,
+  asChild = false,
+  isLoading,
+  disabled,
+  ...props
+}: LoadingButtonProps & LoadingButtonVariantsProps) {
+  return (
+    <Button
+      disabled={isLoading || disabled}
+      className={cn("flex items-center justify-center gap-2", className)}
+      variant={variant}
+      size={size}
+      {...props}
+    >
+      <>
+        {isLoading && <Loader2 className="size-5 animate-spin" />}
+        {props.children}
+      </>
+    </Button>
+  );
+}
+
+export default LoadingButton;
