@@ -12,41 +12,42 @@ import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/ui/LoadingButton";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 import { validationsMessages } from "@/lib/constants";
-import { getSignUpSchema, SignUpValuesType } from "@/lib/validations";
+import {
+  getLoginSchema,
+  getSignUpSchema,
+  LoginValuesType,
+  SignUpValuesType,
+} from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { signUp } from "./actions";
+import { login } from "./actions";
 
-export default function SignUpForm() {
+export default function LoginForm() {
   const [error, setError] = useState<string>();
   const [isPending, startTransition] = useTransition();
 
   const t = useTranslations();
-  const signUpSchemaMessages = {
-    emailInvalid: t(validationsMessages.email.invalid),
+  const loginSchemaMessages = {
     userNameInvalidChars: t(validationsMessages.userName.invalidChars),
     passwordMinLength: t(validationsMessages.password.minLength),
     required: t(validationsMessages.required),
   };
 
-  const signUpForm = useForm<SignUpValuesType>({
-    resolver: zodResolver(getSignUpSchema(signUpSchemaMessages)),
+  const loginForm = useForm<LoginValuesType>({
+    resolver: zodResolver(getLoginSchema(loginSchemaMessages)),
     defaultValues: {
-      email: "",
-      username: "",
+      userName: "",
       password: "",
     },
   });
 
-  async function onSubmit(values: SignUpValuesType) {
-    console.log(`OnSubmit ......`);
+  async function onSubmit(values: LoginValuesType) {
     setError(undefined);
     startTransition(async () => {
-      console.log(`Sign up ......`);
       try {
-        const { error } = await signUp(values);
+        const { error } = await login(values);
         if (error) {
           setError(error);
         }
@@ -57,17 +58,17 @@ export default function SignUpForm() {
   }
 
   return (
-    <Form {...signUpForm}>
+    <Form {...loginForm}>
       <form
-        onSubmit={signUpForm.handleSubmit(onSubmit, (errors) => {
+        onSubmit={loginForm.handleSubmit(onSubmit, (errors) => {
           console.log("Validation failed:", errors);
         })}
         className="space-y-3"
       >
         {error && <p className="text-destructive text-center">{error}</p>}
         <FormField
-          control={signUpForm.control}
-          name="username"
+          control={loginForm.control}
+          name="userName"
           render={({ field }) => {
             return (
               <FormItem>
@@ -81,26 +82,7 @@ export default function SignUpForm() {
           }}
         />
         <FormField
-          control={signUpForm.control}
-          name="email"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter your email here"
-                    type="email"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-        <FormField
-          control={signUpForm.control}
+          control={loginForm.control}
           name="password"
           render={({ field }) => {
             return (
@@ -116,7 +98,7 @@ export default function SignUpForm() {
         />
 
         <LoadingButton type="submit" className="w-full" isLoading={isPending}>
-          Create an account
+          Login
         </LoadingButton>
       </form>
     </Form>

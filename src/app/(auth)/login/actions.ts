@@ -16,7 +16,7 @@ export async function login(
   credentials: LoginValuesType,
 ): Promise<LoginReturnType> {
   try {
-    const t = await getTranslations("validations");
+    const t = await getTranslations();
 
     const loginSchemaMessages = {
       passwordMinLength: t(validationsMessages.password.minLength),
@@ -28,7 +28,7 @@ export async function login(
 
     const existingUser = await prisma.user.findFirst({
       where: {
-        userName: {
+        username: {
           equals: userName,
           mode: "insensitive",
         },

@@ -17,7 +17,7 @@ export async function signUp(
   credentials: SignUpValuesType,
 ): Promise<SignUpReturnType> {
   try {
-    const t = await getTranslations("validations");
+    const t = await getTranslations();
     const signUpSchemaMessages = {
       emailInvalid: t(validationsMessages.email.invalid),
       userNameInvalidChars: t(validationsMessages.userName.invalidChars),
@@ -25,13 +25,13 @@ export async function signUp(
       required: t(validationsMessages.required),
     };
 
-    const { userName, email, password } =
+    const { username, email, password } =
       getSignUpSchema(signUpSchemaMessages).parse(credentials);
 
     const existingUserName = await prisma.user.findFirst({
       where: {
-        userName: {
-          equals: userName,
+        username: {
+          equals: username,
           mode: "insensitive",
         },
       },
@@ -70,10 +70,10 @@ export async function signUp(
     await prisma.user.create({
       data: {
         id: userId,
-        userName: userName,
+        username: username,
         email: email,
-        password: passwordHash,
-        displayName: userName,
+        passwordHash: passwordHash,
+        displayName: username,
       },
     });
 

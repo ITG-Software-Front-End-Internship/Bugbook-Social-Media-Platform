@@ -27,10 +27,10 @@ function LoadingButton({
       size={size}
       {...props}
     >
-      <span>
+      <>
         {isLoading && <Loader2 className="size-5 animate-spin" />}
         {props.children}
-      </span>
+      </>
     </Button>
   );
 }

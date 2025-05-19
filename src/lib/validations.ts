@@ -1,4 +1,4 @@
-import { z, ZodString } from "zod";
+import { z } from "zod";
 
 export type SignUpValuesType = z.infer<ReturnType<typeof getSignUpSchema>>;
 export type LoginValuesType = z.infer<ReturnType<typeof getLoginSchema>>;
@@ -19,11 +19,9 @@ export const getSignUpSchema = (messages: {
     email: requiredString({
       required: messages.required,
     }).email(messages.emailInvalid),
-
-    userName: requiredString({
+    username: requiredString({
       required: messages.required,
     }).regex(userNameRegex, messages.userNameInvalidChars),
-
     password: requiredString({
       required: messages.required,
     }).min(8, messages.passwordMinLength),
