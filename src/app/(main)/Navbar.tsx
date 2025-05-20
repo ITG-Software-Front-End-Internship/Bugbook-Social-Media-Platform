@@ -1,3 +1,4 @@
+import SearchField from "@/components/SearchField";
 import UserButton from "@/components/ui/UserButton";
 import Link from "next/link";
 import React from "react";
@@ -9,7 +10,8 @@ export default function Navbar() {
         <Link href="/" className="text-primary text-2xl font-bold">
           bugbook
         </Link>
-        <UserButton />
+        <SearchField />
+        <UserButton className="sm:ms-auto" />
       </div>
     </header>
   );
