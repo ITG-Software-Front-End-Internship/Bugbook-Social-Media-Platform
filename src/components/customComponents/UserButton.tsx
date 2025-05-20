@@ -17,7 +17,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "./dropdown-menu";
+} from "../ui/dropdown-menu";
 import UserAvatar from "./UserAvatar";
 
 interface UserButtonProps {

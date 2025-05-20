@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { VariantProps } from "class-variance-authority";
 import { Loader2 } from "lucide-react";
 import React from "react";
-import { Button, buttonVariants } from "./button";
+import { Button, buttonVariants } from "../ui/button";
 
 type LoadingButtonVariantsProps = VariantProps<typeof buttonVariants>;
 

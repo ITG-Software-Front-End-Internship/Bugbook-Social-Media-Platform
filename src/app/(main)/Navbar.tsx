@@ -1,5 +1,5 @@
-import SearchField from "@/components/SearchField";
-import UserButton from "@/components/ui/UserButton";
+import SearchField from "@/components/customComponents/SearchField";
+import UserButton from "@/components/customComponents/UserButton";
 import Link from "next/link";
 import React from "react";
 
