@@ -3,6 +3,7 @@
 import { logout } from "@/app/(auth)/logout/actions";
 import { useSession } from "@/app/(main)/SessionProvider";
 import { cn } from "@/lib/utils";
+import { useQueryClient } from "@tanstack/react-query";
 import { Check, LogOutIcon, Monitor, Moon, Sun, UserIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -26,11 +27,11 @@ interface UserButtonProps {
 
 export default function UserButton({ className }: UserButtonProps) {
   const { user } = useSession();
-
+  const queryClient = useQueryClient();
   const { theme, setTheme } = useTheme();
 
   const onLogoutPress = async () => {
-    console.log(`Pressed logout !`);
+    queryClient.clear();
     await logout();
   };
 
