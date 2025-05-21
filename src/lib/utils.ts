@@ -37,3 +37,10 @@ export function formatRelativeDate(fromDate: Date) {
     }
   }
 }
+
+export function formatNumber(number: number): string {
+  return Intl.NumberFormat("en-US", {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(number);
+}
