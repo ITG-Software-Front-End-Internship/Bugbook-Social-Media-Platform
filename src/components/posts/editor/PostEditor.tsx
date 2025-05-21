@@ -23,6 +23,7 @@ export default function PostEditor() {
         placeholder: "What's going on?",
       }),
     ],
+    immediatelyRender: false,
   });
 
   const input =
@@ -36,18 +37,18 @@ export default function PostEditor() {
   }
 
   return (
-    <div className="bg-card flex flex-col gap-5 rounded-2xl p-5 shadow-sm">
+    <div className="flex flex-col gap-5 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex items-center gap-5">
         <UserAvatar avatarUrl={user.avatarUrl} className="hidden sm:inline" />
         <EditorContent
           editor={editor}
-          className="bg-background max-h-[20rem] w-full overflow-y-auto rounded-2xl px-5 py-3"
+          className="max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5 py-3"
         />
         <div className="flex justify-end">
           <Button
             onClick={onSubmit}
             disabled={!input.trim()}
-            className="min-w-20"
+            className="min-w-20 select-none"
           >
             Post
           </Button>
