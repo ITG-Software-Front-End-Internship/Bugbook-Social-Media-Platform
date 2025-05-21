@@ -41,3 +41,11 @@ export const getLoginSchema = (messages: {
     }).min(8, messages.passwordMinLength),
   });
 };
+
+export const getCreatePostSchema = (messages: { required: string }) => {
+  return z.object({
+    content: requiredString({
+      required: messages.required,
+    }),
+  });
+};
