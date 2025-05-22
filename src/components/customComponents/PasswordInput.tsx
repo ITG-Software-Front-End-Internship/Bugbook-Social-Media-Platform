@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
-import { Input } from "./input";
+import { Input } from "../ui/input";
 
 interface PasswordInputProps extends React.ComponentProps<"input"> {}
 
