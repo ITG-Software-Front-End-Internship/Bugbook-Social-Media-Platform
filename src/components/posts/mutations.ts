@@ -65,4 +65,6 @@ export function useDeletePostMutations() {
       });
     },
   });
+
+  return mutation;
 }
