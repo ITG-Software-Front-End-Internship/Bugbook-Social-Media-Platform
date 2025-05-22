@@ -1,9 +1,14 @@
 import { cachedValidateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
-import { postDataInclude } from "@/lib/types";
+import { postDataInclude, PostsPage } from "@/lib/types";
+import { NextRequest } from "next/server";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
+
+    const pageSize = 10;
+
     const { user } = await cachedValidateRequest();
 
     if (!user) {
@@ -22,9 +27,19 @@ export async function GET() {
       orderBy: {
         createdAt: "desc",
       },
+      take: pageSize + 1,
+      cursor: cursor ? { id: cursor } : undefined,
     });
 
-    return Response.json(posts);
+    const hasMorePosts = posts.length > pageSize;
+    const nextCursor = hasMorePosts ? posts[pageSize].id : null;
+
+    const data: PostsPage = {
+      posts: posts.slice(0, pageSize),
+      nextCursor,
+    };
+
+    return Response.json(data);
   } catch (error) {
     console.error(error);
     return Response.json(
