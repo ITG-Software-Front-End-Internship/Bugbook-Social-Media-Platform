@@ -1,13 +1,12 @@
 "use client";
 
 import { useSession } from "@/app/(main)/SessionProvider";
+import LoadingButton from "@/components/customComponents/LoadingButton";
 import UserAvatar from "@/components/customComponents/UserAvatar";
-import { Button } from "@/components/ui/button";
 import PlaceHolder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React from "react";
-import submitPost from "./actions";
 import { useSubmitFormMutation } from "./mutations";
 import "./styles.css";
 
@@ -51,13 +50,14 @@ export default function PostEditor() {
           className="max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5 py-3"
         />
         <div className="flex justify-end">
-          <Button
+          <LoadingButton
+            isLoading={submitFormMutation.isPending}
             onClick={onSubmit}
             disabled={!input.trim()}
             className="min-w-20 select-none"
           >
             Post
-          </Button>
+          </LoadingButton>
         </div>
       </div>
     </div>
