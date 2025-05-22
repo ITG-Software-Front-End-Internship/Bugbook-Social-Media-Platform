@@ -7,11 +7,14 @@ import PlaceHolder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React from "react";
+import { useSubmitFormMutation } from "../mutations";
 import submitPost from "./actions";
 import "./styles.css";
 
 export default function PostEditor() {
   const { user } = useSession();
+
+  const submitFormMutation = useSubmitFormMutation();
 
   const editor = useEditor({
     extensions: [
@@ -32,8 +35,11 @@ export default function PostEditor() {
     }) || "";
 
   async function onSubmit() {
-    await submitPost(input);
-    editor?.commands.clearContent();
+    submitFormMutation.mutate(input, {
+      onSuccess: () => {
+        editor?.commands.clearContent();
+      },
+    });
   }
 
   return (
