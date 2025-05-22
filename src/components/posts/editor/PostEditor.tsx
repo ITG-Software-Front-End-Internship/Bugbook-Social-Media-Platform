@@ -7,8 +7,8 @@ import PlaceHolder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React from "react";
-import { useSubmitFormMutation } from "../mutations";
 import submitPost from "./actions";
+import { useSubmitFormMutation } from "./mutations";
 import "./styles.css";
 
 export default function PostEditor() {

@@ -6,7 +6,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { toast } from "sonner";
-import submitPost from "./editor/actions";
+import submitPost from "./actions";
 
 export function useSubmitFormMutation() {
   const queryClient = useQueryClient();
