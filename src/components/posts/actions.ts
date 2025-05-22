@@ -2,6 +2,7 @@
 
 import { cachedValidateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
+import { postDataInclude } from "@/lib/types";
 
 export async function deletePost(postId: string) {
   const { user } = await cachedValidateRequest();
@@ -23,7 +24,10 @@ export async function deletePost(postId: string) {
     throw new Error("Unauthorized");
   }
 
-  await prisma.post.delete({
+  const deletedPost = await prisma.post.delete({
     where: { id: postId },
+    include: postDataInclude,
   });
+
+  return deletedPost;
 }
