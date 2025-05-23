@@ -6,6 +6,7 @@ import { formatRelativeDate } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 import UserAvatar from "../customComponents/UserAvatar";
+import Linkify from "../Linkify";
 import PostMoreButton from "./PostMoreButton";
 
 interface PostProps {
@@ -45,7 +46,9 @@ export default function Post({ post }: PostProps) {
           />
         )}
       </div>
-      <div className="whitespace-pre-line break-words">{post.content}</div>
+      <Linkify>
+        <div className="whitespace-pre-line break-words">{post.content}</div>
+      </Linkify>
     </article>
   );
 }
