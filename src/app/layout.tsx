@@ -47,7 +47,7 @@ export default async function RootLayout({
             <NextIntlClientProvider>{children}</NextIntlClientProvider>
           </ThemeProvider>
         </ReactQueryProvider>
-        <Toaster />
+        <Toaster richColors />
       </body>
     </html>
   );

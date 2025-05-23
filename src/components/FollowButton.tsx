@@ -3,7 +3,8 @@
 import useFollowerInfo from "@/hooks/useFollowerInfo";
 import kyInstance from "@/lib/ky";
 import { FollowerInfo } from "@/lib/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { Button } from "./ui/button";
 
 interface FollowButtonProps {
@@ -17,12 +18,38 @@ export default function FollowButton({
 }: FollowButtonProps) {
   const queryClient = useQueryClient();
   const { data } = useFollowerInfo(userId, initialState);
+  const queryKey: QueryKey = ["follower-info", userId];
 
   const { mutate } = useMutation({
     mutationFn: () =>
       data.isFollowedByUser
         ? kyInstance.delete(`/api/users/${userId}/followers`)
         : kyInstance.post(`/api/users/${userId}/followers`),
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey });
+
+      const previousState = queryClient.getQueryData<FollowerInfo>(queryKey);
+
+      queryClient.setQueryData<FollowerInfo>(queryKey, () => ({
+        followers:
+          (previousState?.followers || 0) +
+          (previousState?.isFollowedByUser ? -1 : 1),
+        isFollowedByUser: !previousState?.isFollowedByUser,
+      }));
+
+      return { previousState };
+    },
+    onError: (error, variables, context) => {
+      /**
+       * Return to the prevSnap shot if an error happen when mutate
+       */
+      queryClient.setQueryData(queryKey, context?.previousState);
+
+      console.error(error);
+      toast.error("Something went wrong!", {
+        description: "Something went wrong!. Please try again",
+      });
+    },
   });
 
   return (
