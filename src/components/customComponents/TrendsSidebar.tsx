@@ -7,7 +7,6 @@ import { unstable_cache } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
 import FollowButton from "../FollowButton";
-import { Button } from "../ui/button";
 import UserAvatar from "./UserAvatar";
 
 export default function TrendsSidebar() {

@@ -12,12 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { validationsMessages } from "@/lib/constants";
-import {
-  getLoginSchema,
-  getSignUpSchema,
-  LoginValuesType,
-  SignUpValuesType,
-} from "@/lib/validations";
+import { getLoginSchema, LoginValuesType } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
@@ -65,7 +60,7 @@ export default function LoginForm() {
         })}
         className="space-y-3"
       >
-        {error && <p className="text-destructive text-center">{error}</p>}
+        {error && <p className="text-center text-destructive">{error}</p>}
         <FormField
           control={loginForm.control}
           name="userName"
