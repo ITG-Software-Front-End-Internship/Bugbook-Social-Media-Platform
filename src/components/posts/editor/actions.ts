@@ -3,10 +3,9 @@
 import { cachedValidateRequest } from "@/auth";
 import { validationsMessages } from "@/lib/constants";
 import prisma from "@/lib/prisma";
-import { postDataInclude } from "@/lib/types";
+import { getPostDataInclude } from "@/lib/types";
 import { getCreatePostSchema } from "@/lib/validations";
 import { getTranslations } from "next-intl/server";
-import { revalidatePath } from "next/cache";
 
 export default async function submitPost(input: string) {
   const { user } = await cachedValidateRequest();
@@ -29,7 +28,7 @@ export default async function submitPost(input: string) {
       content,
       userId: user.id,
     },
-    include: postDataInclude,
+    include: getPostDataInclude(user.id),
   });
 
   return newPost;
