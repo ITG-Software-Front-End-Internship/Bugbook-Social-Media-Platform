@@ -2,6 +2,7 @@ import { cachedValidateRequest } from "@/auth";
 import TrendsSidebar from "@/components/customComponents/TrendsSidebar";
 import UserAvatar from "@/components/customComponents/UserAvatar";
 import FollowButton from "@/components/FollowButton";
+import Linkify from "@/components/Linkify";
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
 import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types";
@@ -125,9 +126,11 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
       {user.bio && (
         <>
           <hr />
-          <div className="overflow-hidden whitespace-pre-line break-words">
-            {user.bio}
-          </div>
+          <Linkify>
+            <div className="overflow-hidden whitespace-pre-line break-words">
+              {user.bio}
+            </div>
+          </Linkify>
         </>
       )}
     </div>
