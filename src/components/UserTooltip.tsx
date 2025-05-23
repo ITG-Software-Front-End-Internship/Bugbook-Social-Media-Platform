@@ -1,3 +1,5 @@
+"use client";
+
 import FollowerCount from "@/app/(main)/FollowerCount";
 import { useSession } from "@/app/(main)/SessionProvider";
 import { FollowerInfo, UserData } from "@/lib/types";
