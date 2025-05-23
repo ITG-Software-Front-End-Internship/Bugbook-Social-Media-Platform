@@ -1,3 +1,6 @@
+"use client";
+
+import { useSession } from "@/app/(main)/SessionProvider";
 import { PostsPage } from "@/lib/types";
 import {
   InfiniteData,
@@ -11,12 +14,21 @@ import submitPost from "./actions";
 export function useSubmitFormMutation() {
   const queryClient = useQueryClient();
 
+  const { user } = useSession();
+
   const mutation = useMutation({
     mutationFn: submitPost,
     onSuccess: async (newPost) => {
-      const queryFilters: QueryFilters = {
-        queryKey: ["post-feed", "for-you"],
-      };
+      const queryFilters = {
+        queryKey: ["post-feed"],
+        predicate(query) {
+          return (
+            query.queryKey.includes("for-you") ||
+            (query.queryKey.includes("user-posts") &&
+              query.queryKey.includes(user.id))
+          );
+        },
+      } satisfies QueryFilters;
 
       await queryClient.cancelQueries(queryFilters);
 
@@ -49,7 +61,7 @@ export function useSubmitFormMutation() {
         queryKey: queryFilters.queryKey,
         predicate(query) {
           // Invalidate query if its undefined, null,...
-          return !query.state.data;
+          return !query.state.data && queryFilters.predicate(query);
         },
       });
 
