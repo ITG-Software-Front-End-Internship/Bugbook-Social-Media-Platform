@@ -10,7 +10,9 @@ import {
 } from "@/lib/validations";
 import { getTranslations } from "next-intl/server";
 
-export async function updateUserProfile(values: UpdateUserProfileValues) {
+export async function updateUserProfile(
+  updatedUserProfileValues: UpdateUserProfileValues,
+) {
   const t = await getTranslations();
 
   const updateUserProfileSchemaMessages = {
@@ -18,9 +20,9 @@ export async function updateUserProfile(values: UpdateUserProfileValues) {
     maxLength: t(validationsMessages.displayName.maxLength),
   };
 
-  const validatedValues = await getUpdateUserProfileSchema(
+  const validatedUpdatedUserProfileValues = await getUpdateUserProfileSchema(
     updateUserProfileSchemaMessages,
-  ).parse(values);
+  ).parse(updatedUserProfileValues);
 
   const { user } = await cachedValidateRequest();
 
@@ -32,7 +34,7 @@ export async function updateUserProfile(values: UpdateUserProfileValues) {
     where: {
       id: user.id,
     },
-    data: validatedValues,
+    data: validatedUpdatedUserProfileValues,
     select: getUserDataSelect(user.id),
   });
 

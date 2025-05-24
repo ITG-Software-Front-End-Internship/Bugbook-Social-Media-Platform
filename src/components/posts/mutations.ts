@@ -29,6 +29,22 @@ export function useDeletePostMutations() {
           const hasPostToDelete = oldData;
           if (!hasPostToDelete) return;
 
+          /**
+          Take each posts and update user information in this post
+          
+          inifinite loading return type
+          {
+            pageParams: any , note : "cursor ....",
+            pages: Pages[]
+          }
+
+          pages type : 
+          {
+            nextCursor: any (id of next page if it exist),
+            posts : Post[]
+          }
+           */
+
           return {
             pageParams: oldData.pageParams,
             pages: oldData.pages.map((page) => ({
