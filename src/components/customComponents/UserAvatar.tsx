@@ -21,9 +21,10 @@ export default function UserAvatar({
       width={size ?? DEFAULT_USER_AVATAR_SIZE}
       height={size ?? DEFAULT_USER_AVATAR_SIZE}
       className={cn(
-        "bg-secondary aspect-square h-fit flex-none rounded-full object-cover",
+        "aspect-square h-fit flex-none rounded-full bg-secondary object-cover",
         className,
       )}
+      loading="lazy"
     />
   );
 }

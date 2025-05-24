@@ -8,10 +8,11 @@ interface UsernameParams {
   };
 }
 
-export default async function GET(
+export async function GET(
   req: Request,
   { params: { username } }: UsernameParams,
 ) {
+  console.log;
   try {
     const { user: loggedInUser } = await cachedValidateRequest();
     if (!loggedInUser) {
@@ -35,6 +36,8 @@ export default async function GET(
       select: getUserDataSelect(loggedInUser.id),
     });
 
+    console.log(`server side`);
+    console.log({ user });
     if (!user) {
       return Response.json(
         {
