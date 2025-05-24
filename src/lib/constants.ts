@@ -15,6 +15,9 @@ export const validationsMessages = {
   credentials: {
     invalid: "validations.credentials.invalid",
   },
+  displayName: {
+    maxLength: "validations.displayName.maxLength",
+  },
 } as const;
 
 export const errorsMessages = {

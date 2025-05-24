@@ -63,6 +63,6 @@ export const getUpdateUserProfileSchema = (messages: {
   });
 };
 
-export type getUpdateUserProfileValues = z.infer<
+export type UpdateUserProfileValues = z.infer<
   ReturnType<typeof getUpdateUserProfileSchema>
 >;
