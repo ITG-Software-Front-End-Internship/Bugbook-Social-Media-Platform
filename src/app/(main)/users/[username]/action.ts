@@ -20,7 +20,7 @@ export async function updateUserProfile(
     maxLength: t(validationsMessages.displayName.maxLength),
   };
 
-  const validatedUpdatedUserProfileValues = await getUpdateUserProfileSchema(
+  const validatedUpdatedUserProfileValues = getUpdateUserProfileSchema(
     updateUserProfileSchemaMessages,
   ).parse(updatedUserProfileValues);
 

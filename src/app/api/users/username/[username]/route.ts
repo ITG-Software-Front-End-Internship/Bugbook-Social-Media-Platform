@@ -3,16 +3,15 @@ import prisma from "@/lib/prisma";
 import { getUserDataSelect } from "@/lib/types";
 
 interface UsernameParams {
-  params: {
-    username: string;
-  };
+  username: string;
 }
 
 export async function GET(
   req: Request,
-  { params: { username } }: UsernameParams,
+  { params }: { params: Promise<UsernameParams> },
 ) {
-  console.log;
+  const { username } = await params;
+
   try {
     const { user: loggedInUser } = await cachedValidateRequest();
     if (!loggedInUser) {

@@ -1,6 +1,7 @@
 "use client";
 
 import avatarPlaceHolder from "@/assets/avatar-placeholder.png";
+import CropImageDialog from "@/components/CropImageDialog";
 import LoadingButton from "@/components/customComponents/LoadingButton";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,6 +35,7 @@ import { useTranslations } from "next-intl";
 import Image, { StaticImageData } from "next/image";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import Resizer from "react-image-file-resizer";
 import { useUpdateProfileMutation } from "./mutations";
 
 interface EditProfileDialogProps {
@@ -69,13 +71,34 @@ export default function EditProfileDialog({
   const [croppedAvatar, setCroppedAvatar] = useState<Blob | null>(null);
 
   async function onSubmit(values: UpdateUserProfileValues) {
+    console.log(`On Submit form .... `);
+
+    const newAvatarFile = croppedAvatar
+      ? new File([croppedAvatar], `avatar_${user.id}.webp`)
+      : undefined;
+
+    console.log(`newAvatarFile,`, newAvatarFile);
+
     updateProfileMutation.mutate(
       {
         values,
+        avatar: newAvatarFile,
       },
       {
-        onSuccess() {
+        onSuccess(data, variables, context) {
+          console.log("Update profile succeeded!", {
+            data,
+            variables,
+            context,
+          });
+          setCroppedAvatar(null);
           onOpenChange(false);
+        },
+        onError(error, variables, context) {
+          console.error("Update profile failed!", error, {
+            variables,
+            context,
+          });
         },
       },
     );
@@ -143,7 +166,10 @@ export default function EditProfileDialog({
               }}
             />
             <DialogFooter>
-              <LoadingButton isLoading={updateProfileMutation.isPending}>
+              <LoadingButton
+                isLoading={updateProfileMutation.isPending}
+                type="submit"
+              >
                 Save
               </LoadingButton>
             </DialogFooter>
@@ -168,7 +194,21 @@ function AvatarInput({ src, onImageCropped }: AvatarInputProps) {
     if (!image) {
       return;
     }
-    //
+    const MAX_WIDTH = 1024;
+    const MAX_HEIGHT = 1024;
+    const QUALITY = 100;
+    const ROTATION = 0;
+
+    Resizer.imageFileResizer(
+      image,
+      MAX_WIDTH,
+      MAX_HEIGHT,
+      "webp",
+      QUALITY,
+      ROTATION,
+      (url) => setImageToCrop(url as File),
+      "file",
+    );
   }
 
   return (
@@ -196,6 +236,19 @@ function AvatarInput({ src, onImageCropped }: AvatarInputProps) {
           <CameraIcon size={24} />
         </span>
       </button>
+      {imageToCrop && (
+        <CropImageDialog
+          src={URL.createObjectURL(imageToCrop)}
+          cropAspectRatio={1}
+          onCropped={onImageCropped}
+          onClose={() => {
+            setImageToCrop(undefined);
+            if (fileInputRef.current) {
+              fileInputRef.current.value = "";
+            }
+          }}
+        />
+      )}
     </>
   );
 }

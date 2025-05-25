@@ -17,21 +17,31 @@ export const fileRouter = {
       if (!loggedInUser) {
         throw new UploadThingError("Unauthorized");
       }
+      console.log(`Loggerd in user`, loggedInUser);
 
       return { user: loggedInUser };
     })
+    .onUploadError(({ error }) => {
+      console.error("UploadThing onUploadError triggered:");
+      console.error(error);
+    })
     .onUploadComplete(async ({ metadata, file }) => {
-      const newAvatarUrl = file.ufsUrl.replace(
-        "/f/",
-        `/f/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/`,
-      );
+      console.log({ metadata });
+      console.log(`Upload complete !!`);
 
-      await prisma.user.update({
-        where: { id: metadata.user.id },
-        data: {
-          avatarUrl: newAvatarUrl,
-        },
-      });
+      const newAvatarUrl = file.ufsUrl;
+      console.log(newAvatarUrl);
+      try {
+        await prisma.user.update({
+          where: { id: metadata.user.id },
+          data: {
+            avatarUrl: newAvatarUrl,
+          },
+        });
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
 
       return { newAvatarUrl };
     }),

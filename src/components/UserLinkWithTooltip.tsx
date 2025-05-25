@@ -29,8 +29,6 @@ export default function UserLinkWithTooltip({
     staleTime: Infinity,
   });
 
-  console.log({ data });
-
   if (!data) {
     return (
       <Link
