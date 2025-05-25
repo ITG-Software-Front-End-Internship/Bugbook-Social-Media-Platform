@@ -1,4 +1,4 @@
-"use client";
+"use server";
 
 import { cachedValidateRequest } from "@/auth";
 import { validationsMessages } from "@/lib/constants";

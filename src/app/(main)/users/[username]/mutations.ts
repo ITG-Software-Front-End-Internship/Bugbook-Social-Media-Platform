@@ -1,5 +1,3 @@
-"use client";
-
 import { PostsPage } from "@/lib/types";
 import { useUploadThing } from "@/lib/uploadthing";
 import { UpdateUserProfileValues } from "@/lib/validations";

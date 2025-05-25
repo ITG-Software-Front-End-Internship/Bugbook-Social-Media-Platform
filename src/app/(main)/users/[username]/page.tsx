@@ -3,7 +3,6 @@ import TrendsSidebar from "@/components/customComponents/TrendsSidebar";
 import UserAvatar from "@/components/customComponents/UserAvatar";
 import FollowButton from "@/components/FollowButton";
 import Linkify from "@/components/Linkify";
-import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
 import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
@@ -12,10 +11,11 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import FollowerCount from "../../FollowerCount";
+import EditProfileButton from "./EditProfileButton";
 import UserPosts from "./UserPosts";
 
-interface PageProps {
-  params: { username: string };
+interface PageParamsProps {
+  username: string;
 }
 
 const getUser = async (username: string, loggedInUserId: string) => {
@@ -38,8 +38,12 @@ const getUser = async (username: string, loggedInUserId: string) => {
 const cachedGetUser = cache(getUser);
 
 export async function generateMetaData({
-  params: { username },
-}: PageProps): Promise<Metadata> {
+  params,
+}: {
+  params: Promise<PageParamsProps>;
+}): Promise<Metadata> {
+  const { username } = await params;
+
   const { user: loggedInUser } = await cachedValidateRequest();
 
   if (!loggedInUser) {
@@ -52,7 +56,13 @@ export async function generateMetaData({
   };
 }
 
-export default async function page({ params: { username } }: PageProps) {
+export default async function page({
+  params,
+}: {
+  params: Promise<PageParamsProps>;
+}) {
+  const { username } = await params;
+
   const { user: loggedInUser } = await cachedValidateRequest();
 
   if (!loggedInUser) {
@@ -90,7 +100,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
   const followerInfo: FollowerInfo = {
     followers: user._count.followers,
     isFollowedByUser: user.followers.some(({ followerId }) => {
-      followerId === loggedInUserId;
+      return followerId === loggedInUserId;
     }),
   };
 
@@ -118,7 +128,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
           </div>
         </div>
         {user.id === loggedInUserId ? (
-          <Button>Edit profile</Button>
+          <EditProfileButton user={user} />
         ) : (
           <FollowButton userId={user.id} initialState={followerInfo} />
         )}
