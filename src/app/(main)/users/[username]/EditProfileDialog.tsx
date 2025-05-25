@@ -61,7 +61,18 @@ export default function EditProfileDialog({
 
   const updateProfileMutation = useUpdateProfileMutation();
 
-  async function onSubmit(values: UpdateUserProfileValues) {}
+  async function onSubmit(values: UpdateUserProfileValues) {
+    updateProfileMutation.mutate(
+      {
+        values,
+      },
+      {
+        onSuccess() {
+          onOpenChange(false);
+        },
+      },
+    );
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>

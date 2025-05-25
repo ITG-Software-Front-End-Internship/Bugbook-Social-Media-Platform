@@ -53,7 +53,7 @@ export default function UserToolTip({ children, user }: UserTooltipProps) {
             </div>
             {user.bio && (
               <Linkify>
-                <div className="line-clamp-4 whitespace-pre-line">
+                <div className="line-clamp-4 whitespace-pre-line text-black">
                   {user.bio}
                 </div>
               </Linkify>
