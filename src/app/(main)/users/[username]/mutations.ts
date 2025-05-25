@@ -1,3 +1,5 @@
+"use client";
+
 import { PostsPage } from "@/lib/types";
 import { useUploadThing } from "@/lib/uploadthing";
 import { UpdateUserProfileValues } from "@/lib/validations";
@@ -8,6 +10,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { updateUserProfile } from "./action";
 
 export function useUpdateProfileMutation() {
@@ -84,6 +87,20 @@ export function useUpdateProfileMutation() {
           };
         },
       );
+
+      router.refresh();
+
+      toast.success("Profile updated", {
+        description: "Profile updated successfully",
+      });
+    },
+    onError(error) {
+      console.error(error);
+      toast("Failed to update", {
+        description: "Failed to update profile. Please try again.",
+      });
     },
   });
+
+  return mutation;
 }
