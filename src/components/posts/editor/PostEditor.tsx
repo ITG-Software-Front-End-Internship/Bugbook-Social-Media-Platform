@@ -153,14 +153,13 @@ function AttachmentPreviews({
   removeAttachment,
 }: AttachmentPreviewsProps) {
   /** If there is one attachment we wannt show them bellow each other
-   * more than one attachment we want to create a grid,
-   * small screen grid with 2 columns on scma
+   * more than one attachment we want to create a grid  with 2 columns
    */
   return (
     <div
       className={cn(
         "flex flex-col gap-3",
-        attachments.length > 1 && "grid sm:grid-cols-2",
+        attachments.length > 1 && "sm:grid sm:grid-cols-2",
       )}
     >
       {attachments.map((attachment) => {
