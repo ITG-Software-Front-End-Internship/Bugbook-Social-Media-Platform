@@ -15,6 +15,9 @@
     },
     "credentials": {
       "invalid": "Invalid username or password."
+    },
+    "displayName": {
+      "maxLength": "Must be at most 1000 characters"
     }
   },
   "errors": {

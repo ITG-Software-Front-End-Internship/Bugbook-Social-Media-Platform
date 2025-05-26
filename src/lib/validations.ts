@@ -1,8 +1,5 @@
 import { z } from "zod";
 
-export type SignUpValuesType = z.infer<ReturnType<typeof getSignUpSchema>>;
-export type LoginValuesType = z.infer<ReturnType<typeof getLoginSchema>>;
-
 const requiredString = (messages: { required: string }) => {
   return z.string().trim().min(1, messages.required);
 };
@@ -28,6 +25,8 @@ export const getSignUpSchema = (messages: {
   });
 };
 
+export type SignUpValuesType = z.infer<ReturnType<typeof getSignUpSchema>>;
+
 export const getLoginSchema = (messages: {
   passwordMinLength: string;
   required: string;
@@ -42,6 +41,8 @@ export const getLoginSchema = (messages: {
   });
 };
 
+export type LoginValuesType = z.infer<ReturnType<typeof getLoginSchema>>;
+
 export const getCreatePostSchema = (messages: { required: string }) => {
   return z.object({
     content: requiredString({
@@ -49,3 +50,19 @@ export const getCreatePostSchema = (messages: { required: string }) => {
     }),
   });
 };
+
+export const getUpdateUserProfileSchema = (messages: {
+  required: string;
+  maxLength: string;
+}) => {
+  return z.object({
+    displayName: requiredString({
+      required: messages.required,
+    }),
+    bio: z.string().max(1000, "Must be at most 1000 characters"),
+  });
+};
+
+export type UpdateUserProfileValues = z.infer<
+  ReturnType<typeof getUpdateUserProfileSchema>
+>;

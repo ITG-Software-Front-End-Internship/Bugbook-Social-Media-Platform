@@ -7,6 +7,7 @@ import { unstable_cache } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
 import FollowButton from "../FollowButton";
+import UserToolTip from "../UserTooltip";
 import UserAvatar from "./UserAvatar";
 
 export default function TrendsSidebar() {
@@ -53,20 +54,22 @@ async function WhoToFollow() {
             className="flex items-center justify-between gap-3"
             key={user.id}
           >
-            <Link
-              href={`/users/${user.username}`}
-              className="flex items-center gap-3"
-            >
-              <UserAvatar avatarUrl={user.avatarUrl} className="flex-none" />
-            </Link>
-            <div className="flex-grow text-start">
-              <p className="line-clamp-1 break-all font-semibold hover:underline">
-                {user.displayName}
-              </p>
-              <p className="line-clamp-1 break-all text-muted-foreground">
-                @{user.username}
-              </p>
-            </div>
+            <UserToolTip user={user}>
+              <Link
+                href={`/users/${user.username}`}
+                className="flex items-center gap-3"
+              >
+                <UserAvatar avatarUrl={user.avatarUrl} className="flex-none" />
+                <div className="flex-grow text-start">
+                  <p className="line-clamp-1 break-all font-semibold hover:underline">
+                    {user.displayName}
+                  </p>
+                  <p className="line-clamp-1 break-all text-muted-foreground">
+                    @{user.username}
+                  </p>
+                </div>
+              </Link>
+            </UserToolTip>
             <FollowButton
               userId={user.id}
               initialState={{

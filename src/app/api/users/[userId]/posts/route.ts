@@ -4,15 +4,15 @@ import { getPostDataInclude, PostsPage } from "@/lib/types";
 import { NextRequest } from "next/server";
 
 interface UserIdParams {
-  params: {
-    userId: string;
-  };
+  userId: string;
 }
 export async function GET(
   req: NextRequest,
-  { params: { userId } }: UserIdParams,
+  { params }: { params: Promise<UserIdParams> },
 ) {
   try {
+    const { userId } = await params;
+
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
 
     const pageSize = 10;
