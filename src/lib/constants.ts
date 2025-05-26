@@ -18,6 +18,9 @@ export const validationsMessages = {
   displayName: {
     maxLength: "validations.displayName.maxLength",
   },
+  attachments: {
+    maxLength: "validations.attachments.maxLength",
+  },
 } as const;
 
 export const errorsMessages = {

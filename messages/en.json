@@ -18,6 +18,9 @@
     },
     "displayName": {
       "maxLength": "Must be at most 1000 characters"
+    },
+    "attachments": {
+      "maxLength": "Cannot have more than 5 attachments"
     }
   },
   "errors": {

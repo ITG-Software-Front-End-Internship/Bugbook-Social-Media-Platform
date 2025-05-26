@@ -43,11 +43,15 @@ export const getLoginSchema = (messages: {
 
 export type LoginValuesType = z.infer<ReturnType<typeof getLoginSchema>>;
 
-export const getCreatePostSchema = (messages: { required: string }) => {
+export const getCreatePostSchema = (messages: {
+  required: string;
+  maxNumberOfAttachments: string;
+}) => {
   return z.object({
     content: requiredString({
       required: messages.required,
     }),
+    mediaIds: z.array(z.string()).max(5, messages.maxNumberOfAttachments),
   });
 };
 
