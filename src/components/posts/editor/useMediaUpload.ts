@@ -12,7 +12,7 @@ export interface Attachment {
 
 export default function useMediaUpload() {
   // attachmentes which we will show on UI
-  const [attachment, setAttachment] = useState<Attachment[]>([]);
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
 
   const [uploadProgress, setUploadProgress] = useState<number>();
 
@@ -50,7 +50,7 @@ export default function useMediaUpload() {
         };
       });
 
-      setAttachment((prev) => [...prev, ...renamedAttachment]);
+      setAttachments((prev) => [...prev, ...renamedAttachment]);
 
       return renamedFiles;
     },
@@ -60,7 +60,7 @@ export default function useMediaUpload() {
        * We need to figure out which results (mediaIds) belong to which files.
        * This why we renamed this files.
        */
-      setAttachment((prev) =>
+      setAttachments((prev) =>
         prev.map((attachment) => {
           const uploadResult = results.find(
             (result) => result.name === attachment.file.name,
@@ -87,7 +87,7 @@ export default function useMediaUpload() {
        * Becuase we know that if upload false this already succeeded
        * Keep the once that successfly uploading
        */
-      setAttachment((prev) =>
+      setAttachments((prev) =>
         prev.filter((attachment) => attachment.isUploading === false),
       );
 
@@ -112,7 +112,7 @@ export default function useMediaUpload() {
       return;
     }
     /** Frontend validation */
-    if (attachment.length + files.length > MAX_FILES_NUMBER) {
+    if (attachments.length + files.length > MAX_FILES_NUMBER) {
       toast.error("Upload failed", {
         description:
           "Upload faild. You can only upload up to 5 attachments per post.",
@@ -122,4 +122,28 @@ export default function useMediaUpload() {
 
     startUpload(files);
   }
+
+  function removeAttachment(fileName: string) {
+    setAttachments((prev) =>
+      prev.filter((attachment) => {
+        const isTargetFileToRemove = attachment.file.name === fileName;
+        /* Keep only the attachment that are not the target files. */
+        return !isTargetFileToRemove;
+      }),
+    );
+  }
+
+  function reset() {
+    setAttachments([]);
+    setUploadProgress(undefined);
+  }
+
+  return {
+    startUpload: handleStartUpload,
+    attachments,
+    isUploading,
+    uploadProgress,
+    removeAttachment,
+    reset,
+  };
 }
