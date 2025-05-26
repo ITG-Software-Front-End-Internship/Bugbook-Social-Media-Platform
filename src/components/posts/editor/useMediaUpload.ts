@@ -105,7 +105,7 @@ export default function useMediaUpload() {
    */
 
   function handleStartUpload(files: File[]) {
-    if (!isUploading) {
+    if (isUploading) {
       toast.error("Upload failed", {
         description: "Upload faild. Please wait the current uploads to finish.",
       });
