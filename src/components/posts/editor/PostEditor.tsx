@@ -11,7 +11,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { useDropzone } from "@uploadthing/react";
 import { ImageIcon, Loader2, X } from "lucide-react";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React, { ClipboardEvent, useRef } from "react";
 import { useSubmitFormMutation } from "./mutations";
 import "./styles.css";
 import useMediaUpload, { Attachment } from "./useMediaUpload";
@@ -72,6 +72,20 @@ export default function PostEditor() {
     );
   }
 
+  function onPaste(e: ClipboardEvent<HTMLInputElement>) {
+    /**Filtter only for files */
+
+    const clipboardDataArray = Array.from(e.clipboardData.items);
+    const clipboardDataFiles = clipboardDataArray.filter((item) => {
+      return item.kind === "file";
+    });
+    const clipboardDataFilesObjects = clipboardDataFiles.map(
+      (item) => item.getAsFile() as File,
+    ) as File[];
+
+    startUpload(clipboardDataFilesObjects);
+  }
+
   return (
     <div className="flex flex-col gap-5 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex items-center gap-5">
@@ -83,6 +97,7 @@ export default function PostEditor() {
               "max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5 py-3",
               isDragActive && "outline-dashed",
             )}
+            onPaste={onPaste}
           />
           {/** input field to accept files (handled by uploadthing library) */}
           <input {...getInputProps()} />
