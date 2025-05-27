@@ -66,7 +66,7 @@ export function useDeletePostMutations() {
         },
       });
 
-      toast.error("Deleted successfully ", {
+      toast.success("Deleted successfully ", {
         description: "Post deleted successfully",
       });
 
