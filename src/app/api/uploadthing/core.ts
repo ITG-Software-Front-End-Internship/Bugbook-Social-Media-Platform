@@ -53,6 +53,36 @@ export const fileRouter = {
 
       return { newAvatarUrl };
     }),
+  attachments: f({
+    image: {
+      maxFileSize: "4MB",
+      maxFileCount: 5,
+    },
+    video: {
+      maxFileSize: "64MB",
+      maxFileCount: 5,
+    },
+  })
+    .middleware(async () => {
+      const { user: loggedInUser } = await cachedValidateRequest();
+
+      if (!loggedInUser) {
+        throw new UploadThingError("Unauthorized");
+      }
+      console.log(`Loggerd in user`, loggedInUser);
+
+      return {};
+    })
+    .onUploadComplete(async ({ file }) => {
+      const media = await prisma.media.create({
+        data: {
+          url: file.ufsUrl,
+          type: file.type.startsWith("image") ? "IMAGE" : "VIDEO",
+        },
+      });
+
+      return { mediaId: media.id };
+    }),
 } satisfies FileRouter;
 
 export type AppFileRouter = typeof fileRouter;

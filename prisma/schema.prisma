@@ -16,19 +16,22 @@ datasource db {
 }
 
 model User {
-  id           String    @id
-  username     String    @unique
+  id           String     @id
+  username     String     @unique
   displayName  String
-  email        String?   @unique
+  email        String?    @unique
   passwordHash String
-  googleId     String?   @unique
+  googleId     String?    @unique
   avatarUrl    String?
   bio          String?
-  createdAt    DateTime  @default(now())
+  createdAt    DateTime   @default(now())
   sessions     Session[]
   posts        Post[]
-  following    Follow[]  @relation("Following")
-  followers    Follow[]  @relation("Followers")
+  following    Follow[]   @relation("Following")
+  followers    Follow[]   @relation("Followers")
+  likes        Like[]
+  bookmarks    Bookmark[]
+  comments     Comment[]
 
   @@map("users")
 }
@@ -36,8 +39,8 @@ model User {
 model Session {
   id        String   @id
   userId    String
-  expiresAt DateTime
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
 
   @@map("sessions")
 }
@@ -53,11 +56,65 @@ model Follow {
 }
 
 model Post {
+  id          String     @id @default(cuid())
+  content     String
+  userId      String
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime   @default(now())
+  attachments Media[]
+  likes       Like[]
+  bookmarks   Bookmark[]
+  comments    Comment[]
+
+  @@map("posts")
+}
+
+model Media {
+  id        String    @id @default(uuid())
+  postId    String?
+  post      Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
+  type      MediaType
+  url       String
+  createdAt DateTime  @default(now())
+
+  @@map("post_media")
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+model Comment {
   id        String   @id @default(cuid())
   content   String
   userId    String
-  createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 
-  @@map("posts")
+  @@map("comments")
+}
+
+model Like {
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, userId])
+  @@map("likes")
+}
+
+model Bookmark {
+  id        String   @unique @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([postId, userId])
+  @@map("bookmarks")
 }

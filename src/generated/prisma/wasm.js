@@ -150,6 +150,34 @@ exports.Prisma.PostScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.MediaScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  type: 'type',
+  url: 'url',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.LikeScalarFieldEnum = {
+  userId: 'userId',
+  postId: 'postId'
+};
+
+exports.Prisma.BookmarkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -192,12 +220,43 @@ exports.Prisma.PostOrderByRelevanceFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.MediaOrderByRelevanceFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  url: 'url'
+};
+
+exports.Prisma.CommentOrderByRelevanceFieldEnum = {
+  id: 'id',
+  content: 'content',
+  userId: 'userId',
+  postId: 'postId'
+};
+
+exports.Prisma.LikeOrderByRelevanceFieldEnum = {
+  userId: 'userId',
+  postId: 'postId'
+};
+
+exports.Prisma.BookmarkOrderByRelevanceFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId'
+};
+exports.MediaType = exports.$Enums.MediaType = {
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
   Follow: 'Follow',
-  Post: 'Post'
+  Post: 'Post',
+  Media: 'Media',
+  Comment: 'Comment',
+  Like: 'Like',
+  Bookmark: 'Bookmark'
 };
 
 /**

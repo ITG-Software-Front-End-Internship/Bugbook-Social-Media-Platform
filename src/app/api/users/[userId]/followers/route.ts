@@ -2,14 +2,17 @@ import { cachedValidateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 import { FollowerInfo } from "@/lib/types";
 
-interface UserIdParams {
-  params: {
-    userId: string;
-  };
+interface RouteParams {
+  userId: string;
 }
 
-export async function GET(req: Request, { params: { userId } }: UserIdParams) {
+export async function GET(
+  req: Request,
+  { params }: { params: Promise<RouteParams> },
+) {
   try {
+    const { userId } = await params;
+
     const { user: loggedInUser } = await cachedValidateRequest();
     if (!loggedInUser) {
       return Response.json(
@@ -73,8 +76,13 @@ export async function GET(req: Request, { params: { userId } }: UserIdParams) {
   }
 }
 
-export async function POST(req: Request, { params: { userId } }: UserIdParams) {
+export async function POST(
+  req: Request,
+  { params }: { params: Promise<RouteParams> },
+) {
   try {
+    const { userId } = await params;
+
     const { user: loggedInUser } = await cachedValidateRequest();
     if (!loggedInUser) {
       return Response.json(
@@ -118,9 +126,11 @@ export async function POST(req: Request, { params: { userId } }: UserIdParams) {
 
 export async function DELETE(
   req: Request,
-  { params: { userId } }: UserIdParams,
+  { params }: { params: Promise<RouteParams> },
 ) {
   try {
+    const { userId } = await params;
+
     const { user: loggedInUser } = await cachedValidateRequest();
     if (!loggedInUser) {
       return Response.json(

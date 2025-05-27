@@ -47,6 +47,10 @@ export async function generateMetaData({
   const { user: loggedInUser } = await cachedValidateRequest();
 
   if (!loggedInUser) {
+    /*
+     * This is just to handle case of null
+     * Our setup handle it and forward user to login page
+     */
     return {};
   }
   const user = await cachedGetUser(username, loggedInUser.id);

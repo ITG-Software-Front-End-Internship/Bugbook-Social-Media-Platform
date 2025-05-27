@@ -3,12 +3,12 @@ import prisma from "@/lib/prisma";
 import { getPostDataInclude, PostsPage } from "@/lib/types";
 import { NextRequest } from "next/server";
 
-interface UserIdParams {
+interface RouteParams {
   userId: string;
 }
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<UserIdParams> },
+  { params }: { params: Promise<RouteParams> },
 ) {
   try {
     const { userId } = await params;
