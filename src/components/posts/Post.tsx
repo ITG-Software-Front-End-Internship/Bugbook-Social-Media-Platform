@@ -10,6 +10,7 @@ import React from "react";
 import UserAvatar from "../customComponents/UserAvatar";
 import Linkify from "../Linkify";
 import UserToolTip from "../UserTooltip";
+import LikeButton from "./LikeButton";
 import PostMoreButton from "./PostMoreButton";
 
 interface PostProps {
@@ -61,6 +62,16 @@ export default function Post({ post }: PostProps) {
           <MediaPreviews attachments={post.attachments} />
         </>
       )}
+      <hr className="text-muted-foreground" />
+      <LikeButton
+        postId={post.id}
+        initialState={{
+          likes: post._count.likes,
+          isLikedByUser: post.likes.some((post) => {
+            return post.userId === user.id;
+          }),
+        }}
+      />
     </article>
   );
 }

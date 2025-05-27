@@ -17,7 +17,9 @@ export default function FollowButton({
   initialState,
 }: FollowButtonProps) {
   const queryClient = useQueryClient();
+
   const { data } = useFollowerInfo(userId, initialState);
+
   const queryKey: QueryKey = ["follower-info", userId];
 
   const { mutate } = useMutation({
@@ -26,9 +28,15 @@ export default function FollowButton({
         ? kyInstance.delete(`/api/users/${userId}/followers`)
         : kyInstance.post(`/api/users/${userId}/followers`),
     onMutate: async () => {
+      /** Cancel any running Queries */
+
       await queryClient.cancelQueries({ queryKey });
 
+      /** Get current caches data */
+
       const previousState = queryClient.getQueryData<FollowerInfo>(queryKey);
+
+      /** Know we want to apply the optimistic upload (on caches data) */
 
       queryClient.setQueryData<FollowerInfo>(queryKey, () => ({
         followers:
@@ -37,11 +45,12 @@ export default function FollowButton({
         isFollowedByUser: !previousState?.isFollowedByUser,
       }));
 
+      /** To roll back to it on error */
       return { previousState };
     },
     onError: (error, variables, context) => {
       /**
-       * Return to the prevSnap shot if an error happen when mutate
+       * Return to the prev snapshot if an error happen when mutate
        */
       queryClient.setQueryData(queryKey, context?.previousState);
 
