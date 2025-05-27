@@ -163,7 +163,7 @@ exports.Prisma.LikeScalarFieldEnum = {
   postId: 'postId'
 };
 
-exports.Prisma.BookMarkScalarFieldEnum = {
+exports.Prisma.BookmarkScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   postId: 'postId',
@@ -223,7 +223,7 @@ exports.Prisma.LikeOrderByRelevanceFieldEnum = {
   postId: 'postId'
 };
 
-exports.Prisma.BookMarkOrderByRelevanceFieldEnum = {
+exports.Prisma.BookmarkOrderByRelevanceFieldEnum = {
   id: 'id',
   userId: 'userId',
   postId: 'postId'
@@ -240,7 +240,7 @@ exports.Prisma.ModelName = {
   Post: 'Post',
   Media: 'Media',
   Like: 'Like',
-  BookMark: 'BookMark'
+  Bookmark: 'Bookmark'
 };
 
 /**

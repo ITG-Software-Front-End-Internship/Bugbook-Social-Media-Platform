@@ -30,7 +30,7 @@ model User {
   following    Follow[]   @relation("Following")
   followers    Follow[]   @relation("Followers")
   likes        Like[]
-  bookmarks    BookMark[]
+  bookmarks    Bookmark[]
 
   @@map("users")
 }
@@ -62,7 +62,7 @@ model Post {
   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   attachments Media[]
   likes       Like[]
-  bookmarks   BookMark[]
+  bookmarks   Bookmark[]
 
   @@map("posts")
 }
@@ -93,7 +93,7 @@ model Like {
   @@map("likes")
 }
 
-model BookMark {
+model Bookmark {
   id        String   @unique @default(uuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
