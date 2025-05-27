@@ -63,10 +63,18 @@ export const getUpdateUserProfileSchema = (messages: {
     displayName: requiredString({
       required: messages.required,
     }),
-    bio: z.string().max(1000, "Must be at most 1000 characters"),
+    bio: z.string().max(1000, messages.maxLength),
   });
 };
 
 export type UpdateUserProfileValues = z.infer<
   ReturnType<typeof getUpdateUserProfileSchema>
 >;
+
+export const getCreateCommentSchema = (messages: { required: string }) => {
+  return z.object({
+    content: requiredString({
+      required: messages.required,
+    }),
+  });
+};
