@@ -6,10 +6,11 @@ import { PostData } from "@/lib/types";
 import { cn, formatRelativeDate } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { use } from "react";
 import UserAvatar from "../customComponents/UserAvatar";
 import Linkify from "../Linkify";
 import UserToolTip from "../UserTooltip";
+import BookmarkButton from "./BookmarkButton";
 import LikeButton from "./LikeButton";
 import PostMoreButton from "./PostMoreButton";
 
@@ -63,15 +64,25 @@ export default function Post({ post }: PostProps) {
         </>
       )}
       <hr className="text-muted-foreground" />
-      <LikeButton
-        postId={post.id}
-        initialState={{
-          likes: post._count.likes,
-          isLikedByUser: post.likes.some((post) => {
-            return post.userId === user.id;
-          }),
-        }}
-      />
+      <div className="flex justify-between gap-5">
+        <LikeButton
+          postId={post.id}
+          initialState={{
+            likes: post._count.likes,
+            isLikedByUser: post.likes.some((post) => {
+              return post.userId === user.id;
+            }),
+          }}
+        />
+        <BookmarkButton
+          postId={post.id}
+          initialState={{
+            isBookedmarkByUser: post.bookmarks.some((bookmark) => {
+              return bookmark.userId === user.id;
+            }),
+          }}
+        />
+      </div>
     </article>
   );
 }
