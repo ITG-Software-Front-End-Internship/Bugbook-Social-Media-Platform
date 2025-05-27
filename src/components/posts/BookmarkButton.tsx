@@ -36,6 +36,13 @@ export default function BookmarkButton({
   });
 
   /** For add or update */
+  /*
+   useMutation: For add or update 
+
+   * onMutate:
+    Runs immediately before the mutation function is called.
+   */
+
   const { mutate } = useMutation({
     mutationFn: () => {
       return data.isBookedmarkByUser
@@ -53,7 +60,7 @@ export default function BookmarkButton({
       /** Get current caches data */
       const previousState = queryClient.getQueryData<BookmarkInfo>(queryKey);
 
-      /** Know we want to apply the optimistic upload */
+      /** Know we want to apply the optimistic update */
 
       queryClient.setQueryData<BookmarkInfo>(queryKey, () => {
         const toggledBookedmarkState = !previousState?.isBookedmarkByUser;

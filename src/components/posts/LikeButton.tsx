@@ -32,7 +32,13 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
     staleTime: Infinity,
   });
 
-  /** For add or update */
+  /*
+   useMutation: For add or update 
+
+   * onMutate:
+    Runs immediately before the mutation function is called.
+   */
+
   const { mutate } = useMutation({
     mutationFn: () => {
       return data.isLikedByUser
@@ -46,7 +52,7 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
       /** Get current caches data */
       const previousState = queryClient.getQueryData<LikeInfo>(queryKey);
 
-      /** Know we want to apply the optimistic upload */
+      /** Know we want to apply the optimistic update */
 
       queryClient.setQueryData<LikeInfo>(queryKey, () => {
         const currentLikes = previousState?.likes || 0;

@@ -35,6 +35,11 @@ export default function Bookmarks() {
     getNextPageParam: (lastPage) => lastPage.nextCursor,
   });
 
+  /**
+   * TODO: we can later apply optimistic mutations
+   * useMutate...
+   */
+
   const posts = data?.pages.flatMap((page) => page.posts) || [];
 
   if (status === "pending") {

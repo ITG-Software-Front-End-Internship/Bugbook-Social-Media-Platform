@@ -36,7 +36,7 @@ export default function FollowButton({
 
       const previousState = queryClient.getQueryData<FollowerInfo>(queryKey);
 
-      /** Know we want to apply the optimistic upload (on caches data) */
+      /** Know we want to apply the optimistic update (on caches data) */
 
       queryClient.setQueryData<FollowerInfo>(queryKey, () => ({
         followers:
