@@ -163,6 +163,13 @@ exports.Prisma.LikeScalarFieldEnum = {
   postId: 'postId'
 };
 
+exports.Prisma.BookMarkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -215,6 +222,12 @@ exports.Prisma.LikeOrderByRelevanceFieldEnum = {
   userId: 'userId',
   postId: 'postId'
 };
+
+exports.Prisma.BookMarkOrderByRelevanceFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId'
+};
 exports.MediaType = exports.$Enums.MediaType = {
   IMAGE: 'IMAGE',
   VIDEO: 'VIDEO'
@@ -226,7 +239,8 @@ exports.Prisma.ModelName = {
   Follow: 'Follow',
   Post: 'Post',
   Media: 'Media',
-  Like: 'Like'
+  Like: 'Like',
+  BookMark: 'BookMark'
 };
 
 /**

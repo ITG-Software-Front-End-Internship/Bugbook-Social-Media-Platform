@@ -16,20 +16,21 @@ datasource db {
 }
 
 model User {
-  id           String    @id
-  username     String    @unique
+  id           String     @id
+  username     String     @unique
   displayName  String
-  email        String?   @unique
+  email        String?    @unique
   passwordHash String
-  googleId     String?   @unique
+  googleId     String?    @unique
   avatarUrl    String?
   bio          String?
-  createdAt    DateTime  @default(now())
+  createdAt    DateTime   @default(now())
   sessions     Session[]
   posts        Post[]
-  following    Follow[]  @relation("Following")
-  followers    Follow[]  @relation("Followers")
-  Likes        Like[]
+  following    Follow[]   @relation("Following")
+  followers    Follow[]   @relation("Followers")
+  likes        Like[]
+  bookmarks    BookMark[]
 
   @@map("users")
 }
@@ -54,25 +55,25 @@ model Follow {
 }
 
 model Post {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   content     String
   userId      String
-  createdAt   DateTime @default(now())
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime   @default(now())
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   attachments Media[]
   likes       Like[]
+  bookmarks   BookMark[]
 
   @@map("posts")
 }
 
 model Media {
-  id     String    @id @default(uuid())
-  postId String?
-  post   Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
-  type   MediaType
-  url    String
-
-  createdAt DateTime @default(now())
+  id        String    @id @default(uuid())
+  postId    String?
+  post      Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
+  type      MediaType
+  url       String
+  createdAt DateTime  @default(now())
 
   @@map("post_media")
 }
@@ -85,10 +86,21 @@ enum MediaType {
 model Like {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   postId String
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@unique([postId, userId])
   @@map("likes")
+}
+
+model BookMark {
+  id        String   @unique @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([postId, userId])
+  @@map("bookmarks")
 }
