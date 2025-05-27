@@ -1,9 +1,9 @@
 import { cachedValidateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
-import { FollowerInfo } from "@/lib/types";
+import { LikeInfo } from "@/lib/types";
 
 interface RouteParams {
-  userId: string;
+  postId: string;
 }
 
 export async function GET(
@@ -11,9 +11,10 @@ export async function GET(
   { params }: { params: Promise<RouteParams> },
 ) {
   try {
-    const { userId } = await params;
+    const { postId } = await params;
 
     const { user: loggedInUser } = await cachedValidateRequest();
+
     if (!loggedInUser) {
       return Response.json(
         {
@@ -25,31 +26,31 @@ export async function GET(
       );
     }
 
-    const user = await prisma.user.findUnique({
+    const post = await prisma.post.findUnique({
       where: {
-        id: userId,
+        id: postId,
       },
       select: {
-        followers: {
+        likes: {
           where: {
-            followerId: loggedInUser.id,
+            userId: loggedInUser.id,
           },
           select: {
-            followerId: true,
+            userId: true,
           },
         },
         _count: {
           select: {
-            followers: true,
+            likes: true,
           },
         },
       },
     });
 
-    if (!user) {
+    if (!post) {
       return Response.json(
         {
-          error: "User not found",
+          error: "Post not found",
         },
         {
           status: 404,
@@ -57,9 +58,9 @@ export async function GET(
       );
     }
 
-    const data: FollowerInfo = {
-      followers: user._count.followers,
-      isFollowedByUser: !!user.followers.length,
+    const data: LikeInfo = {
+      likes: post._count.likes,
+      isLikedByUser: !!post.likes.length,
     };
 
     return Response.json(data);
@@ -81,9 +82,10 @@ export async function POST(
   { params }: { params: Promise<RouteParams> },
 ) {
   try {
-    const { userId } = await params;
+    const { postId } = await params;
 
     const { user: loggedInUser } = await cachedValidateRequest();
+
     if (!loggedInUser) {
       return Response.json(
         {
@@ -95,16 +97,16 @@ export async function POST(
       );
     }
 
-    await prisma.follow.upsert({
+    await prisma.like.upsert({
       where: {
-        followerId_followingId: {
-          followerId: loggedInUser.id,
-          followingId: userId,
+        postId_userId: {
+          userId: loggedInUser.id,
+          postId: postId,
         },
       },
       create: {
-        followerId: loggedInUser.id,
-        followingId: userId,
+        userId: loggedInUser.id,
+        postId: postId,
       },
       update: {},
     });
@@ -129,9 +131,10 @@ export async function DELETE(
   { params }: { params: Promise<RouteParams> },
 ) {
   try {
-    const { userId } = await params;
+    const { postId } = await params;
 
     const { user: loggedInUser } = await cachedValidateRequest();
+
     if (!loggedInUser) {
       return Response.json(
         {
@@ -143,10 +146,10 @@ export async function DELETE(
       );
     }
 
-    await prisma.follow.deleteMany({
+    await prisma.like.deleteMany({
       where: {
-        followerId: loggedInUser.id,
-        followingId: userId,
+        userId: loggedInUser.id,
+        postId: postId,
       },
     });
 
