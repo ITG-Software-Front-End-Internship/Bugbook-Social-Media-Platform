@@ -1,4 +1,4 @@
-import { PostData } from "@/lib/types";
+import { CommentData } from "@/lib/types";
 import LoadingButton from "../customComponents/LoadingButton";
 import { Button } from "../ui/button";
 import {
@@ -9,29 +9,29 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
-import { useDeletePostMutation } from "./mutations";
+import { useDeleteCommentMutation } from "./mutations";
 
-interface DeletePostDialogProps {
-  post: PostData;
+interface DeleteCommentDialogProps {
+  comment: CommentData;
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function DeletePostDialog({
-  post,
+export default function DeleteCommentDialog({
+  comment,
   isOpen,
   onClose,
-}: DeletePostDialogProps) {
-  const deletePostMutation = useDeletePostMutation();
+}: DeleteCommentDialogProps) {
+  const deleteCommentMutation = useDeleteCommentMutation();
 
   function handleOpenChange(open: boolean) {
-    if (!open || !deletePostMutation.isPending) {
+    if (!open || !deleteCommentMutation.isPending) {
       onClose();
     }
   }
 
   function handleOnDeletePress() {
-    deletePostMutation.mutate(post.id, {
+    deleteCommentMutation.mutate(comment.id, {
       onSuccess: onClose,
     });
   }
@@ -40,24 +40,24 @@ export default function DeletePostDialog({
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete post ?</DialogTitle>
+          <DialogTitle>Delete comment ?</DialogTitle>
           <DialogDescription>
-            Are you sure you want to delete this post ? This action can not be
-            undone.
+            Are you sure you want to delete this comment ? This action can not
+            be undone.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <LoadingButton
             variant="destructive"
             onClick={handleOnDeletePress}
-            isLoading={deletePostMutation.isPending}
+            isLoading={deleteCommentMutation.isPending}
           >
             Delete
           </LoadingButton>
           <Button
             variant="outline"
             onClick={onClose}
-            disabled={deletePostMutation.isPending}
+            disabled={deleteCommentMutation.isPending}
           >
             Cancel
           </Button>
