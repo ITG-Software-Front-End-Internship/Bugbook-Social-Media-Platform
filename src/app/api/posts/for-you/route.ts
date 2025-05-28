@@ -32,6 +32,7 @@ export async function GET(req: NextRequest) {
     });
 
     const hasMorePosts = posts.length > pageSize;
+
     const nextCursor = hasMorePosts ? posts[pageSize].id : null;
 
     const data: PostsPage = {
