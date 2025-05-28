@@ -1,39 +1,39 @@
-"use client";
-
-import { useSession } from "@/app/(main)/SessionProvider";
-import { PostsPage } from "@/lib/types";
+import { CommentsPage } from "@/lib/types";
 import {
   InfiniteData,
   QueryFilters,
+  QueryKey,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
 import { toast } from "sonner";
-import submitPost from "./actions";
+import { submitComment } from "./actions";
 
-export function useSubmitFormMutation() {
+export function useSubmitCommentMutation(postId: string) {
   const queryClient = useQueryClient();
 
-  const { user } = useSession();
-
   const mutation = useMutation({
-    mutationFn: submitPost,
-    onSuccess: async (newPost) => {
-      const queryFilters = {
-        queryKey: ["post-feed"],
-        predicate(query) {
-          return (
-            query.queryKey.includes("for-you") ||
-            (query.queryKey.includes("user-posts") &&
-              query.queryKey.includes(user.id))
-          );
-        },
-      } satisfies QueryFilters;
+    mutationFn: submitComment,
+    onSuccess: async (newComment) => {
+      /**
+       * Note newComment is returned value from our server action submitComment (mutationFn)
+       */
+      /**
+       * We want to update our cache after we created our comment
+       */
 
-      /** Cancel any running queries */
+      const queryFilters: QueryFilters = {
+        queryKey: ["comments", postId],
+      };
+
+      /** Cancel any running queries on [comments, postId] */
+
       await queryClient.cancelQueries(queryFilters);
 
-      /** Now mutate the cache */
+      /**
+       * Mutate the cache
+       */
+
       /**
           Take each posts and update user information in this post
           
@@ -46,31 +46,35 @@ export function useSubmitFormMutation() {
           pages type : 
           {
             nextCursor: any (id of next page if it exist),
-            posts : Post[]
+            comments : Post[]
           }
 
           nextCursor : A value returned by API for the next page.
           pageParams: A value passed to the API to get a page	
            */
 
-      type CursorPageParamsType = string | null;
-      queryClient.setQueriesData<InfiniteData<PostsPage, CursorPageParamsType>>(
+      type CursorType = string | null;
+
+      queryClient.setQueriesData<InfiniteData<CommentsPage, CursorType>>(
         queryFilters,
         (oldData) => {
           const firstPage = oldData?.pages[0];
 
           if (firstPage) {
             /**
-             * If this is the case we want to put this new post into this first page
+             * If this is the case we want to put this new comment into this first page.
+             
+             * The first page here in this case is the page at the bottom (comment). 
              */
 
             return {
               pageParams: oldData.pageParams,
               pages: [
                 {
-                  posts: [newPost, ...firstPage.posts],
-                  nextCursor: firstPage.nextCursor,
+                  comments: [...firstPage.comments, newComment],
+                  previousCursor: firstPage.previousCursor,
                 },
+                /** Skip cursor */
                 ...oldData.pages.slice(1),
               ],
             };
@@ -87,18 +91,19 @@ export function useSubmitFormMutation() {
         queryKey: queryFilters.queryKey,
         predicate(query) {
           // Invalidate query if its undefined, null,...
-          return !query.state.data && queryFilters.predicate(query);
+          const queryHasData = query.state.data;
+          return !queryHasData;
         },
       });
 
-      toast.success("Post created!", {
-        description: "Post created successfully",
+      toast.success("Comment created!", {
+        description: "Comment created successfully",
       });
     },
     onError: (error) => {
       console.error(error);
-      toast.error("Faild to post !", {
-        description: "Faild to post. Please try again",
+      toast.error("Faild to comment !", {
+        description: "Faild to submit comment. Please try again",
       });
     },
   });
