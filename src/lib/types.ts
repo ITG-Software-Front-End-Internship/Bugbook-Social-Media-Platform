@@ -128,3 +128,7 @@ export interface NotificationsPage {
   notifications: NotificationData[];
   nextCursor: string | null;
 }
+
+export interface NotificationCountInfo {
+  unreadCount: number;
+}
