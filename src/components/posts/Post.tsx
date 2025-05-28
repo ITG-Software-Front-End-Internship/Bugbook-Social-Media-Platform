@@ -4,9 +4,11 @@ import { useSession } from "@/app/(main)/SessionProvider";
 import { Media } from "@/generated/prisma";
 import { PostData } from "@/lib/types";
 import { cn, formatRelativeDate } from "@/lib/utils";
+import { MessageSquare } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { use } from "react";
+import React, { use, useState } from "react";
+import Comments from "../comments/Comments";
 import UserAvatar from "../customComponents/UserAvatar";
 import Linkify from "../Linkify";
 import UserToolTip from "../UserTooltip";
@@ -21,6 +23,9 @@ interface PostProps {
 export default function Post({ post }: PostProps) {
   const { user } = useSession();
   const isCurrentUserPost = post.user.id === user.id;
+
+  /** We need this state to show and hide the comment */
+  const [showComment, setShowComment] = useState<boolean>(false);
 
   return (
     <article className="group/post space-y-3 rounded-2xl bg-card p-5 shadow-sm">
@@ -65,15 +70,21 @@ export default function Post({ post }: PostProps) {
       )}
       <hr className="text-muted-foreground" />
       <div className="flex justify-between gap-5">
-        <LikeButton
-          postId={post.id}
-          initialState={{
-            likes: post._count.likes,
-            isLikedByUser: post.likes.some((post) => {
-              return post.userId === user.id;
-            }),
-          }}
-        />
+        <div className="flex items-center gap-5">
+          <LikeButton
+            postId={post.id}
+            initialState={{
+              likes: post._count.likes,
+              isLikedByUser: post.likes.some((post) => {
+                return post.userId === user.id;
+              }),
+            }}
+          />
+          <CommentButton
+            post={post}
+            onClick={() => setShowComment(!showComment)}
+          />
+        </div>
         <BookmarkButton
           postId={post.id}
           initialState={{
@@ -83,6 +94,7 @@ export default function Post({ post }: PostProps) {
           }}
         />
       </div>
+      {showComment && <Comments post={post} />}
     </article>
   );
 }
@@ -136,4 +148,20 @@ function MediaPreview({ media }: MediaPreviewProps) {
   }
 
   return <p className="text-destructive">Unsupported media type</p>;
+}
+
+interface CommentButtonProps {
+  post: PostData;
+  onClick: () => void;
+}
+
+export function CommentButton({ post, onClick }: CommentButtonProps) {
+  return (
+    <button onClick={onClick} className="flex items-center gap-2">
+      <MessageSquare className="size-5" />
+      <span className="text-sm font-medium tabular-nums">
+        {post._count.comments} <span className="hide sm:inline">Comments</span>
+      </span>
+    </button>
+  );
 }
