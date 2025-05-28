@@ -25,9 +25,24 @@ export default function ForYouFeed() {
           pageParam ? { searchParams: { cursor: pageParam } } : {},
         )
         .json<PostsPage>(),
+    /** Initally page params is null but we have to infer it to the type pageParam  */
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
   });
+
+  /**   
+          inifinite loading return type
+          {
+            pageParams: any , note : "cursor ....",
+            pages: Pages[]
+          }
+
+          pages type : 
+          {
+            nextCursor: any (id of next page if it exist),
+            posts : Post[]
+          }
+           */
 
   const posts = data?.pages.flatMap((page) => page.posts) || [];
 

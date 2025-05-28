@@ -25,9 +25,11 @@ export async function submitComment({
     required: t(validationsMessages.required),
   };
 
+  console.log({ content });
+
   const { content: validatedContent } = getCreateCommentSchema(
     createCommentSchemaMessages,
-  ).parse(content);
+  ).parse({ content });
 
   /**
    * We need to create comment and return it to the front end.
