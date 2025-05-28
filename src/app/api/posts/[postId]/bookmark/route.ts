@@ -1,6 +1,6 @@
 import { cachedValidateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
-import { BookmarkInfo, LikeInfo } from "@/lib/types";
+import { BookmarkInfo } from "@/lib/types";
 
 interface RouteParams {
   postId: string;

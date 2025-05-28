@@ -72,9 +72,12 @@ export async function deleteComment(commentId: string) {
     throw new Error(`Unauthorized.`);
   }
 
-  await prisma.comment.delete({
+  const deletedComment = await prisma.comment.delete({
     where: {
       id: commentId,
     },
+    include: getCommentDataInclude(loggedInUser.id),
   });
+
+  return deletedComment;
 }

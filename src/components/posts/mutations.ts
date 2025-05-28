@@ -29,9 +29,7 @@ export function useDeletePostMutations() {
           const hasPostToDelete = oldData;
           if (!hasPostToDelete) return;
 
-          /**
-          Take each posts and update user information in this post
-          
+          /**      
           inifinite loading return type
           {
             pageParams: any , note : "cursor ....",
