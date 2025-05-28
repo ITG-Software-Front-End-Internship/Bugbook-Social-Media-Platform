@@ -207,14 +207,14 @@ export async function DELETE(
     }
 
     await prisma.$transaction([
-      /** if there is not post to delete it will be ignored */
+      /** if there is not like to delete it will be ignored */
       prisma.like.deleteMany({
         where: {
           userId: loggedInUser.id,
           postId: postId,
         },
       }),
-      /** if there is not post to delete it will be ignored */
+      /** if there is no notification to delete it will be ignored */
       prisma.notification.deleteMany({
         where: {
           issuerId: loggedInUser.id,
