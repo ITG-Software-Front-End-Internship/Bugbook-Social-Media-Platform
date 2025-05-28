@@ -37,6 +37,8 @@ export async function submitComment({
    * Otherwise we have the same problem with revalidation taking so long if we have the too many pages
    */
 
+  console.log({ postUserId: post.user.id, loggedInUserId: loggedInUser.id });
+
   const [newComment] = await prisma.$transaction([
     prisma.comment.create({
       data: {
@@ -47,7 +49,7 @@ export async function submitComment({
       include: getCommentDataInclude(loggedInUser.id),
     }),
     /** We want to comment on our post without diplsay notification */
-    ...(post.user.id! === loggedInUser.id
+    ...(post.user.id !== loggedInUser.id
       ? [
           prisma.notification.create({
             data: {
