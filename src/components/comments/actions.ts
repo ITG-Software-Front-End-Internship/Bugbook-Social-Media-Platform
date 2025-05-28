@@ -37,14 +37,29 @@ export async function submitComment({
    * Otherwise we have the same problem with revalidation taking so long if we have the too many pages
    */
 
-  const newComment = await prisma.comment.create({
-    data: {
-      content: validatedContent,
-      postId: post.id,
-      userId: loggedInUser.id,
-    },
-    include: getCommentDataInclude(loggedInUser.id),
-  });
+  const [newComment] = await prisma.$transaction([
+    prisma.comment.create({
+      data: {
+        content: validatedContent,
+        postId: post.id,
+        userId: loggedInUser.id,
+      },
+      include: getCommentDataInclude(loggedInUser.id),
+    }),
+    /** We want to comment on our post without diplsay notification */
+    ...(post.user.id! === loggedInUser.id
+      ? [
+          prisma.notification.create({
+            data: {
+              issuerId: loggedInUser.id,
+              recipientId: post.user.id,
+              postId: post.id,
+              type: "COMMENT",
+            },
+          }),
+        ]
+      : []),
+  ]);
 
   return newComment;
 }
@@ -71,6 +86,11 @@ export async function deleteComment(commentId: string) {
   if (!isUserCommentAuthor) {
     throw new Error(`Unauthorized.`);
   }
+
+  /**
+   * TODO: We dont have a way to distinguish btw different notification for different comment because we can leave multiple comment, we can solve this by storing comment id in the notification table.
+   * I will assume its ok to not delete the notification when we delete the comment
+   */
 
   const deletedComment = await prisma.comment.delete({
     where: {
