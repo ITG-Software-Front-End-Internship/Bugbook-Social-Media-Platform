@@ -48,3 +48,33 @@ export async function submitComment({
 
   return newComment;
 }
+
+export async function deleteComment(commentId: string) {
+  const { user: loggedInUser } = await cachedValidateRequest();
+
+  if (!loggedInUser) {
+    throw new Error(`Unauthorized.`);
+  }
+
+  const comment = await prisma.comment.findUnique({
+    where: {
+      id: commentId,
+    },
+  });
+
+  if (!comment) {
+    throw new Error(`Comment not found!`);
+  }
+
+  const isUserCommentAuthor = comment.userId === loggedInUser.id;
+
+  if (!isUserCommentAuthor) {
+    throw new Error(`Unauthorized.`);
+  }
+
+  await prisma.comment.delete({
+    where: {
+      id: commentId,
+    },
+  });
+}
