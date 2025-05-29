@@ -68,17 +68,31 @@ export async function signUp(
 
     const userId = generateIdFromEntropySize(10);
 
-    await prisma.user.create({
-      data: {
-        id: userId,
-        username: username,
-        email: email,
-        passwordHash: passwordHash,
-        displayName: username,
-      },
-    });
-
     /**
+     * We need to execute the second after the create operation.
+    
+    * if create user faild,  the streamServerClient user will not even execute and it dosent have to rollback.
+     
+    * if the create user successed and the other faild (it will throw an error and rollback), so the create of user also will rollback the first operation.
+     
+     */
+
+    await prisma.$transaction(async (tx) => {
+      /**
+       * We can not only pass prisma operation.
+       * Like calling non prisma client
+       */
+      await tx.user.create({
+        data: {
+          id: userId,
+          username: username,
+          email: email,
+          passwordHash: passwordHash,
+          displayName: username,
+        },
+      });
+
+      /**
      * In our prev implemntation we have to open message page to create our stream user otherwise we would not see our users in the search 
     
     - (will give problem if we want later to get unread count messages if the user then dose not exist it will return an error.)
@@ -89,10 +103,11 @@ export async function signUp(
 
      */
 
-    await streamServerClient.upsertUser({
-      id: userId,
-      username: username,
-      name: username,
+      await streamServerClient.upsertUser({
+        id: userId,
+        username: username,
+        name: username,
+      });
     });
 
     const session = await lucia.createSession(userId, {});
