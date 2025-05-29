@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
  * PATCH: We want to update a value on a server
  */
 
-export async function PATH() {
+export async function PATCH() {
   try {
     const { user: loggedInUser } = await cachedValidateRequest();
 
