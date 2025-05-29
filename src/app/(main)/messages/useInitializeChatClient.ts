@@ -57,4 +57,6 @@ export function useInitializeChatClient() {
      */
     [user.id, user.displayName, user.avatarUrl, user.username],
   );
+
+  return chatClient;
 }
