@@ -30,14 +30,40 @@ export function useSubmitFormMutation() {
         },
       } satisfies QueryFilters;
 
+      /** Cancel any running queries */
       await queryClient.cancelQueries(queryFilters);
 
-      queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
+      /** Now mutate the cache */
+      /**
+          Take each posts and update user information in this post
+          
+          inifinite loading return type
+          {
+            pageParams: any , note : "cursor ....",
+            pages: Pages[]
+          }
+
+          pages type : 
+          {
+            nextCursor: any (id of next page if it exist),
+            posts : Post[]
+          }
+
+          nextCursor : A value returned by API for the next page.
+          pageParams: A value passed to the API to get a page	
+           */
+
+      type CursorPageParamsType = string | null;
+      queryClient.setQueriesData<InfiniteData<PostsPage, CursorPageParamsType>>(
         queryFilters,
         (oldData) => {
           const firstPage = oldData?.pages[0];
 
           if (firstPage) {
+            /**
+             * If this is the case we want to put this new post into this first page
+             */
+
             return {
               pageParams: oldData.pageParams,
               pages: [

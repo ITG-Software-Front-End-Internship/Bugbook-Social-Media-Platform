@@ -84,6 +84,7 @@ export async function POST(
     const { userId } = await params;
 
     const { user: loggedInUser } = await cachedValidateRequest();
+
     if (!loggedInUser) {
       return Response.json(
         {
@@ -95,19 +96,28 @@ export async function POST(
       );
     }
 
-    await prisma.follow.upsert({
-      where: {
-        followerId_followingId: {
+    await prisma.$transaction([
+      prisma.follow.upsert({
+        where: {
+          followerId_followingId: {
+            followerId: loggedInUser.id,
+            followingId: userId,
+          },
+        },
+        create: {
           followerId: loggedInUser.id,
           followingId: userId,
         },
-      },
-      create: {
-        followerId: loggedInUser.id,
-        followingId: userId,
-      },
-      update: {},
-    });
+        update: {},
+      }),
+      prisma.notification.create({
+        data: {
+          issuerId: loggedInUser.id,
+          recipientId: userId,
+          type: "FOLLOW",
+        },
+      }),
+    ]);
 
     // this return success response by default
     return new Response();
@@ -132,6 +142,7 @@ export async function DELETE(
     const { userId } = await params;
 
     const { user: loggedInUser } = await cachedValidateRequest();
+
     if (!loggedInUser) {
       return Response.json(
         {
@@ -143,12 +154,23 @@ export async function DELETE(
       );
     }
 
-    await prisma.follow.deleteMany({
-      where: {
-        followerId: loggedInUser.id,
-        followingId: userId,
-      },
-    });
+    await prisma.$transaction([
+      /** if there is no follow to delete it will be ignored */
+      prisma.follow.deleteMany({
+        where: {
+          followerId: loggedInUser.id,
+          followingId: userId,
+        },
+      }),
+      /** if there is no notification to delete it will be ignored */
+      prisma.notification.deleteMany({
+        where: {
+          issuerId: loggedInUser.id,
+          recipientId: userId,
+          type: "FOLLOW",
+        },
+      }),
+    ]);
 
     return new Response();
   } catch (error) {

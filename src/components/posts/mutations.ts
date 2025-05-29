@@ -9,7 +9,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { deletePost } from "./actions";
 
-export function useDeletePostMutations() {
+export function useDeletePostMutation() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
@@ -29,9 +29,7 @@ export function useDeletePostMutations() {
           const hasPostToDelete = oldData;
           if (!hasPostToDelete) return;
 
-          /**
-          Take each posts and update user information in this post
-          
+          /**      
           inifinite loading return type
           {
             pageParams: any , note : "cursor ....",

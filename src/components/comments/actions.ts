@@ -25,9 +25,11 @@ export async function submitComment({
     required: t(validationsMessages.required),
   };
 
+  console.log({ content });
+
   const { content: validatedContent } = getCreateCommentSchema(
     createCommentSchemaMessages,
-  ).parse(content);
+  ).parse({ content });
 
   /**
    * We need to create comment and return it to the front end.
@@ -35,14 +37,69 @@ export async function submitComment({
    * Otherwise we have the same problem with revalidation taking so long if we have the too many pages
    */
 
-  const newComment = await prisma.comment.create({
-    data: {
-      content: validatedContent,
-      postId: post.id,
-      userId: loggedInUser.id,
+  console.log({ postUserId: post.user.id, loggedInUserId: loggedInUser.id });
+
+  const [newComment] = await prisma.$transaction([
+    prisma.comment.create({
+      data: {
+        content: validatedContent,
+        postId: post.id,
+        userId: loggedInUser.id,
+      },
+      include: getCommentDataInclude(loggedInUser.id),
+    }),
+    /** We want to comment on our post without diplsay notification */
+    ...(post.user.id !== loggedInUser.id
+      ? [
+          prisma.notification.create({
+            data: {
+              issuerId: loggedInUser.id,
+              recipientId: post.user.id,
+              postId: post.id,
+              type: "COMMENT",
+            },
+          }),
+        ]
+      : []),
+  ]);
+
+  return newComment;
+}
+
+export async function deleteComment(commentId: string) {
+  const { user: loggedInUser } = await cachedValidateRequest();
+
+  if (!loggedInUser) {
+    throw new Error(`Unauthorized.`);
+  }
+
+  const comment = await prisma.comment.findUnique({
+    where: {
+      id: commentId,
+    },
+  });
+
+  if (!comment) {
+    throw new Error(`Comment not found!`);
+  }
+
+  const isUserCommentAuthor = comment.userId === loggedInUser.id;
+
+  if (!isUserCommentAuthor) {
+    throw new Error(`Unauthorized.`);
+  }
+
+  /**
+   * TODO: We dont have a way to distinguish btw different notification for different comment because we can leave multiple comment, we can solve this by storing comment id in the notification table.
+   * I will assume its ok to not delete the notification when we delete the comment
+   */
+
+  const deletedComment = await prisma.comment.delete({
+    where: {
+      id: commentId,
     },
     include: getCommentDataInclude(loggedInUser.id),
   });
 
-  return newComment;
+  return deletedComment;
 }

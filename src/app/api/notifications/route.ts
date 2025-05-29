@@ -1,6 +1,6 @@
 import { cachedValidateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
-import { getPostDataInclude, PostsPage } from "@/lib/types";
+import { notificationsInclude, NotificationsPage } from "@/lib/types";
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -9,9 +9,9 @@ export async function GET(req: NextRequest) {
 
     const pageSize = 10;
 
-    const { user } = await cachedValidateRequest();
+    const { user: loggedInUser } = await cachedValidateRequest();
 
-    if (!user) {
+    if (!loggedInUser) {
       return Response.json(
         {
           error: "Unauthorized",
@@ -22,8 +22,12 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const posts = await prisma.post.findMany({
-      include: getPostDataInclude(user.id),
+    const notifications = await prisma.notification.findMany({
+      where: {
+        /** recipientId: is the id of loggedIn user calling this endpoint */
+        recipientId: loggedInUser.id,
+      },
+      include: notificationsInclude,
       orderBy: {
         createdAt: "desc",
       },
@@ -31,12 +35,12 @@ export async function GET(req: NextRequest) {
       cursor: cursor ? { id: cursor } : undefined,
     });
 
-    const hasMorePosts = posts.length > pageSize;
+    const hasMoreNotifications = notifications.length > pageSize;
 
-    const nextCursor = hasMorePosts ? posts[pageSize].id : null;
+    const nextCursor = hasMoreNotifications ? notifications[pageSize].id : null;
 
-    const data: PostsPage = {
-      posts: posts.slice(0, pageSize),
+    const data: NotificationsPage = {
+      notifications: notifications.slice(0, pageSize),
       nextCursor,
     };
 

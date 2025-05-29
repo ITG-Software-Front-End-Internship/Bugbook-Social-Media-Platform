@@ -1,14 +1,24 @@
 "use client";
 
 import InfiniteScrollContainer from "@/components/customComponents/InfiniteScrollContainer";
-import Post from "@/components/posts/Post";
-import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 import kyInstance from "@/lib/ky";
-import { PostsPage } from "@/lib/types";
+import { NotificationsPage, PostsPage } from "@/lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
+import Notification from "./Notification";
+import NotificationsLoadingSkeleton from "./NotificationsLoadingSkeleton";
 
-export default function ForYouFeed() {
+export default function Notifications() {
+  /**
+   * Notes: 
+    * For intial page we dont have an initialPage so we put it as null, 
+    and it should be as string infer or null 
+    so we add string | null to help typescript determine the type of pageParam in queryFn.
+   */
+
+  /**
+   * TODO: move it to sperate custom hook later
+   */
   const {
     data,
     fetchNextPage,
@@ -17,50 +27,35 @@ export default function ForYouFeed() {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["post-feed", "for-you"],
+    queryKey: ["notifications"],
     queryFn: ({ pageParam }) =>
       kyInstance
         .get(
-          "/api/posts/for-you",
+          "/api/notifications",
           pageParam ? { searchParams: { cursor: pageParam } } : {},
         )
-        .json<PostsPage>(),
-    /** Initally page params is null but we have to infer it to the type pageParam  */
+        .json<NotificationsPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
   });
 
-  /**   
-          inifinite loading return type
-          {
-            pageParams: any , note : "cursor ....",
-            pages: Pages[]
-          }
-
-          pages type : 
-          {
-            nextCursor: any (id of next page if it exist),
-            posts : Post[]
-          }
-           */
-
-  const posts = data?.pages.flatMap((page) => page.posts) || [];
+  const notifications = data?.pages.flatMap((page) => page.notifications) || [];
 
   if (status === "pending") {
-    return <PostsLoadingSkeleton />;
+    return <NotificationsLoadingSkeleton />;
   }
 
-  if (status === "success" && !posts.length && !hasNextPage) {
+  if (status === "success" && !notifications.length && !hasNextPage) {
     return (
       <p className="text-center text-muted-foreground">
-        No one has posted anything yet.
+        You do not have any notifications yet.
       </p>
     );
   }
   if (status === "error") {
     return (
       <p className="text-center text-destructive">
-        An error occurred while loading posts
+        An error occurred while loading notifications
       </p>
     );
   }
@@ -76,8 +71,10 @@ export default function ForYouFeed() {
       onBottomReached={handleOnBottomReached}
       className="space-y-5"
     >
-      {posts.map((post) => {
-        return <Post key={post.id} post={post} />;
+      {notifications.map((notification) => {
+        return (
+          <Notification key={notification.id} notification={notification} />
+        );
       })}
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>
