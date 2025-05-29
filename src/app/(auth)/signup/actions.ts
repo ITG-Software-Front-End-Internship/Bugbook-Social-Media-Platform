@@ -3,6 +3,7 @@
 import { lucia } from "@/auth";
 import { errorsMessages, validationsMessages } from "@/lib/constants";
 import prisma from "@/lib/prisma";
+import streamServerClient from "@/lib/stream";
 import { getSignUpSchema, SignUpValuesType } from "@/lib/validations";
 import { hash } from "@node-rs/argon2";
 import { generateIdFromEntropySize } from "lucia";
@@ -75,6 +76,23 @@ export async function signUp(
         passwordHash: passwordHash,
         displayName: username,
       },
+    });
+
+    /**
+     * In our prev implemntation we have to open message page to create our stream user otherwise we would not see our users in the search 
+    
+    - (will give problem if we want later to get unread count messages if the user then dose not exist it will return an error.)
+    
+    * Instead of waiting to call useInitializeChatClient to connect user to want to create stream user eailer when we sign up in the app.
+    
+    * Other alternative way is to call the useInitializeChatClient hook as soon as we open any pages then we create the user stream client (this creates unnecessary stream connection)
+
+     */
+
+    await streamServerClient.upsertUser({
+      id: userId,
+      username: username,
+      name: username,
     });
 
     const session = await lucia.createSession(userId, {});
