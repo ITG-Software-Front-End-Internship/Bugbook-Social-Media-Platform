@@ -1,5 +1,6 @@
 import { cachedValidateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
+import streamServerClient from "@/lib/stream";
 import { createUploadthing, FileRouter } from "uploadthing/next";
 import { UploadThingError, UTApi } from "uploadthing/server";
 
@@ -38,14 +39,31 @@ export const fileRouter = {
       }
 
       const newAvatarUrl = file.ufsUrl;
-      console.log(newAvatarUrl);
+
+      /**
+       * It dose make a secnce if we rollback after an error happen because the file is already uploaded.
+       * It's also fine because even if we dont update the stream user with the new avatar we will see the new avatar the next time we connect to the chat.
+       */
+
       try {
-        await prisma.user.update({
-          where: { id: metadata.user.id },
-          data: {
-            avatarUrl: newAvatarUrl,
-          },
-        });
+        /*
+         * To excute these 2 operation in parallel which make the whole this operation faster and save sometime.
+         */
+
+        await Promise.all([
+          prisma.user.update({
+            where: { id: metadata.user.id },
+            data: {
+              avatarUrl: newAvatarUrl,
+            },
+          }),
+          streamServerClient.partialUpdateUser({
+            id: metadata.user.id,
+            set: {
+              image: newAvatarUrl,
+            },
+          }),
+        ]);
       } catch (error) {
         console.error(error);
         throw error;
