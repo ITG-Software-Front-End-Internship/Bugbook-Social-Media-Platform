@@ -1,16 +1,20 @@
 "use client";
 
+import LoadingButton from "@/components/customComponents/LoadingButton";
 import UserAvatar from "@/components/customComponents/UserAvatar";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import useDebounce from "@/hooks/useDebounce";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { error } from "console";
 import { Check, Loader2, SearchIcon, X } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 import { UserResponse } from "stream-chat";
 import { useChatContext } from "stream-chat-react";
 import { useSession } from "../SessionProvider";
@@ -67,6 +71,36 @@ export default function NewChatDialog({
       return response.users.filter(
         (user) => user.id !== loggedInUser.id && user.role !== "admin",
       );
+    },
+  });
+
+  /**
+   * Not mandatory but since mutation provides use with req statuses isLoading, isError ..... it consider beneficial
+   */
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const channel = client.channel("messaging", null, {
+        /* name:
+          selectedUsers.length > 1
+            ? `${loggedInUser.displayName},${selectedUsers.map((u) => u.name).join(", ")}`
+            : null,*/
+        members: [loggedInUser.id, ...selectedUsers.map((user) => user.id)],
+      });
+
+      await channel.create();
+
+      return channel;
+    },
+    onSuccess(channel) {
+      setActiveChannel(channel);
+      onChatCreated(); /** Closes the dialog */
+    },
+    onError(error) {
+      console.error("Error starting chat ...", error);
+      toast.error("Error starting chat", {
+        description: "Error starting chat, please try again ...",
+      });
     },
   });
 
@@ -136,6 +170,15 @@ export default function NewChatDialog({
             )}
           </div>
         </div>
+        <DialogFooter className="px-6 pb-6">
+          <LoadingButton
+            disabled={!!selectedUsers.length}
+            isLoading={mutation.isPending}
+            onClick={() => mutation.mutate()}
+          >
+            Start chat
+          </LoadingButton>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
