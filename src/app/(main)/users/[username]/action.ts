@@ -3,6 +3,7 @@
 import { cachedValidateRequest } from "@/auth";
 import { validationsMessages } from "@/lib/constants";
 import prisma from "@/lib/prisma";
+import streamServerClient from "@/lib/stream";
 import { getUserDataSelect } from "@/lib/types";
 import {
   getUpdateUserProfileSchema,
@@ -30,12 +31,25 @@ export async function updateUserProfile(
     throw new Error("Unauthorized");
   }
 
-  const updatedUser = await prisma.user.update({
-    where: {
+  /**
+   * Note: for description of chat client see the create part.
+   */
+
+  const updatedUser = await prisma.$transaction(async (tx) => {
+    const updatedUser = await tx.user.update({
+      where: {
+        id: user.id,
+      },
+      data: validatedUpdatedUserProfileValues,
+      select: getUserDataSelect(user.id),
+    });
+    await streamServerClient.partialUpdateUser({
       id: user.id,
-    },
-    data: validatedUpdatedUserProfileValues,
-    select: getUserDataSelect(user.id),
+      set: {
+        name: validatedUpdatedUserProfileValues.displayName,
+      },
+    });
+    return updatedUser;
   });
 
   return updatedUser;

@@ -44,3 +44,14 @@ export function formatNumber(number: number): string {
     maximumFractionDigits: 1,
   }).format(number);
 }
+
+export function slugify(input: string): string {
+  /** Replace empty spaces with dashes */
+
+  /** Remove anything not a-z and 0-0 and - and remove it "" */
+
+  return input
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+}
