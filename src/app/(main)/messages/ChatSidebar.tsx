@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useQueryClient } from "@tanstack/react-query";
 import { MailPlus, X } from "lucide-react";
-import { useCallback, useState } from "react";
+import { use, useCallback, useEffect, useState } from "react";
 import {
   ChannelList,
   ChannelPreviewMessenger,
   ChannelPreviewUIComponentProps,
+  useChatContext,
 } from "stream-chat-react";
 import { useSession } from "../SessionProvider";
 import NewChatDialog from "./NewChatDialog";
@@ -17,6 +19,26 @@ interface ChatSidebarProps {
 
 export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
   const { user } = useSession();
+
+  const queryClient = useQueryClient();
+
+  const { channel } = useChatContext();
+
+  useEffect(() => {
+    /*
+    * Invalidate the unread message, when we click on the channel to show the real unread count from ourserver.
+    
+     * We can have different unread messages in different chats and we might not have read all of them when we open the messages page.
+     
+    */
+    const isAChannelSelected = channel?.id;
+
+    if (isAChannelSelected) {
+      queryClient.invalidateQueries({
+        queryKey: ["unread-messages-count"],
+      });
+    }
+  }, [channel?.id, queryClient]);
 
   const ChannelPreviewCustom = useCallback(
     (props: ChannelPreviewUIComponentProps) => {

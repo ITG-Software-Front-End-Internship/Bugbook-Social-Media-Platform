@@ -16,7 +16,7 @@ const SECONDS_IN_MINUTE = 60;
 
 export default function MessagesButton({ initialState }: MessagesButtonProps) {
   const { data } = useQuery({
-    queryKey: ["unread-message-count"],
+    queryKey: ["unread-messages-count"],
     queryFn: () =>
       kyInstance.get("/api/messages/unread-count").json<MessageCountInfo>(),
     /**
