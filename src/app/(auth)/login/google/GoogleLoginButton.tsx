@@ -8,10 +8,10 @@ export default function GoogleLoginButton() {
       className="bg-white text-black hover:bg-gray-100 hover:text-black"
       asChild
     >
-      <Link href={`/login/google`} className="flex w-full items-center gap-2">
+      <a href={`/login/google`} className="flex w-full items-center gap-2">
         <GoogleIcon />
         Sign in with google
-      </Link>
+      </a>
     </Button>
   );
 }
