@@ -2,29 +2,23 @@
 
 import { Button } from "@/components/ui/button";
 import kyInstance from "@/lib/ky";
-import { NotificationCountInfo } from "@/lib/types";
+import { MessageCountInfo } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
-import { Bell } from "lucide-react";
+import { Mail } from "lucide-react";
 import Link from "next/link";
 
-interface NotificationsButtonProps {
-  /** We do not have to wait client to fetch this data instead after we refresh the page we immediately fetch the unread count from the server. */
-  initialState: NotificationCountInfo;
+interface MessagesButtonProps {
+  initialState: MessageCountInfo;
 }
 
 const MILISECONDS_IN_SECOND = 1000;
 const SECONDS_IN_MINUTE = 60;
 
-export default function NotificationsButton({
-  initialState,
-}: NotificationsButtonProps) {
+export default function MessagesButton({ initialState }: MessagesButtonProps) {
   const { data } = useQuery({
-    queryKey: ["unread-notification-count"],
-    /** Server end point */
+    queryKey: ["unread-message-count"],
     queryFn: () =>
-      kyInstance
-        .get("/api/notifications/unread-count")
-        .json<NotificationCountInfo>(),
+      kyInstance.get("/api/messages/unread-count").json<MessageCountInfo>(),
     /**
      * To provide default data before the query actually fetches real data from the server.
      */
@@ -39,12 +33,12 @@ export default function NotificationsButton({
     <Button
       variant="ghost"
       className="flex items-center justify-start gap-3"
-      title="Notifications"
+      title="Messages"
       asChild
     >
-      <Link href="/notifications">
+      <Link href="/messages">
         <div className="relative">
-          <Bell />
+          <Mail />
           {!!data.unreadCount && (
             <span className="absolute -right-1 -top-1 rounded-full bg-primary px-1 text-xs font-medium tabular-nums text-primary-foreground">
               {" "}
@@ -52,7 +46,7 @@ export default function NotificationsButton({
             </span>
           )}
         </div>
-        <span className="hidden lg:inline">Notifications</span>
+        <span className="hidden lg:inline">Messages</span>
       </Link>
     </Button>
   );
