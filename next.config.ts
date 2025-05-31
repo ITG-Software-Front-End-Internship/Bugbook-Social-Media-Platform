@@ -17,6 +17,16 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  rewrites: async () => {
+    /** It keeps the orignal url  */
+    return [
+      {
+        source: "/hashtag/:tag",
+        /** Escape the # because it has a special meaninig in the url */
+        destination: "/search?q=%23:tag",
+      },
+    ];
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();
