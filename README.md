@@ -1,3 +1,7 @@
+![image](https://github.com/user-attachments/assets/91e7d90d-248d-4c12-927b-54cc0dc5627c)
+
+
+
 # 🚀 bugbook-social-media-platform 🌐
 
 Welcome to **bugBook**, your go-to social media platform! 🎉
