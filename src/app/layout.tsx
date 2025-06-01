@@ -36,10 +36,6 @@ export default async function RootLayout({
 }>) {
   const { locale, direction } = await getLocaleSettings();
 
-  if (!locale) {
-    return <Loader2 className="mx-auto my-3 animate-spin" />;
-  }
-
   return (
     <html lang={locale} dir={direction} suppressHydrationWarning>
       <body
