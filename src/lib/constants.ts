@@ -27,9 +27,10 @@ export const errorsMessages = {
   general: "errors.general",
 } as const;
 
-export const loginPage = {
+export const loginPageMessages = {
   login: {
     buttonLabel: "login_page.login.button.label",
+    title: "login_page.login.button.title",
   },
   username: {
     label: "login_page.username.label",
@@ -38,5 +39,9 @@ export const loginPage = {
   password: {
     label: "login_page.password.label",
     placeholder: "login_page.password.placeholder",
+  },
+  account: {
+    signup: "login_page.login.account.signup",
+    or: "login_page.login.account.or",
   },
 };

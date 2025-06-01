@@ -25,8 +25,15 @@
   },
   "login_page": {
     "login": {
+      "bugbook": {
+        "title": "سجل دخولك الى بَغبوك bugbook"
+      },
       "button": {
         "label": "تسجيل الدخول"
+      },
+      "account": {
+        "signup": "ليس لديك حساب ؟ قم بالتسجيل من هنا",
+        "or": "أو"
       }
     },
     "username": {

@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { loginPage, validationsMessages } from "@/lib/constants";
+import { loginPageMessages, validationsMessages } from "@/lib/constants";
 import { getLoginSchema, LoginValuesType } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -74,10 +74,10 @@ export default function LoginForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel> {t(loginPage.username.label)} </FormLabel>
+                <FormLabel> {t(loginPageMessages.username.label)} </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={t(loginPage.username.placeholder)}
+                    placeholder={t(loginPageMessages.username.placeholder)}
                     {...field}
                   />
                 </FormControl>
@@ -92,10 +92,10 @@ export default function LoginForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>{t(loginPage.password.label)}</FormLabel>
+                <FormLabel>{t(loginPageMessages.password.label)}</FormLabel>
                 <FormControl>
                   <PasswordInput
-                    placeholder={t(loginPage.password.placeholder)}
+                    placeholder={t(loginPageMessages.password.placeholder)}
                     {...field}
                   />
                 </FormControl>
@@ -106,7 +106,7 @@ export default function LoginForm() {
         />
 
         <LoadingButton type="submit" className="w-full" isLoading={isPending}>
-          {t(loginPage.login.buttonLabel)}
+          {t(loginPageMessages.login.buttonLabel)}
         </LoadingButton>
       </form>
     </Form>

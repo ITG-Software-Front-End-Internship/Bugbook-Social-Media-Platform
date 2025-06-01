@@ -26,8 +26,15 @@
   },
   "login_page": {
     "login": {
+      "bugbook": {
+        "title": "Login to bugbook"
+      },
       "button": {
         "label": "Login"
+      },
+      "account": {
+        "signup": "Don&apos;t have an account? Sign up",
+        "or": "OR"
       }
     },
     "username": {
