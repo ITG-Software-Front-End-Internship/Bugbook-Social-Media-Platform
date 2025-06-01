@@ -30,6 +30,7 @@ export const errorsMessages = {
 export const loginPageMessages = {
   login: {
     buttonLabel: "login_page.login.button.label",
+    googleLabel: "login_page.login.button.googleLabel",
     title: "login_page.login.button.title",
   },
   username: {

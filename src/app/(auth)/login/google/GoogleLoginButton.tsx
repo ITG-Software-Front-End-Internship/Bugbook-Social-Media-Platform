@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { loginPageMessages } from "@/lib/constants";
+import { getTranslations } from "next-intl/server";
 
-export default function GoogleLoginButton() {
+export default async function GoogleLoginButton() {
+  const t = await getTranslations();
+
   return (
     <Button
       variant="outline"
@@ -10,7 +13,7 @@ export default function GoogleLoginButton() {
     >
       <a href={`/login/google`} className="flex w-full items-center gap-2">
         <GoogleIcon />
-        Sign in with google
+        {t(loginPageMessages.login.googleLabel)}
       </a>
     </Button>
   );

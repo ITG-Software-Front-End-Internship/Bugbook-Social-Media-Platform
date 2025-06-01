@@ -30,7 +30,8 @@
         "title": "Login to bugbook"
       },
       "button": {
-        "label": "Login"
+        "label": "Login",
+        "googleLabel": "Sign in with google"
       },
       "account": {
         "signup": "Don&apos;t have an account? Sign up",
