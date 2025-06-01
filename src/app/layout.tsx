@@ -1,7 +1,8 @@
+import { getLocaleSettings } from "@/hooks/useLocaleSettings";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { Loader2 } from "lucide-react";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
@@ -33,10 +34,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = await getLocale();
+  const { locale, direction } = await getLocaleSettings();
+
+  if (!locale) {
+    return <Loader2 className="mx-auto my-3 animate-spin" />;
+  }
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} dir={direction} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

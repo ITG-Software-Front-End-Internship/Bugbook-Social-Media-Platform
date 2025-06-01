@@ -25,4 +25,18 @@ export const validationsMessages = {
 
 export const errorsMessages = {
   general: "errors.general",
+} as const;
+
+export const loginPage = {
+  login: {
+    buttonLabel: "login_page.login.button.label",
+  },
+  username: {
+    label: "login_page.username.label",
+    placeholder: "login_page.username.placeholder",
+  },
+  password: {
+    label: "login_page.password.label",
+    placeholder: "login_page.password.placeholder",
+  },
 };

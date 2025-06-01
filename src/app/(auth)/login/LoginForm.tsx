@@ -11,27 +11,33 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { validationsMessages } from "@/lib/constants";
+import { loginPage, validationsMessages } from "@/lib/constants";
 import { getLoginSchema, LoginValuesType } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { login } from "./actions";
 
 export default function LoginForm() {
   const [error, setError] = useState<string>();
   const [isPending, startTransition] = useTransition();
-
   const t = useTranslations();
-  const loginSchemaMessages = {
-    userNameInvalidChars: t(validationsMessages.userName.invalidChars),
-    passwordMinLength: t(validationsMessages.password.minLength),
-    required: t(validationsMessages.required),
-  };
+
+  const loginSchemaMessages = useMemo(() => {
+    return {
+      userNameInvalidChars: t(validationsMessages.userName.invalidChars),
+      passwordMinLength: t(validationsMessages.password.minLength),
+      required: t(validationsMessages.required),
+    };
+  }, [t]);
+
+  const loginSchema = useMemo(() => {
+    return getLoginSchema(loginSchemaMessages);
+  }, [loginSchemaMessages]);
 
   const loginForm = useForm<LoginValuesType>({
-    resolver: zodResolver(getLoginSchema(loginSchemaMessages)),
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       userName: "",
       password: "",
@@ -48,6 +54,7 @@ export default function LoginForm() {
         }
       } catch (error) {
         console.error(error);
+        setError("Unexpected error occurred. Please try again.");
       }
     });
   }
@@ -67,9 +74,12 @@ export default function LoginForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel> {t(loginPage.username.label)} </FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your username here" {...field} />
+                  <Input
+                    placeholder={t(loginPage.username.placeholder)}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -82,9 +92,12 @@ export default function LoginForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t(loginPage.password.label)}</FormLabel>
                 <FormControl>
-                  <PasswordInput placeholder="********" {...field} />
+                  <PasswordInput
+                    placeholder={t(loginPage.password.placeholder)}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -93,7 +106,7 @@ export default function LoginForm() {
         />
 
         <LoadingButton type="submit" className="w-full" isLoading={isPending}>
-          Login
+          {t(loginPage.login.buttonLabel)}
         </LoadingButton>
       </form>
     </Form>

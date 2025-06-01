@@ -1,4 +1,5 @@
 {
+  "direction": "rtl",
   "validations": {
     "required": "Required",
     "email": {
@@ -21,6 +22,21 @@
     },
     "attachments": {
       "maxLength": "Cannot have more than 5 attachments"
+    }
+  },
+  "login_page": {
+    "login": {
+      "button": {
+        "label": "Login"
+      }
+    },
+    "username": {
+      "label": "Username",
+      "placeholder": "Enter your username here"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "********"
     }
   },
   "errors": {
