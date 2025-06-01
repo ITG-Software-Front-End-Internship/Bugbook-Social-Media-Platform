@@ -12,6 +12,13 @@ import { redirect } from "next/navigation";
 
 type LoginReturnType = { error: string };
 
+const ARGON2_OPTIONS = {
+  memoryCost: 19456,
+  timeCost: 2,
+  outputLen: 32,
+  parallelism: 1,
+};
+
 export async function login(
   credentials: LoginValuesType,
 ): Promise<LoginReturnType> {
@@ -44,12 +51,7 @@ export async function login(
     const validPassword = await verify(
       existingUser.passwordHash,
       unHashedPassword,
-      {
-        memoryCost: 19456,
-        timeCost: 2,
-        outputLen: 32,
-        parallelism: 1,
-      },
+      ARGON2_OPTIONS,
     );
 
     if (!validPassword) {
@@ -59,21 +61,23 @@ export async function login(
     }
 
     const session = await lucia.createSession(existingUser.id, {});
-
     const sessionCookie = lucia.createSessionCookie(session.id);
+
     (await cookies()).set(
       sessionCookie.name,
       sessionCookie.value,
       sessionCookie.attributes,
     );
-
     return redirect("/");
   } catch (error) {
     console.error(error);
 
-    if (isRedirectError(error)) throw error;
+    if (isRedirectError(error)) {
+      throw error;
+    }
 
     const t = await getTranslations("errors");
+
     return {
       error: t(errorsMessages.general),
     };
