@@ -27,11 +27,15 @@ export const errorsMessages = {
   general: "errors.general",
 } as const;
 
-export const loginPageMessages = {
+export const loginPageTranslations = {
   login: {
     buttonLabel: "login_page.login.button.label",
     googleLabel: "login_page.login.button.googleLabel",
     title: "login_page.login.button.title",
+    account: {
+      signup: "login_page.login.account.signup",
+      or: "login_page.login.account.or",
+    },
   },
   username: {
     label: "login_page.username.label",
@@ -41,8 +45,27 @@ export const loginPageMessages = {
     label: "login_page.password.label",
     placeholder: "login_page.password.placeholder",
   },
-  account: {
-    signup: "login_page.login.account.signup",
-    or: "login_page.login.account.or",
+} as const;
+
+export const signupPageTranslations = {
+  signup: {
+    buttonLabel: "signup_page.signup.button.label",
+    title: "signup_page.signup.bugbook.title",
+    subTitle: "signup_page.signup.bugbook.subTitle",
+    account: {
+      login: "login_page.login.account.signup",
+    },
   },
-};
+  username: {
+    label: "signup_page.username.label",
+    placeholder: "signup_page.username.placeholder",
+  },
+  email: {
+    label: "signup_page.email.label",
+    placeholder: "signup_page.email.placeholder",
+  },
+  password: {
+    label: "signup_page.password.label",
+    placeholder: "signup_page.password.placeholder",
+  },
+} as const;

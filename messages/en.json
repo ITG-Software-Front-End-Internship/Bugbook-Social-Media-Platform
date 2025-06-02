@@ -47,6 +47,32 @@
       "placeholder": "********"
     }
   },
+  "signup_page": {
+    "signup": {
+      "bugbook": {
+        "title": "Sign up to bugbook",
+        "subTitle": "A place where even <span class=\"italic\">you</span> can find friends"
+      },
+      "button": {
+        "label": "Create an account"
+      },
+      "account": {
+        "login": "Already have an account? Log in"
+      }
+    },
+    "username": {
+      "label": "Username",
+      "placeholder": "Enter your username here"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter your email here"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "********"
+    }
+  },
   "errors": {
     "general": "Something went wrong. Please try again."
   }

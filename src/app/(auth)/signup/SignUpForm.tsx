@@ -11,50 +11,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { validationsMessages } from "@/lib/constants";
-import { getSignUpSchema, SignUpValuesType } from "@/lib/validations";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { signupPageTranslations } from "@/lib/constants";
 import { useTranslations } from "next-intl";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { signUp } from "./actions";
+import useSignUpForm from "./hooks/useSignUpForm";
 
 export default function SignUpForm() {
-  const [error, setError] = useState<string>();
-  const [isPending, startTransition] = useTransition();
-
+  const { error, isPending, signUpForm, onSubmit } = useSignUpForm();
   const t = useTranslations();
-  const signUpSchemaMessages = {
-    emailInvalid: t(validationsMessages.email.invalid),
-    userNameInvalidChars: t(validationsMessages.userName.invalidChars),
-    passwordMinLength: t(validationsMessages.password.minLength),
-    required: t(validationsMessages.required),
-  };
-
-  const signUpForm = useForm<SignUpValuesType>({
-    resolver: zodResolver(getSignUpSchema(signUpSchemaMessages)),
-    defaultValues: {
-      email: "",
-      username: "",
-      password: "",
-    },
-  });
-
-  async function onSubmit(values: SignUpValuesType) {
-    console.log(`OnSubmit ......`);
-    setError(undefined);
-    startTransition(async () => {
-      console.log(`Sign up ......`);
-      try {
-        const { error } = await signUp(values);
-        if (error) {
-          setError(error);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    });
-  }
 
   return (
     <Form {...signUpForm}>
@@ -64,16 +27,21 @@ export default function SignUpForm() {
         })}
         className="space-y-3"
       >
-        {error && <p className="text-destructive text-center">{error}</p>}
+        {error && <p className="text-center text-destructive">{error}</p>}
         <FormField
           control={signUpForm.control}
           name="username"
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>
+                  {t(signupPageTranslations.username.label)}
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your username here" {...field} />
+                  <Input
+                    placeholder={t(signupPageTranslations.username.placeholder)}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -86,10 +54,10 @@ export default function SignUpForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t(signupPageTranslations.email.label)}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Enter your email here"
+                    placeholder={t(signupPageTranslations.email.placeholder)}
                     type="email"
                     {...field}
                   />
@@ -105,9 +73,14 @@ export default function SignUpForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>
+                  {t(signupPageTranslations.password.label)}
+                </FormLabel>
                 <FormControl>
-                  <PasswordInput placeholder="********" {...field} />
+                  <PasswordInput
+                    placeholder={t(signupPageTranslations.password.placeholder)}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -116,7 +89,7 @@ export default function SignUpForm() {
         />
 
         <LoadingButton type="submit" className="w-full" isLoading={isPending}>
-          Create an account
+          {t(signupPageTranslations.signup.buttonLabel)}
         </LoadingButton>
       </form>
     </Form>

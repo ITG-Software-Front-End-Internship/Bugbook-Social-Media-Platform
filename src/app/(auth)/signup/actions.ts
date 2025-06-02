@@ -14,11 +14,19 @@ import { redirect } from "next/navigation";
 
 type SignUpReturnType = { error: string };
 
+const HASH_OPTIONS = {
+  memoryCost: 19456,
+  timeCost: 2,
+  outputLen: 32,
+  parallelism: 1,
+};
+
 export async function signUp(
   credentials: SignUpValuesType,
 ): Promise<SignUpReturnType> {
   try {
     const t = await getTranslations();
+
     const signUpSchemaMessages = {
       emailInvalid: t(validationsMessages.email.invalid),
       userNameInvalidChars: t(validationsMessages.userName.invalidChars),
@@ -59,13 +67,7 @@ export async function signUp(
       };
     }
 
-    const passwordHash = await hash(password, {
-      memoryCost: 19456,
-      timeCost: 2,
-      outputLen: 32,
-      parallelism: 1,
-    });
-
+    const passwordHash = await hash(password, HASH_OPTIONS);
     const userId = generateIdFromEntropySize(10);
 
     /**
@@ -78,10 +80,7 @@ export async function signUp(
      */
 
     await prisma.$transaction(async (tx) => {
-      /**
-       * We can not only pass prisma operation.
-       * Like calling non prisma client
-       */
+      /* We can not only pass prisma operation, Like calling non prisma client */
       await tx.user.create({
         data: {
           id: userId,

@@ -11,9 +11,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { loginPageMessages, validationsMessages } from "@/lib/constants";
+import { loginPageTranslations } from "@/lib/constants";
 import { useTranslations } from "next-intl";
-import useLoginForm from "./hooks/useLoginForm";
+import useLoginForm from "../hooks/useLoginForm";
 
 export default function LoginForm() {
   console.log("Login form render ...");
@@ -36,10 +36,13 @@ export default function LoginForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel> {t(loginPageMessages.username.label)} </FormLabel>
+                <FormLabel>
+                  {" "}
+                  {t(loginPageTranslations.username.label)}{" "}
+                </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={t(loginPageMessages.username.placeholder)}
+                    placeholder={t(loginPageTranslations.username.placeholder)}
                     {...field}
                   />
                 </FormControl>
@@ -54,10 +57,10 @@ export default function LoginForm() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>{t(loginPageMessages.password.label)}</FormLabel>
+                <FormLabel>{t(loginPageTranslations.password.label)}</FormLabel>
                 <FormControl>
                   <PasswordInput
-                    placeholder={t(loginPageMessages.password.placeholder)}
+                    placeholder={t(loginPageTranslations.password.placeholder)}
                     {...field}
                   />
                 </FormControl>
@@ -68,7 +71,7 @@ export default function LoginForm() {
         />
 
         <LoadingButton type="submit" className="w-full" isLoading={isPending}>
-          {t(loginPageMessages.login.buttonLabel)}
+          {t(loginPageTranslations.login.buttonLabel)}
         </LoadingButton>
       </form>
     </Form>
