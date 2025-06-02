@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { signupPageTranslations } from "@/lib/constants";
 import { useTranslations } from "next-intl";
-import useSignUpForm from "./hooks/useSignUpForm";
+import useSignUpForm from "../hooks/useSignUpForm";
 
 export default function SignUpForm() {
   const { error, isPending, signUpForm, onSubmit } = useSignUpForm();
