@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { loginPageTranslations } from "@/lib/constants";
+import { loginPageTranslations } from "@/lib/translationKeys";
 import { getTranslations } from "next-intl/server";
 
 export default async function GoogleLoginButton() {

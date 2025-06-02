@@ -1,8 +1,8 @@
 "use server";
 
 import { lucia } from "@/auth";
-import { errorsMessages, validationsMessages } from "@/lib/constants";
 import prisma from "@/lib/prisma";
+import { errorsMessages, validationsMessages } from "@/lib/translationKeys";
 import { getLoginSchema, LoginValuesType } from "@/lib/validations";
 import { verify } from "@node-rs/argon2";
 import { getTranslations } from "next-intl/server";

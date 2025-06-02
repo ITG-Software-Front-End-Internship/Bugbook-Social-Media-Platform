@@ -1,9 +1,9 @@
 "use server";
 
 import { lucia } from "@/auth";
-import { errorsMessages, validationsMessages } from "@/lib/constants";
 import prisma from "@/lib/prisma";
 import streamServerClient from "@/lib/stream";
+import { errorsMessages, validationsMessages } from "@/lib/translationKeys";
 import { getSignUpSchema, SignUpValuesType } from "@/lib/validations";
 import { hash } from "@node-rs/argon2";
 import { generateIdFromEntropySize } from "lucia";

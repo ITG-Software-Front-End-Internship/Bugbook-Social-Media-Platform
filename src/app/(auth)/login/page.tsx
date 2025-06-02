@@ -1,5 +1,5 @@
 import loginImage from "@/assets/login-image.jpg";
-import { loginPageTranslations } from "@/lib/constants";
+import { loginPageTranslations } from "@/lib/translationKeys";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";

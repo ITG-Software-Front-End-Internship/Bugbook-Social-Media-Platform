@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import React from "react";
 
 import signupImage from "@/assets/signup-image.jpg";
-import { signupPageTranslations } from "@/lib/constants";
+import { signupPageTranslations } from "@/lib/translationKeys";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";

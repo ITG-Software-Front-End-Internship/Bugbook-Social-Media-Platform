@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signupPageTranslations } from "@/lib/constants";
+import { signupPageTranslations } from "@/lib/translationKeys";
 import { useTranslations } from "next-intl";
 import useSignUpForm from "../hooks/useSignUpForm";
 

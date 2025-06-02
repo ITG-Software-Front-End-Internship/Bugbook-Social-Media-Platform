@@ -23,7 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { validationsMessages } from "@/lib/constants";
+import { validationsMessages } from "@/lib/translationKeys";
 import { UserData } from "@/lib/types";
 import {
   getUpdateUserProfileSchema,

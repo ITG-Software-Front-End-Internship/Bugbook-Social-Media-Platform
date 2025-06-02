@@ -1,4 +1,4 @@
-import { validationsMessages } from "@/lib/constants";
+import { validationsMessages } from "@/lib/translationKeys";
 import { getSignUpSchema, SignUpValuesType } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";

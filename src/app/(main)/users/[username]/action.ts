@@ -1,9 +1,9 @@
 "use server";
 
 import { cachedValidateRequest } from "@/auth";
-import { validationsMessages } from "@/lib/constants";
 import prisma from "@/lib/prisma";
 import streamServerClient from "@/lib/stream";
+import { validationsMessages } from "@/lib/translationKeys";
 import { getUserDataSelect } from "@/lib/types";
 import {
   getUpdateUserProfileSchema,
