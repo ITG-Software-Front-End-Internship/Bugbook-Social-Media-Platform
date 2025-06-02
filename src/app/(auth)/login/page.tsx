@@ -4,8 +4,8 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
+import LoginForm from "./components/LoginForm";
 import GoogleLoginButton from "./google/GoogleLoginButton";
-import LoginForm from "./LoginForm";
 
 export const metadata: Metadata = {
   title: "Login",
