@@ -9,7 +9,7 @@ export default function Home() {
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
         <PostEditor />
-        <Tabs defaultValue="for-you">
+        {/*<Tabs defaultValue="for-you">
           <TabsList>
             <TabsTrigger value="for-you">For you</TabsTrigger>
             <TabsTrigger value="following">Following</TabsTrigger>
@@ -20,9 +20,9 @@ export default function Home() {
           <TabsContent value="following">
             <FollowingFeed />
           </TabsContent>
-        </Tabs>
+        </Tabs>*/}
       </div>
-      <TrendsSidebar />
+      {/*  <TrendsSidebar />*/}
     </main>
   );
 }

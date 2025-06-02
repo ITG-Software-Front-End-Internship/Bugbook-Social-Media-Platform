@@ -82,6 +82,11 @@
       "error": "An error occurred while loading bookmarks"
     }
   },
+  "components": {
+    "postEditor": {
+      "placeholder": "What's going on?"
+    }
+  },
   "errors": {
     "general": "Something went wrong. Please try again."
   }

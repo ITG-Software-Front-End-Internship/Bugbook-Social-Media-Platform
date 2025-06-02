@@ -1,5 +1,5 @@
 import { useUploadThing } from "@/lib/uploadthing";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 
 const MAX_FILES_NUMBER = 5;
@@ -13,7 +13,6 @@ export interface Attachment {
 export default function useMediaUpload() {
   // attachmentes which we will show on UI
   const [attachments, setAttachments] = useState<Attachment[]>([]);
-
   const [uploadProgress, setUploadProgress] = useState<number>();
 
   const { startUpload, isUploading } = useUploadThing("attachments", {
@@ -104,24 +103,28 @@ export default function useMediaUpload() {
    * if i select 3 files i have to wait untill all 3 files are uploaded before adding more files
    */
 
-  function handleStartUpload(files: File[]) {
-    if (isUploading) {
-      toast.error("Upload failed", {
-        description: "Upload faild. Please wait the current uploads to finish.",
-      });
-      return;
-    }
-    /** Frontend validation */
-    if (attachments.length + files.length > MAX_FILES_NUMBER) {
-      toast.error("Upload failed", {
-        description:
-          "Upload faild. You can only upload up to 5 attachments per post.",
-      });
-      return;
-    }
+  const handleStartUpload = useCallback(
+    (files: File[]) => {
+      if (isUploading) {
+        toast.error("Upload failed", {
+          description:
+            "Upload faild. Please wait the current uploads to finish.",
+        });
+        return;
+      }
+      /** Frontend validation */
+      if (attachments.length + files.length > MAX_FILES_NUMBER) {
+        toast.error("Upload failed", {
+          description:
+            "Upload faild. You can only upload up to 5 attachments per post.",
+        });
+        return;
+      }
 
-    startUpload(files);
-  }
+      startUpload(files);
+    },
+    [attachments.length, isUploading, startUpload],
+  );
 
   function removeAttachment(fileName: string) {
     setAttachments((prev) =>

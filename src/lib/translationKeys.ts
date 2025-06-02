@@ -79,3 +79,9 @@ export const bookmarksPageTranslations = {
     error: "bookmarks_page.queryStatues.error",
   },
 } as const;
+
+export const componentTranslations = {
+  postEditor: {
+    placeholder: "components.postEditor.placeholder",
+  },
+};

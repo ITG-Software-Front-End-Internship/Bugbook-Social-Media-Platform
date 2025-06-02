@@ -1,6 +1,7 @@
 import avatarPlaceHolder from "@/assets/avatar-placeholder.png";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { memo } from "react";
 
 interface UserAvatarProps {
   avatarUrl?: string | null | undefined;
@@ -8,11 +9,9 @@ interface UserAvatarProps {
   className?: string;
 }
 
-export default function UserAvatar({
-  avatarUrl,
-  size,
-  className,
-}: UserAvatarProps) {
+function UserAvatar({ avatarUrl, size, className }: UserAvatarProps) {
+  console.log(`UserAvatar render ...`);
+
   const DEFAULT_USER_AVATAR_SIZE = 48;
   return (
     <Image
@@ -28,3 +27,5 @@ export default function UserAvatar({
     />
   );
 }
+
+export default memo(UserAvatar);
