@@ -3,15 +3,13 @@
 import InfiniteScrollContainer from "@/components/customComponents/InfiniteScrollContainer";
 import Post from "@/components/posts/Post";
 import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
-import kyInstance from "@/lib/ky";
-import { PostsPage } from "@/lib/types";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { bookmarksPageTranslations } from "@/lib/translationKeys";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import useInfiniteBookmarkedPosts from "./hooks/useInfiniteBookmarkedPosts";
 
 export default function Bookmarks() {
-  console.log(`Bookmarks `);
-
+  const t = useTranslations();
   const {
     data,
     hasNextPage,
@@ -26,17 +24,19 @@ export default function Bookmarks() {
     return <PostsLoadingSkeleton />;
   }
 
-  if (status === "success" && !posts.length && !hasNextPage) {
+  const noMorePosts: boolean = !posts.length && !hasNextPage;
+
+  if (status === "success" && noMorePosts) {
     return (
       <p className="text-center text-muted-foreground">
-        You do not have any bookmarks yet.
+        {t(bookmarksPageTranslations.queryStatues.empty)}
       </p>
     );
   }
   if (status === "error") {
     return (
       <p className="text-center text-destructive">
-        An error occurred while loading bookmarks
+        {t(bookmarksPageTranslations.queryStatues.error)}
       </p>
     );
   }

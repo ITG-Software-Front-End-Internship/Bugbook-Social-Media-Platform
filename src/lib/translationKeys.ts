@@ -69,3 +69,10 @@ export const signupPageTranslations = {
     placeholder: "signup_page.password.placeholder",
   },
 } as const;
+
+export const bookmarksPageTranslations = {
+  queryStatues: {
+    empty: "bookmarks_page.queryStatues.empty",
+    error: "bookmarks_page.queryStatues.error",
+  },
+} as const;

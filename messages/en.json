@@ -73,6 +73,12 @@
       "placeholder": "********"
     }
   },
+  "bookmarks_page": {
+    "queryStatues": {
+      "empty": "You do not have any bookmarks yet.",
+      "error": "An error occurred while loading bookmarks"
+    }
+  },
   "errors": {
     "general": "Something went wrong. Please try again."
   }
