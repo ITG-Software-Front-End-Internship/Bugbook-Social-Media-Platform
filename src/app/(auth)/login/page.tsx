@@ -12,6 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
+  console.log("Login page render ...");
+
   const t = await getTranslations();
   console.log("t: ", t);
 
