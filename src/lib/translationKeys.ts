@@ -71,6 +71,9 @@ export const signupPageTranslations = {
 } as const;
 
 export const bookmarksPageTranslations = {
+  bookmarks: {
+    title: "bookmarks_page.bookmarks.title",
+  },
   queryStatues: {
     empty: "bookmarks_page.queryStatues.empty",
     error: "bookmarks_page.queryStatues.error",

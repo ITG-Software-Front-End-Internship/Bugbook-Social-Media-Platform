@@ -73,6 +73,9 @@
     }
   },
   "bookmarks_page": {
+    "bookmarks": {
+      "title": "المفضلات"
+    },
     "queryStatues": {
       "empty": "لم تضف أي مفضلات حتى الآن.",
       "error": "حدث خطأ اثناء تحميل المفضلات"

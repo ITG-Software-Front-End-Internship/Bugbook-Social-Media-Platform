@@ -74,6 +74,9 @@
     }
   },
   "bookmarks_page": {
+    "bookmarks": {
+      "title": "Bookmarks"
+    },
     "queryStatues": {
       "empty": "You do not have any bookmarks yet.",
       "error": "An error occurred while loading bookmarks"
