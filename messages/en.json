@@ -82,10 +82,13 @@
       "error": "An error occurred while loading bookmarks"
     }
   },
-  "components": {
-    "postEditor": {
-      "placeholder": "What's going on?",
-      "post": "Post"
+  "postEditor": {
+    "placeholder": "What's going on?",
+    "post": "Post",
+    "postCreate": {
+      "message": "Post created!",
+      "success": "Post created successfully!",
+      "failed": "An error occurred during creation of post"
     }
   },
   "errors": {

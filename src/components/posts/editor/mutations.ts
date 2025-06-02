@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import { useSession } from "@/app/(main)/SessionProvider";
 import { PostsPage } from "@/lib/types";
@@ -30,10 +30,10 @@ export function useSubmitFormMutation() {
         },
       } satisfies QueryFilters;
 
-      /** Cancel any running queries */
-      await queryClient.cancelQueries(queryFilters);
+      /** Cancel any running queries 
+await queryClient.cancelQueries(queryFilters);
 
-      /** Now mutate the cache */
+/** Now mutate the cache 
       /**
           Take each posts and update user information in this post
           
@@ -51,7 +51,7 @@ export function useSubmitFormMutation() {
 
           nextCursor : A value returned by API for the next page.
           pageParams: A value passed to the API to get a page	
-           */
+           
 
       type CursorPageParamsType = string | null;
       queryClient.setQueriesData<InfiniteData<PostsPage, CursorPageParamsType>>(
@@ -60,9 +60,7 @@ export function useSubmitFormMutation() {
           const firstPage = oldData?.pages[0];
 
           if (firstPage) {
-            /**
-             * If this is the case we want to put this new post into this first page
-             */
+         
 
             return {
               pageParams: oldData.pageParams,
@@ -78,11 +76,7 @@ export function useSubmitFormMutation() {
         },
       );
 
-      /* 
-       In the case of we cancel the query before 1st page has loaded
-       We need to invalidate the nulll (canceling one) and loaded
-       This could happen if we make a new post before the first page has loaded
-      */
+ 
       queryClient.invalidateQueries({
         queryKey: queryFilters.queryKey,
         predicate(query) {
@@ -105,3 +99,4 @@ export function useSubmitFormMutation() {
 
   return mutation;
 }
+*/

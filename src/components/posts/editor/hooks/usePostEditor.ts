@@ -1,4 +1,4 @@
-import { componentTranslations } from "@/lib/translationKeys";
+import { postEditorTranslations } from "@/lib/translationKeys";
 import Placeholder from "@tiptap/extension-placeholder";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -14,7 +14,7 @@ export default function usePostEditor() {
         italic: false,
       }),
       Placeholder.configure({
-        placeholder: t(componentTranslations.postEditor.placeholder),
+        placeholder: t(postEditorTranslations.placeholder),
       }),
     ],
     immediatelyRender: false,

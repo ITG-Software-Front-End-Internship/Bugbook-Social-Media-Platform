@@ -1,0 +1,32 @@
+ /** Now mutate the cache */
+
+  /**
+          Take each posts and update user information in this post
+          
+          inifinite loading return type
+          {
+            pageParams: any , note : "cursor ....",
+            pages: Pages[]
+          }
+
+          pages type : 
+          {
+            nextCursor: any (id of next page if it exist),
+            posts : Post[]
+          }
+
+          nextCursor : A value returned by API for the next page.
+          pageParams: A value passed to the API to get a page	
+           */
+
+
+
+
+
+
+ 
+  /* 
+       In the case of we cancel the query before 1st page has loaded
+       We need to invalidate the nulll (canceling one) and loaded
+       This could happen if we make a new post before the first page has loaded
+      */

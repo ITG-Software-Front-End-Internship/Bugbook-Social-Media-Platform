@@ -1,4 +1,3 @@
-import { useLocaleSettings } from "@/hooks/useLocaleSettings";
 import { cn } from "@/lib/utils";
 import { Editor, EditorContent } from "@tiptap/react";
 import { memo } from "react";

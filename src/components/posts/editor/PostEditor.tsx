@@ -4,7 +4,7 @@ import { useSession } from "@/app/(main)/SessionProvider";
 import LoadingButton from "@/components/customComponents/LoadingButton";
 import UserAvatar from "@/components/customComponents/UserAvatar";
 import { MAX_ATTACHMENT_NUMBER } from "@/lib/constants";
-import { componentTranslations } from "@/lib/translationKeys";
+import { postEditorTranslations } from "@/lib/translationKeys";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { memo, useEffect } from "react";
@@ -14,14 +14,14 @@ import EditorLoadingSkeleton from "./components/EditorLoadingSkeleton";
 import PostEditorContent from "./components/PostEditorContent";
 import useMediaUpload from "./hooks/useMediaUpload";
 import usePostEditor from "./hooks/usePostEditor";
-import { useSubmitFormMutation } from "./mutations";
+import { useCreatePostMutation } from "./mutations/useCreatePostMutation";
 import "./styles.css";
 
 function PostEditor() {
   console.log(`post editor render ...`);
 
   const { user } = useSession();
-  const submitFormMutation = useSubmitFormMutation();
+  const submitFormMutation = useCreatePostMutation();
   const {
     startUpload,
     attachments,
@@ -93,7 +93,7 @@ function PostEditor() {
           disabled={!postText.trim()}
           className="min-w-20 select-none"
         >
-          {t(componentTranslations.postEditor.post)}
+          {t(postEditorTranslations.post)}
         </LoadingButton>
       </div>
     </div>

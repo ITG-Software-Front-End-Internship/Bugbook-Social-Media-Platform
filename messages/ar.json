@@ -81,10 +81,13 @@
       "error": "حدث خطأ اثناء تحميل المفضلات"
     }
   },
-  "components": {
-    "postEditor": {
-      "placeholder": "بماذا تفكر ؟",
-      "post": "نشر"
+  "postEditor": {
+    "placeholder": "بماذا تفكر ؟",
+    "post": "نشر",
+    "postCreate": {
+      "message": "تم نشر المنشور",
+      "success": "تم نشر المنشور بنجاح",
+      "failed": "حدث خطأ اثناء نشر المنشور، يرجى المحاولة لاحقاً"
     }
   },
   "errors": {

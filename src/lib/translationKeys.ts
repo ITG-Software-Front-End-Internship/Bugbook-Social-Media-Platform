@@ -87,9 +87,12 @@ export const bookmarksPageTranslations = {
   },
 } as const;
 
-export const componentTranslations = {
-  postEditor: {
-    placeholder: "components.postEditor.placeholder",
-    post: "components.postEditor.post",
+export const postEditorTranslations = {
+  placeholder: "postEditor.placeholder",
+  post: "postEditor.post",
+  postCreate: {
+    message: "postEditor.post.postCreate.message",
+    success: "postEditor.post.postCreate.success",
+    failed: "postEditor.post.postCreate.failed",
   },
 };

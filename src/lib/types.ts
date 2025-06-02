@@ -1,4 +1,5 @@
 import { Prisma } from "@/generated/prisma";
+import { InfiniteData } from "@tanstack/react-query";
 
 export function getUserDataSelect(loggedInUserId: string) {
   return {
@@ -72,6 +73,12 @@ export interface PostsPage {
   posts: PostData[];
   nextCursor: string | null;
 }
+type CursorPageParamsType = string | null;
+
+export type InfinitePostsPageData = InfiniteData<
+  PostsPage,
+  CursorPageParamsType
+>;
 
 export function getCommentDataInclude(loggedInUserId: string) {
   return {
