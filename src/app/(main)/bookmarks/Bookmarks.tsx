@@ -7,35 +7,18 @@ import kyInstance from "@/lib/ky";
 import { PostsPage } from "@/lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
+import useInfiniteBookmarkedPosts from "./hooks/useInfiniteBookmarkedPosts";
 
 export default function Bookmarks() {
-  /**
-   * Notes: 
-    * For intial page we dont have an initialPage so we put it as null, 
-    and it should be as string infer or null 
-    so we add string | null to help typescript determine the type of pageParam in queryFn.
-   */
+  console.log(`Bookmarks `);
+
   const {
     data,
-    fetchNextPage,
     hasNextPage,
-    isFetching,
     isFetchingNextPage,
     status,
-  } = useInfiniteQuery({
-    queryKey: ["post-feed", "bookmarks"],
-    queryFn: ({ pageParam }) =>
-      kyInstance
-        .get(
-          "/api/posts/bookmarked",
-          pageParam ? { searchParams: { cursor: pageParam } } : {},
-        )
-        .json<PostsPage>(),
-    initialPageParam: null as string | null,
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
-  });
-
-  /** TODO: we can later apply optimistic mutations, useMutate... */
+    handleOnBottomReached,
+  } = useInfiniteBookmarkedPosts();
 
   const posts = data?.pages.flatMap((page) => page.posts) || [];
 
@@ -56,12 +39,6 @@ export default function Bookmarks() {
         An error occurred while loading bookmarks
       </p>
     );
-  }
-
-  function handleOnBottomReached() {
-    if (hasNextPage && !isFetching) {
-      fetchNextPage();
-    }
   }
 
   return (
