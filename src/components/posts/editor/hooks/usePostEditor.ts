@@ -18,7 +18,7 @@ export default function usePostEditor() {
       }),
     ],
     immediatelyRender: false,
-    shouldRerenderOnTransaction: false,
+    shouldRerenderOnTransaction: true,
   });
 
   const input =

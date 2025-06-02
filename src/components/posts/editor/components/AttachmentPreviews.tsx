@@ -1,13 +1,14 @@
 import { cn } from "@/lib/utils";
+import { memo, useCallback, useEffect } from "react";
 import { Attachment } from "../hooks/useMediaUpload";
-import { AttachmentPreview } from "./AttachmentPreview";
+import AttachmentPreview from "./AttachmentPreview";
 
 interface AttachmentPreviewsProps {
   attachments: Attachment[];
   removeAttachment: (fileName: string) => void;
 }
 
-export function AttachmentPreviews({
+function AttachmentPreviews({
   attachments,
   removeAttachment,
 }: AttachmentPreviewsProps) {
@@ -16,6 +17,15 @@ export function AttachmentPreviews({
   /** If there is one attachment we wannt show them bellow each other
    * more than one attachment we want to create a grid  with 2 columns
    */
+
+  useEffect(() => {
+    console.log("attachments instance changed:", attachments);
+  }, [attachments]);
+
+  useEffect(() => {
+    console.log("removeAttachment instance changed:", removeAttachment);
+  }, [removeAttachment]);
+
   return (
     <div
       className={cn(
@@ -28,12 +38,12 @@ export function AttachmentPreviews({
           <AttachmentPreview
             key={attachment.file.name}
             attachment={attachment}
-            onRemoveClick={() => {
-              removeAttachment(attachment.file.name);
-            }}
+            onRemoveClick={removeAttachment}
           />
         );
       })}
     </div>
   );
 }
+
+export default memo(AttachmentPreviews);

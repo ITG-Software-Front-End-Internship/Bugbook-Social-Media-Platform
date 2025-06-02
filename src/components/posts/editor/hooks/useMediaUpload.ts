@@ -1,7 +1,7 @@
 import { errorsMessages } from "@/lib/translationKeys";
 import { useUploadThing } from "@/lib/uploadthing";
 import { useTranslations } from "next-intl";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { generateUniqueFileName } from "../helpers/helpers";
 
@@ -137,9 +137,13 @@ export default function useMediaUpload() {
     setUploadProgress(undefined);
   }, []);
 
+  const memoizedAttachments = useMemo(() => {
+    return attachments;
+  }, [attachments]);
+
   return {
     startUpload: handleStartUpload,
-    attachments,
+    attachments: memoizedAttachments,
     isUploading,
     uploadProgress,
     removeAttachment,

@@ -3,12 +3,13 @@
 import { useSession } from "@/app/(main)/SessionProvider";
 import LoadingButton from "@/components/customComponents/LoadingButton";
 import UserAvatar from "@/components/customComponents/UserAvatar";
+import { MAX_ATTACHMENT_NUMBER } from "@/lib/constants";
 import { componentTranslations } from "@/lib/translationKeys";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { memo, useEffect } from "react";
 import AddAttachmentButton from "./components/AddAttachmentButton";
-import { AttachmentPreviews } from "./components/AttachmentPreviews";
+import AttachmentPreviews from "./components/AttachmentPreviews";
 import EditorLoadingSkeleton from "./components/EditorLoadingSkeleton";
 import PostEditorContent from "./components/PostEditorContent";
 import useMediaUpload from "./hooks/useMediaUpload";
@@ -17,6 +18,8 @@ import { useSubmitFormMutation } from "./mutations";
 import "./styles.css";
 
 function PostEditor() {
+  console.log(`post editor render ...`);
+
   const { user } = useSession();
   const submitFormMutation = useSubmitFormMutation();
   const {
@@ -27,7 +30,7 @@ function PostEditor() {
     removeAttachment,
     reset: resetMediaUploads,
   } = useMediaUpload();
-  const { editor: postEditor, input } = usePostEditor();
+  const { editor: postEditor, input: postText } = usePostEditor();
   const t = useTranslations();
 
   useEffect(() => {
@@ -45,7 +48,7 @@ function PostEditor() {
 
     submitFormMutation.mutate(
       {
-        content: input,
+        content: postText,
         mediaIds: mediaIds,
       },
       {
@@ -82,12 +85,12 @@ function PostEditor() {
         )}
         <AddAttachmentButton
           onFilesSelected={startUpload}
-          disabled={isUploading || attachments.length >= 5}
+          disabled={isUploading || attachments.length >= MAX_ATTACHMENT_NUMBER}
         />
         <LoadingButton
           isLoading={submitFormMutation.isPending}
           onClick={onSubmit || isUploading}
-          disabled={!input.trim()}
+          disabled={!postText.trim()}
           className="min-w-20 select-none"
         >
           {t(componentTranslations.postEditor.post)}

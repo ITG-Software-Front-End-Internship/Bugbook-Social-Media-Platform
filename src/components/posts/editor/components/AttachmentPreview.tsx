@@ -1,18 +1,25 @@
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import Image from "next/image";
+import { memo, useEffect } from "react";
 import { Attachment } from "../hooks/useMediaUpload";
 
 interface AttachmentPreviewProps {
   attachment: Attachment;
-  onRemoveClick: () => void;
+  onRemoveClick: (fileName: string) => void;
 }
 
-export function AttachmentPreview({
+function AttachmentPreview({
   attachment: { file, isUploading },
   onRemoveClick,
 }: AttachmentPreviewProps) {
+  console.log(`AttachmentPreview render ... `, AttachmentPreview);
+
   const src = URL.createObjectURL(file);
+
+  useEffect(() => {
+    console.log("attachment instance changed:", file, isUploading);
+  }, [file, isUploading]);
 
   return (
     <div
@@ -40,7 +47,7 @@ export function AttachmentPreview({
             <X
               size={25}
               className="absolute right-3 top-3 rounded-full bg-foreground p-1.5 text-background transition-colors hover:bg-foreground/60"
-              onClick={onRemoveClick}
+              onClick={() => onRemoveClick(file.name)}
             />
           </button>
         </>
@@ -48,3 +55,5 @@ export function AttachmentPreview({
     </div>
   );
 }
+
+export default memo(AttachmentPreview);

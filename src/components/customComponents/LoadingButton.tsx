@@ -19,6 +19,8 @@ function LoadingButton({
   disabled,
   ...props
 }: LoadingButtonProps & LoadingButtonVariantsProps) {
+  console.log(`Loading button render ...`);
+
   return (
     <Button
       disabled={isLoading || disabled}
