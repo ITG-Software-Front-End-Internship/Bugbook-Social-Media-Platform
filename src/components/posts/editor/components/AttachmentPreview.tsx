@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import Image from "next/image";
-import { Attachment } from "../useMediaUpload";
+import { Attachment } from "../hooks/useMediaUpload";
 
 interface AttachmentPreviewProps {
   attachment: Attachment;

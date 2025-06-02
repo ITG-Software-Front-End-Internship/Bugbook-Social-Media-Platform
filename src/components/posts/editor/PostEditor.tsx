@@ -3,16 +3,20 @@
 import { useSession } from "@/app/(main)/SessionProvider";
 import LoadingButton from "@/components/customComponents/LoadingButton";
 import UserAvatar from "@/components/customComponents/UserAvatar";
+import { componentTranslations } from "@/lib/translationKeys";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { memo, useEffect } from "react";
 import AddAttachmentButton from "./components/AddAttachmentButton";
 import { AttachmentPreviews } from "./components/AttachmentPreviews";
+import EditorLoadingSkeleton from "./components/EditorLoadingSkeleton";
 import PostEditorContent from "./components/PostEditorContent";
+import useMediaUpload from "./hooks/useMediaUpload";
 import usePostEditor from "./hooks/usePostEditor";
 import { useSubmitFormMutation } from "./mutations";
 import "./styles.css";
-import useMediaUpload from "./useMediaUpload";
 
-export default function PostEditor() {
+function PostEditor() {
   const { user } = useSession();
   const submitFormMutation = useSubmitFormMutation();
   const {
@@ -24,14 +28,25 @@ export default function PostEditor() {
     reset: resetMediaUploads,
   } = useMediaUpload();
   const { editor: postEditor, input } = usePostEditor();
+  const t = useTranslations();
+
+  useEffect(() => {
+    console.log("Editor instance changed:", postEditor);
+  }, [postEditor]);
+
+  useEffect(() => {
+    console.log("startUpload instance changed:", startUpload);
+  }, [startUpload]);
 
   async function onSubmit() {
+    const mediaIds: string[] = attachments
+      .map((attachment) => attachment.mediaId)
+      .filter(Boolean) as string[];
+
     submitFormMutation.mutate(
       {
         content: input,
-        mediaIds: attachments
-          .map((attachment) => attachment.mediaId)
-          .filter(Boolean) as string[],
+        mediaIds: mediaIds,
       },
       {
         onSuccess: () => {
@@ -46,7 +61,11 @@ export default function PostEditor() {
     <div className="flex flex-col gap-5 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex items-center gap-5">
         <UserAvatar avatarUrl={user.avatarUrl} className="hidden sm:inline" />
-        <PostEditorContent editor={postEditor} startUpload={startUpload} />
+        {postEditor ? (
+          <PostEditorContent editor={postEditor} startUpload={startUpload} />
+        ) : (
+          <EditorLoadingSkeleton />
+        )}
       </div>
       {!!attachments.length && (
         <AttachmentPreviews
@@ -71,9 +90,11 @@ export default function PostEditor() {
           disabled={!input.trim()}
           className="min-w-20 select-none"
         >
-          Post
+          {t(componentTranslations.postEditor.post)}
         </LoadingButton>
       </div>
     </div>
   );
 }
+
+export default memo(PostEditor);

@@ -18,6 +18,7 @@ export default function usePostEditor() {
       }),
     ],
     immediatelyRender: false,
+    shouldRerenderOnTransaction: false,
   });
 
   const input =

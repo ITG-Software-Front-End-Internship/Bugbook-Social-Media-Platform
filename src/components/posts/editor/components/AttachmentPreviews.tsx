@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Attachment } from "../useMediaUpload";
+import { Attachment } from "../hooks/useMediaUpload";
 import { AttachmentPreview } from "./AttachmentPreview";
 
 interface AttachmentPreviewsProps {

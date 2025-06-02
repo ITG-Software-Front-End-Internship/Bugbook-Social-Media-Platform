@@ -1,5 +1,5 @@
 import { useDropzone } from "@uploadthing/react";
-import { ClipboardEvent } from "react";
+import { ClipboardEvent, useCallback, useMemo } from "react";
 
 export default function usePostEditorDropzone(
   startUpload: (files: File[]) => void,
@@ -9,17 +9,20 @@ export default function usePostEditorDropzone(
   });
   const { onClick, ...rootProps } = getRootProps();
 
-  function onPaste(e: ClipboardEvent<HTMLInputElement>) {
-    const clipboardDataArray = Array.from(e.clipboardData.items);
-    const clipboardDataFiles = clipboardDataArray.filter((item) => {
-      const isFile: boolean = item.kind === "file";
-      return isFile;
-    });
-    const clipboardDataFilesObjects = clipboardDataFiles.map(
-      (item) => item.getAsFile() as File,
-    ) as File[];
-    startUpload(clipboardDataFilesObjects);
-  }
+  const onPaste = useCallback(
+    (e: ClipboardEvent<HTMLInputElement>) => {
+      const clipboardDataArray = Array.from(e.clipboardData.items);
+      const clipboardDataFiles = clipboardDataArray.filter((item) => {
+        const isFile: boolean = item.kind === "file";
+        return isFile;
+      });
+      const clipboardDataFilesObjects = clipboardDataFiles.map(
+        (item) => item.getAsFile() as File,
+      ) as File[];
+      startUpload(clipboardDataFilesObjects);
+    },
+    [startUpload],
+  );
 
   return {
     getRootProps,

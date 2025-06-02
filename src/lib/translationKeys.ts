@@ -25,6 +25,13 @@ export const validationsMessages = {
 
 export const errorsMessages = {
   general: "errors.general",
+  files: {
+    upload: {
+      failed: "errors.files.upload.failed",
+      wait: "errors.files.upload.wait",
+      maxLimit: "errors.files.upload.maxLimit",
+    },
+  },
 } as const;
 
 export const loginPageTranslations = {
@@ -83,5 +90,6 @@ export const bookmarksPageTranslations = {
 export const componentTranslations = {
   postEditor: {
     placeholder: "components.postEditor.placeholder",
+    post: "components.postEditor.post",
   },
 };

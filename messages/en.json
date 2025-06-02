@@ -84,10 +84,18 @@
   },
   "components": {
     "postEditor": {
-      "placeholder": "What's going on?"
+      "placeholder": "What's going on?",
+      "post": "Post"
     }
   },
   "errors": {
-    "general": "Something went wrong. Please try again."
+    "general": "Something went wrong. Please try again.",
+    "files": {
+      "upload": {
+        "failed": "Failed to upload files",
+        "wait": "Upload faild. Please wait the current uploads to finish.",
+        "maxLimit": "Upload faild. You can only upload up to 5 attachments per post."
+      }
+    }
   }
 }
