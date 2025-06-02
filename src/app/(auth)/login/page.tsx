@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const t = await getTranslations();
+  console.log("t: ", t);
 
   return (
     <main className="flex h-screen items-center justify-center p-5">
