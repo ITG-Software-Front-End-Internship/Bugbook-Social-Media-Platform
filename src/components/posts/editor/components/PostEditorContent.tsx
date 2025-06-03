@@ -19,7 +19,7 @@ function PostEditorContent({ editor, startUpload }: PostEditorContentProps) {
       <EditorContent
         editor={editor}
         className={cn(
-          "max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5 py-3",
+          "max-h-[20rem] min-w-full max-w-[32.0rem] overflow-y-auto whitespace-pre-line break-words rounded-2xl bg-background px-5 py-3",
           isDragActive && "outline-dashed",
         )}
         onPaste={onPaste}

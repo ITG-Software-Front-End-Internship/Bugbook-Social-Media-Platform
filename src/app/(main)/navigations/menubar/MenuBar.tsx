@@ -15,6 +15,8 @@ interface MenuBarProps {
 }
 
 export default async function MenuBar({ className }: MenuBarProps) {
+  console.log(`Menu bar render ...`);
+
   const t = await getTranslations();
   const { user: loggedInUser } = await cachedValidateRequest();
 
