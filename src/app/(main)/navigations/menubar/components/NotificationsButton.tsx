@@ -4,7 +4,7 @@ import { menuBarTranslations } from "@/lib/translationKeys";
 import { NotificationCountInfo } from "@/lib/types";
 import { Bell } from "lucide-react";
 import { useTranslations } from "next-intl";
-import useFetchUnreadNotificationCount from "../hooks/useFetchUnreadNotificationCount";
+import { useFetchUnreadNotificationsCount } from "../hooks/useFetchUnreadNotificationsCount";
 import MenubarButton from "./MenubarButton";
 
 interface NotificationsButtonProps {
@@ -19,7 +19,7 @@ export default function NotificationsButton({
 
   const {
     data: { unreadCount: unreadNotificationsCount },
-  } = useFetchUnreadNotificationCount({ initialState });
+  } = useFetchUnreadNotificationsCount({ initialState });
 
   return (
     <MenubarButton

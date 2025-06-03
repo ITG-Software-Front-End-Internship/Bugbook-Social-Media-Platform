@@ -6,8 +6,8 @@ import { Bookmark, Home } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { getUnreadMessagesCount } from "../../../services/getUnreadMessagesCount";
 import { getUnreadNotificationsCount } from "../../../services/getUnreadNotificationsCount";
-import MessagesButton from "./MessagesButton";
 import MenubarButton from "./components/MenubarButton";
+import MessagesButton from "./components/MessagesButton";
 import NotificationsButton from "./components/NotificationsButton";
 
 interface MenuBarProps {

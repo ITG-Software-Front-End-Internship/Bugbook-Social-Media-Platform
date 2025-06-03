@@ -1,5 +1,6 @@
-export const QUERY_KEYS: { [key: string]: Array<string> } = {
+export const QUERY_KEYS = {
   postFeed: ["post-feed"],
   bookmarkedPosts: ["post-feed", "bookmarks"],
-  unreadNotificationCount: ["unread-notification-count"],
-};
+  unreadNotificationsCount: ["unread-notification-count"],
+  unreadMessagesCount: ["unread-messages-count"],
+} as const;
