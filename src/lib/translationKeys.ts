@@ -101,3 +101,9 @@ export const postEditorTranslations = {
     },
   },
 } as const;
+
+export const headerTranslations = {
+  searchField: {
+    placeholder: "header.searchField.placeholder",
+  },
+} as const;

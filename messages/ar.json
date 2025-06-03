@@ -23,6 +23,11 @@
       "maxLength": "لا يمكن إرفاق أكثر من 5 ملفات"
     }
   },
+  "header": {
+    "searchField": {
+      "placeholder": "بحث ..."
+    }
+  },
   "login_page": {
     "login": {
       "bugbook": {

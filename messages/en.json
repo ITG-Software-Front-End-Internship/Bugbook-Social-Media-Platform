@@ -1,5 +1,4 @@
 {
-  "direction": "rtl",
   "validations": {
     "required": "Required",
     "email": {
@@ -22,6 +21,11 @@
     },
     "attachments": {
       "maxLength": "Cannot have more than 5 attachments"
+    }
+  },
+  "header": {
+    "searchField": {
+      "placeholder": "Search ..."
     }
   },
   "login_page": {
