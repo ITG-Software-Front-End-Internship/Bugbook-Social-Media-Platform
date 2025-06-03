@@ -7,7 +7,7 @@ import { MAX_ATTACHMENT_NUMBER } from "@/lib/constants";
 import { postEditorTranslations } from "@/lib/translationKeys";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { memo, useEffect } from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 import AddAttachmentButton from "./components/AddAttachmentButton";
 import AttachmentPreviews from "./components/AttachmentPreviews";
 import EditorLoadingSkeleton from "./components/EditorLoadingSkeleton";
@@ -20,8 +20,10 @@ import "./styles.css";
 function PostEditor() {
   console.log(`post editor render ...`);
 
+  const { editor: postEditor, input: postText } = usePostEditor();
+  const t = useTranslations();
   const { user } = useSession();
-  const submitFormMutation = useCreatePostMutation();
+  const { mutate: createPostMutate, isPending } = useCreatePostMutation();
   const {
     startUpload,
     attachments,
@@ -30,35 +32,39 @@ function PostEditor() {
     removeAttachment,
     reset: resetMediaUploads,
   } = useMediaUpload();
-  const { editor: postEditor, input: postText } = usePostEditor();
-  const t = useTranslations();
+
+  const postTextRef = useRef(postText);
 
   useEffect(() => {
-    console.log("Editor instance changed:", postEditor);
-  }, [postEditor]);
+    postTextRef.current = postText;
+  }, [postText]);
+
+  const commandsRef = useRef(postEditor?.commands);
 
   useEffect(() => {
-    console.log("startUpload instance changed:", startUpload);
-  }, [startUpload]);
+    commandsRef.current = postEditor?.commands;
+  }, [postEditor?.commands]);
 
-  async function onSubmit() {
+  const onPostSubmit = useCallback(async () => {
+    console.log(`onPostSubmit ...`);
+
     const mediaIds: string[] = attachments
       .map((attachment) => attachment.mediaId)
       .filter(Boolean) as string[];
 
-    submitFormMutation.mutate(
+    createPostMutate(
       {
-        content: postText,
+        content: postTextRef.current,
         mediaIds: mediaIds,
       },
       {
         onSuccess: () => {
-          postEditor?.commands.clearContent();
+          commandsRef.current?.clearContent();
           resetMediaUploads();
         },
       },
     );
-  }
+  }, [attachments, resetMediaUploads, createPostMutate]);
 
   return (
     <div className="flex flex-col gap-5 rounded-2xl bg-card p-5 shadow-sm">
@@ -88,9 +94,9 @@ function PostEditor() {
           disabled={isUploading || attachments.length >= MAX_ATTACHMENT_NUMBER}
         />
         <LoadingButton
-          isLoading={submitFormMutation.isPending}
-          onClick={onSubmit || isUploading}
-          disabled={!postText.trim()}
+          isLoading={isPending}
+          onClick={onPostSubmit || isUploading}
+          disabled={!postTextRef.current.trim()}
           className="min-w-20 select-none"
         >
           {t(postEditorTranslations.post)}

@@ -91,8 +91,13 @@ export const postEditorTranslations = {
   placeholder: "postEditor.placeholder",
   post: "postEditor.post",
   postCreate: {
-    message: "postEditor.post.postCreate.message",
-    success: "postEditor.post.postCreate.success",
-    failed: "postEditor.post.postCreate.failed",
+    success: {
+      title: "postEditor.postCreate.success.title",
+      description: "postEditor.postCreate.success.description",
+    },
+    failed: {
+      title: "postEditor.postCreate.failed.title",
+      description: "postEditor.postCreate.failed.description",
+    },
   },
-};
+} as const;

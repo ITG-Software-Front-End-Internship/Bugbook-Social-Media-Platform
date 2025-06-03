@@ -1,9 +1,16 @@
-import Error from "next/error";
 import { toast } from "sonner";
 
-export const onErrorCreatePostMutation = (error: Error) => {
+interface OnErrorCreatePostMutationProps {
+  error: Error;
+  onErrorCreatePostMessages: { [key: string]: string };
+}
+
+export const onErrorCreatePostMutation = ({
+  error,
+  onErrorCreatePostMessages,
+}: OnErrorCreatePostMutationProps) => {
   console.error(error);
-  toast.error("Faild to post !", {
-    description: "Faild to post. Please try again",
+  toast.error(onErrorCreatePostMessages.title, {
+    description: onErrorCreatePostMessages.description,
   });
 };

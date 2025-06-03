@@ -2,6 +2,7 @@ import { QUERY_KEYS } from "@/lib/queryKeys";
 import { postEditorTranslations } from "@/lib/translationKeys";
 import { PostData, PostsPage } from "@/lib/types";
 import { InfiniteData, QueryClient, QueryFilters } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { toast } from "sonner";
 import { updatedCacheWithNewPost } from "./updatedCacheWithNewPost";
@@ -10,16 +11,16 @@ interface OnSuccessCreatePostMutationProps {
   userId: string;
   queryClient: QueryClient;
   newPost: PostData;
+  onSuccessCreatePostMessages: { [key: string]: string };
 }
 
 export const onSuccessCreatePostMutation = async ({
   queryClient,
   newPost,
   userId,
+  onSuccessCreatePostMessages,
 }: OnSuccessCreatePostMutationProps) => {
   /** New post is the new post returned from submitPost action */
-
-  const t = await getTranslations();
 
   const queryFilters = {
     queryKey: QUERY_KEYS.postFeed,
@@ -60,7 +61,7 @@ export const onSuccessCreatePostMutation = async ({
     },
   });
 
-  toast.success(t(postEditorTranslations.postCreate.message), {
-    description: t(postEditorTranslations.postCreate.message),
+  toast.success(onSuccessCreatePostMessages.title, {
+    description: onSuccessCreatePostMessages.description,
   });
 };

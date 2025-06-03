@@ -86,9 +86,14 @@
     "placeholder": "What's going on?",
     "post": "Post",
     "postCreate": {
-      "message": "Post created!",
-      "success": "Post created successfully!",
-      "failed": "An error occurred during creation of post"
+      "success": {
+        "title": "Post created!",
+        "description": "Post created successfully!"
+      },
+      "failed": {
+        "title": "Failed to create a post!",
+        "description": "An error occurred during creation of post"
+      }
     }
   },
   "errors": {
