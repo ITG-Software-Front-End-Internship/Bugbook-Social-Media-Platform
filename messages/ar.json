@@ -39,6 +39,12 @@
       "logout": "تسجيل الخروج"
     }
   },
+  "menubar": {
+    "home": "الرئيسية",
+    "bookmarks": "المفضلات",
+    "notifications": "الإشعارات",
+    "messages": "الرسائل"
+  },
   "login_page": {
     "login": {
       "bugbook": {

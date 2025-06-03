@@ -1,11 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import kyInstance from "@/lib/ky";
+import { menuBarTranslations } from "@/lib/translationKeys";
 import { MessageCountInfo } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import { Mail } from "lucide-react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import MenubarButton from "./components/MenubarButton";
 
 interface MessagesButtonProps {
   initialState: MessageCountInfo;
@@ -15,6 +16,8 @@ const MILISECONDS_IN_SECOND = 1000;
 const SECONDS_IN_MINUTE = 60;
 
 export default function MessagesButton({ initialState }: MessagesButtonProps) {
+  const t = useTranslations();
+
   const { data } = useQuery({
     queryKey: ["unread-messages-count"],
     queryFn: () =>
@@ -30,24 +33,13 @@ export default function MessagesButton({ initialState }: MessagesButtonProps) {
   });
 
   return (
-    <Button
-      variant="ghost"
-      className="flex items-center justify-start gap-3"
+    <MenubarButton
       title="Messages"
-      asChild
-    >
-      <Link href="/messages">
-        <div className="relative">
-          <Mail />
-          {!!data.unreadCount && (
-            <span className="absolute -right-1 -top-1 rounded-full bg-primary px-1 text-xs font-medium tabular-nums text-primary-foreground">
-              {" "}
-              {data.unreadCount}
-            </span>
-          )}
-        </div>
-        <span className="hidden lg:inline">Messages</span>
-      </Link>
-    </Button>
+      path="/messages"
+      MenubarIconButton={<Mail />}
+      menubarIconLabel={t(menuBarTranslations.messages)}
+      isBadge={true}
+      badgeCount={data.unreadCount}
+    />
   );
 }

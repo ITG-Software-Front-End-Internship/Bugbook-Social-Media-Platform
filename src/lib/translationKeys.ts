@@ -118,3 +118,10 @@ export const headerTranslations = {
     logout: "header.userButton.logout",
   },
 } as const;
+
+export const menuBarTranslations = {
+  home: "menubar.home",
+  bookmarks: "menubar.bookmarks",
+  notifications: "menubar.notifications",
+  messages: "menubar.messages",
+} as const;
