@@ -26,6 +26,17 @@
   "header": {
     "searchField": {
       "placeholder": "بحث ..."
+    },
+    "userButton": {
+      "loggedInAs": "تم تسجيل الدخول كـ",
+      "profile": "الملف الشخصي",
+      "theme": {
+        "title": "السمة",
+        "systemDefault": "سمة النظام",
+        "light": "السمة الفاتحة",
+        "dark": "السمة الغامقة"
+      },
+      "logout": "تسجيل الخروج"
     }
   },
   "login_page": {

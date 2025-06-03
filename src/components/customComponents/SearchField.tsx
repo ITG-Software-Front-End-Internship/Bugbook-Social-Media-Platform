@@ -10,6 +10,8 @@ import { useTranslations } from "use-intl";
 import { Input } from "../ui/input";
 
 export default function SearchField() {
+  console.log(`Search field ...`);
+
   const router = useRouter();
   const { direction } = useLocaleSettings();
   const t = useTranslations();

@@ -26,6 +26,17 @@
   "header": {
     "searchField": {
       "placeholder": "Search ..."
+    },
+    "userButton": {
+      "loggedInAs": "Logged in as",
+      "profile": "Profile",
+      "theme": {
+        "title": "Theme",
+        "systemDefault": "System default",
+        "light": "Light",
+        "dark": "Dark"
+      },
+      "logout": "Logout"
     }
   },
   "login_page": {

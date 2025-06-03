@@ -2,33 +2,37 @@
 
 import { logout } from "@/app/(auth)/logout/actions";
 import { useSession } from "@/app/(main)/SessionProvider";
+import { useLocaleSettings } from "@/hooks/useLocaleSettings";
+import { headerTranslations } from "@/lib/translationKeys";
 import { cn } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
-import { Check, LogOutIcon, Monitor, Moon, Sun, UserIcon } from "lucide-react";
-import { useTheme } from "next-themes";
+import { LogOutIcon, Monitor, UserIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuSub,
-  DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import UserAvatar from "./UserAvatar";
+import ThemeDropdownMenu from "./theme/ThemeDropdownMenu";
 
 interface UserButtonProps {
   className?: string;
 }
 
 export default function UserButton({ className }: UserButtonProps) {
+  console.log(`UserButton ...`);
+
   const { user } = useSession();
   const queryClient = useQueryClient();
-  const { theme, setTheme } = useTheme();
+  const t = useTranslations();
+  const { direction } = useLocaleSettings();
 
   const onLogoutPress = async () => {
     queryClient.clear();
@@ -36,7 +40,7 @@ export default function UserButton({ className }: UserButtonProps) {
   };
 
   return (
-    <DropdownMenu>
+    <DropdownMenu dir={direction}>
       <DropdownMenuTrigger asChild>
         <button
           className={cn("flex-none cursor-pointer rounded-full", className)}
@@ -45,43 +49,30 @@ export default function UserButton({ className }: UserButtonProps) {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>Logged in as @{user.username}</DropdownMenuLabel>
+        <DropdownMenuLabel className="unicode">
+          <bdi>
+            {t(headerTranslations.userButton.loggedInAs)} @{user.username}
+          </bdi>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <Link href={`/users/${user.username}`}>
           <DropdownMenuItem className="cursor-pointer">
             <UserIcon className="mr-2 size-4" />
-            Profile
+            {t(headerTranslations.userButton.profile)}
           </DropdownMenuItem>
         </Link>
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>
             <Monitor className="mr-2 size-4" />
-            Theme
+            &nbsp;&nbsp;
+            {t(headerTranslations.userButton.theme.title)}
           </DropdownMenuSubTrigger>
-          <DropdownMenuPortal>
-            <DropdownMenuSubContent>
-              <DropdownMenuItem onClick={() => setTheme("system")}>
-                <Monitor className="mr-2 size-4" />
-                System default
-                {theme === "default" && <Check className="ms-2 size-4" />}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("light")}>
-                <Sun className="mr-2 size-4" />
-                Light
-                {theme === "light" && <Check className="ms-2 size-4" />}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("dark")}>
-                <Moon className="mr-2 size-4" />
-                Dark
-                {theme === "dark" && <Check className="ms-2 size-4" />}
-              </DropdownMenuItem>
-            </DropdownMenuSubContent>
-          </DropdownMenuPortal>
+          <ThemeDropdownMenu />
         </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={onLogoutPress} className="cursor-pointer">
           <LogOutIcon className="mr-2 size-4" />
-          Logout
+          {t(headerTranslations.userButton.logout)}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

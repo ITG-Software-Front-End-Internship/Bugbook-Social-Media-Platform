@@ -1,6 +1,5 @@
 import { getLocaleSettings } from "@/hooks/useLocaleSettings";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
-import { Loader2 } from "lucide-react";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "next-themes";

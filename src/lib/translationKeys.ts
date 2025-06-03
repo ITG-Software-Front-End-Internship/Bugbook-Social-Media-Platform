@@ -106,4 +106,15 @@ export const headerTranslations = {
   searchField: {
     placeholder: "header.searchField.placeholder",
   },
+  userButton: {
+    loggedInAs: "header.userButton.loggedInAs",
+    profile: "header.userButton.profile",
+    theme: {
+      title: "header.userButton.theme.title",
+      systemDefault: "header.userButton.theme.systemDefault",
+      light: "header.userButton.theme.light",
+      dark: "header.userButton.theme.dark",
+    },
+    logout: "header.userButton.logout",
+  },
 } as const;
