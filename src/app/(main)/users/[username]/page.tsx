@@ -1,5 +1,5 @@
 import { cachedValidateRequest } from "@/auth";
-import TrendsSidebar from "@/components/customComponents/TrendsSidebar";
+import TrendsSidebar from "@/components/customComponents/TrendsSidebar/TrendsSidebar";
 import UserAvatar from "@/components/customComponents/UserAvatar";
 import FollowButton from "@/components/FollowButton";
 import Linkify from "@/components/Linkify";

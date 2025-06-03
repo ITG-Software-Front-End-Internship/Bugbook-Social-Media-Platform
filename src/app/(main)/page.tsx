@@ -1,4 +1,4 @@
-import TrendsSidebar from "@/components/customComponents/TrendsSidebar";
+import TrendsSidebar from "@/components/customComponents/TrendsSidebar/TrendsSidebar";
 import PostEditor from "@/components/posts/editor/PostEditor";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FollowingFeed from "./FollowingFeed";
@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
-        <PostEditor />
+        {/*<PostEditor />*/}
         {/*<Tabs defaultValue="for-you">
             <TabsList>
               <TabsTrigger value="for-you">For you</TabsTrigger>
@@ -22,7 +22,7 @@ export default function Home() {
             </TabsContent>
           </Tabs>*/}
       </div>
-      {/* <TrendsSidebar />*/}
+      {<TrendsSidebar />}
     </main>
   );
 }

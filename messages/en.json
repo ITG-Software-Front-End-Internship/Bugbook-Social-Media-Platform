@@ -126,5 +126,8 @@
         "maxLimit": "Upload faild. You can only upload up to 5 attachments per post."
       }
     }
+  },
+  "whoToFollow": {
+    "title": "Who to follow"
   }
 }

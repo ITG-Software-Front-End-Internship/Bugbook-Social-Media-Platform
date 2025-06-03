@@ -1,5 +1,5 @@
 import { cachedValidateRequest } from "@/auth";
-import TrendsSidebar from "@/components/customComponents/TrendsSidebar";
+import TrendsSidebar from "@/components/customComponents/TrendsSidebar/TrendsSidebar";
 import { Metadata } from "next";
 import SearchResults from "./SearchResults";
 

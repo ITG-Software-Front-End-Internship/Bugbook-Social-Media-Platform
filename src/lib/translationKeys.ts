@@ -125,3 +125,7 @@ export const menuBarTranslations = {
   notifications: "menubar.notifications",
   messages: "menubar.messages",
 } as const;
+
+export const whoToFollowSidebarTranslations = {
+  title: "whoToFollow.title",
+} as const;

@@ -1,4 +1,4 @@
-import TrendsSidebar from "@/components/customComponents/TrendsSidebar";
+import TrendsSidebar from "@/components/customComponents/TrendsSidebar/TrendsSidebar";
 import { bookmarksPageTranslations } from "@/lib/translationKeys";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
