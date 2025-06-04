@@ -23,7 +23,133 @@
       "maxLength": "Cannot have more than 5 attachments"
     }
   },
+  "header": {
+    "searchField": {
+      "placeholder": "Search ..."
+    },
+    "userButton": {
+      "loggedInAs": "Logged in as",
+      "profile": "Profile",
+      "theme": {
+        "title": "Theme",
+        "systemDefault": "System default",
+        "light": "Light",
+        "dark": "Dark"
+      },
+      "logout": "Logout"
+    }
+  },
+  "menubar": {
+    "home": "Home",
+    "bookmarks": "Bookmarks",
+    "notifications": "Notifications",
+    "messages": "Messages"
+  },
+  "login_page": {
+    "login": {
+      "bugbook": {
+        "title": "Login to bugbook"
+      },
+      "button": {
+        "label": "Login",
+        "googleLabel": "Sign in with google"
+      },
+      "account": {
+        "signup": "Don&apos;t have an account? Sign up",
+        "or": "OR"
+      }
+    },
+    "username": {
+      "label": "Username",
+      "placeholder": "Enter your username here"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "********"
+    }
+  },
+  "signup_page": {
+    "signup": {
+      "bugbook": {
+        "title": "Sign up to bugbook",
+        "subTitle": "A place where even <span class=\"italic\">you</span> can find friends"
+      },
+      "button": {
+        "label": "Create an account"
+      },
+      "account": {
+        "login": "Already have an account? Log in"
+      }
+    },
+    "username": {
+      "label": "Username",
+      "placeholder": "Enter your username here"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter your email here"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "********"
+    }
+  },
+  "bookmarks_page": {
+    "bookmarks": {
+      "title": "Bookmarks"
+    },
+    "queryStatues": {
+      "empty": "You do not have any bookmarks yet.",
+      "error": "An error occurred while loading bookmarks"
+    }
+  },
+  "postEditor": {
+    "placeholder": "What's going on?",
+    "post": "Post",
+    "postCreate": {
+      "success": {
+        "title": "Post created!",
+        "description": "Post created successfully!"
+      },
+      "failed": {
+        "title": "Failed to create a post!",
+        "description": "An error occurred during creation of post"
+      }
+    }
+  },
   "errors": {
-    "general": "Something went wrong. Please try again."
+    "general": {
+      "title": "Something went wrong.",
+      "description": "Something went wrong. Please try again."
+    },
+    "files": {
+      "upload": {
+        "failed": "Failed to upload files",
+        "wait": "Upload faild. Please wait the current uploads to finish.",
+        "maxLimit": "Upload faild. You can only upload up to 5 attachments per post."
+      }
+    }
+  },
+  "whoToFollow": {
+    "title": "Who to follow",
+    "follow": "Follow",
+    "unfollow": "Unfollow",
+    "generalError": "An error occurred while loading suggested users to follow",
+    "notFound": "There is No suggested users to follow currently."
+  },
+  "trendingTopics": {
+    "title": "Trending Topics",
+    "generalError": "An error occurred while loading trending topics",
+    "notFound": "There is No trending topics available now"
+  },
+  "forYouFeed": {
+    "noPosts": "No one has posted anything yet.",
+    "error": "An error occurred while loading posts"
+  },
+  "post": {
+    "footer": {
+      "likes": "Likes",
+      "comments": "Comments"
+    }
   }
 }

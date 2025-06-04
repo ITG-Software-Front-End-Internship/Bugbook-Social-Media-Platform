@@ -1,28 +1,12 @@
-export const validationsMessages = {
-  required: "validations.required",
-  email: {
-    invalid: "validations.email.invalid",
-    alreadyTaken: "validations.email.alreadyTaken",
-  },
-  userName: {
-    invalidChars: "validations.userName.invalidChars",
-    alreadyTaken: "validations.userName.alreadyTaken",
-    userDoseNotExist: "validations.userName.",
-  },
-  password: {
-    minLength: "validations.password.minLength",
-  },
-  credentials: {
-    invalid: "validations.credentials.invalid",
-  },
-  displayName: {
-    maxLength: "validations.displayName.maxLength",
-  },
-  attachments: {
-    maxLength: "validations.attachments.maxLength",
-  },
+export const API_ENDPOINTS = {
+  bookmarkedPosts: "/api/posts/bookmarked",
+  unreadNotificationsCount: "/api/notifications/unread-count",
+  unreadMessagesCount: "/api/messages/unread-count",
+  getUserFollowersEndpoint: (userId: string): string =>
+    `/api/users/${userId}/followers`,
+  forYouPostFeed: "/api/posts/for-you",
 } as const;
 
-export const errorsMessages = {
-  general: "errors.general",
-};
+export const MAX_ATTACHMENT_NUMBER = 5;
+export const MILISECONDS_IN_SECOND = 1000;
+export const SECONDS_IN_MINUTE = 60;

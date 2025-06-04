@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/dialog";
 import useDebounce from "@/hooks/useDebounce";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { error } from "console";
 import { Check, Loader2, SearchIcon, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";

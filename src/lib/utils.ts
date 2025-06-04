@@ -1,12 +1,13 @@
 import { clsx, type ClassValue } from "clsx";
 import { formatDate, formatDistanceToNow } from "date-fns";
+import { ar, enUS } from "date-fns/locale";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatRelativeDate(fromDate: Date) {
+export function formatRelativeDate(fromDate: Date, locale: "ar" | "en" = "en") {
   const currentDate = new Date();
 
   const HOURS_IN_DAY = 24;
@@ -23,17 +24,20 @@ export function formatRelativeDate(fromDate: Date) {
   const isPostedWithin24Hours =
     currentDate.getTime() - fromDate.getTime() < twentyFourHours;
 
+  const selectedLocale = locale === "ar" ? ar : enUS;
+
   if (isPostedWithin24Hours) {
     return formatDistanceToNow(fromDate, {
       addSuffix: true,
+      locale: selectedLocale,
     });
   } else {
     const isPostedWithinSameYear =
       currentDate.getFullYear() === fromDate.getFullYear();
     if (isPostedWithinSameYear) {
-      return formatDate(fromDate, "MMM d");
+      return formatDate(fromDate, "MMM d", { locale: selectedLocale });
     } else {
-      return formatDate(fromDate, "MMM d, yyyy");
+      return formatDate(fromDate, "MMM d, yyyy", { locale: selectedLocale });
     }
   }
 }

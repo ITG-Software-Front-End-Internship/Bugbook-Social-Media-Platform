@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { VariantProps } from "class-variance-authority";
 import { Loader2 } from "lucide-react";
-import React from "react";
+import { memo } from "react";
 import { Button, buttonVariants } from "../ui/button";
 
 type LoadingButtonVariantsProps = VariantProps<typeof buttonVariants>;
@@ -19,6 +19,8 @@ function LoadingButton({
   disabled,
   ...props
 }: LoadingButtonProps & LoadingButtonVariantsProps) {
+  console.log(`Loading button render ...`);
+
   return (
     <Button
       disabled={isLoading || disabled}
@@ -35,4 +37,4 @@ function LoadingButton({
   );
 }
 
-export default LoadingButton;
+export default memo(LoadingButton);

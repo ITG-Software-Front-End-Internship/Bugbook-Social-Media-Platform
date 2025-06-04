@@ -1,8 +1,8 @@
 "use server";
 
 import { cachedValidateRequest } from "@/auth";
-import { validationsMessages } from "@/lib/constants";
 import prisma from "@/lib/prisma";
+import { validationsMessages } from "@/lib/translationKeys";
 import { getCommentDataInclude, PostData } from "@/lib/types";
 import { getCreateCommentSchema } from "@/lib/validations";
 import { getTranslations } from "next-intl/server";

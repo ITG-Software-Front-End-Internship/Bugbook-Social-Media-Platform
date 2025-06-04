@@ -1,9 +1,9 @@
 import { cachedValidateRequest } from "@/auth";
+import FollowButton from "@/components/customComponents/TrendsSidebar/components/whoToFollow/components/FollowButton";
 import UserAvatar from "@/components/customComponents/UserAvatar";
-import FollowButton from "@/components/FollowButton";
 import Linkify from "@/components/Linkify";
 import Post from "@/components/posts/Post";
-import UserToolTip from "@/components/UserTooltip";
+import UserToolTip from "@/components/UserTooltip/UserTooltip";
 import prisma from "@/lib/prisma";
 import { getPostDataInclude, UserData } from "@/lib/types";
 import { log } from "console";

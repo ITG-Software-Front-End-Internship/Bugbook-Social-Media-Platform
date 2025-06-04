@@ -1,17 +1,18 @@
 "use server";
 
 import { cachedValidateRequest } from "@/auth";
-import { validationsMessages } from "@/lib/constants";
 import prisma from "@/lib/prisma";
-import { getPostDataInclude } from "@/lib/types";
+import { validationsMessages } from "@/lib/translationKeys";
+import { getPostDataInclude, PostData } from "@/lib/types";
 import { getCreatePostSchema } from "@/lib/validations";
 import { getTranslations } from "next-intl/server";
 
 export default async function submitPost(input: {
   content: string;
   mediaIds: string[];
-}) {
+}): Promise<PostData> {
   const { user } = await cachedValidateRequest();
+
   if (!user) {
     throw new Error(`Unauthorized.`);
   }

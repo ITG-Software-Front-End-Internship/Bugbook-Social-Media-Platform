@@ -1,0 +1,35 @@
+  
+  
+  
+  
+    /**   
+          inifinite loading return type
+          {
+            pageParams: any , note : "cursor ....",
+            pages: Pages[]
+          }
+
+          pages type : 
+          {
+            nextCursor: any (id of next page if it exist),
+            posts : Post[]
+          }
+           */
+  
+  
+  /** Initally page params is null but we have to infer it to the type pageParam  */
+
+
+  /**   
+          inifinite loading return type
+          {
+            pageParams: any , note : "cursor ....",
+            pages: Pages[]
+          }
+
+          pages type : 
+          {
+            nextCursor: any (id of next page if it exist),
+            posts : Post[]
+          }
+           */
