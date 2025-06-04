@@ -4,32 +4,45 @@ import FollowerCount from "@/app/(main)/FollowerCount";
 import { useSession } from "@/app/(main)/SessionProvider";
 import { FollowerInfo, UserData } from "@/lib/types";
 import Link from "next/link";
-import { PropsWithChildren } from "react";
-import FollowButton from "./customComponents/TrendsSidebar/components/whoToFollow/components/FollowButton";
-import UserAvatar from "./customComponents/UserAvatar";
-import Linkify from "./Linkify";
+import { memo, PropsWithChildren, useEffect, useMemo } from "react";
+import FollowButton from "../customComponents/TrendsSidebar/components/whoToFollow/components/FollowButton";
+import UserAvatar from "../customComponents/UserAvatar";
+import Linkify from "../Linkify";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "./ui/tooltip";
+} from "../ui/tooltip";
 
 interface UserTooltipProps extends PropsWithChildren {
   user: UserData;
 }
 
-export default function UserToolTip({ children, user }: UserTooltipProps) {
+function UserToolTip({ user, children }: UserTooltipProps) {
   console.log(`User tool tip render ...`);
 
   const { user: loggedInUser } = useSession();
 
-  const followerState: FollowerInfo = {
-    followers: user._count.followers,
-    isFollowedByUser: !!user.followers.some(({ followerId }) => {
-      return followerId === loggedInUser.id;
-    }),
-  };
+  const userFollowersCount = user._count.followers;
+
+  const userFollowersIds = useMemo(() => user.followers, [user.followers]);
+
+  const followerState: FollowerInfo = useMemo(() => {
+    return {
+      followers: userFollowersCount,
+      isFollowedByUser: !!userFollowersIds.some(({ followerId }) => {
+        /** Check if the loggedInUserId is a follower of tooltip user. */
+        return followerId === loggedInUser.id;
+      }),
+    };
+  }, [loggedInUser.id, userFollowersCount, userFollowersIds]);
+
+  useEffect(() => {
+    console.log(`Follower state changed ...`);
+  }, [followerState]);
+
+  const isCurrentLoggedInUserToolTip = loggedInUser.id === user.id;
 
   return (
     <TooltipProvider>
@@ -41,7 +54,7 @@ export default function UserToolTip({ children, user }: UserTooltipProps) {
               <Link href={`/users/${user.id}`}>
                 <UserAvatar avatarUrl={user.avatarUrl} size={70} />
               </Link>
-              {loggedInUser.id !== user.id && (
+              {isCurrentLoggedInUserToolTip && (
                 <FollowButton userId={user.id} initialState={followerState} />
               )}
             </div>
@@ -71,3 +84,5 @@ export default function UserToolTip({ children, user }: UserTooltipProps) {
     </TooltipProvider>
   );
 }
+
+export default memo(UserToolTip);

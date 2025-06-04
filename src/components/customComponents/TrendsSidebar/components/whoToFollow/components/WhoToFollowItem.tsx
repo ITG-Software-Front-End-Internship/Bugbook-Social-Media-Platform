@@ -1,5 +1,7 @@
+"use server";
+
 import FollowButton from "@/components/customComponents/TrendsSidebar/components/whoToFollow/components/FollowButton";
-import UserToolTip from "@/components/UserTooltip";
+import UserToolTip from "@/components/UserTooltip/UserTooltip";
 import { UserData } from "@/lib/types";
 import UserToFollowSidebarInfo from "./UserToFollowSidebarInfo";
 
@@ -8,10 +10,12 @@ interface WhoToFollowItemProps {
   loggedInUserId: string;
 }
 
-export default function WhoToFollowItem({
+export default async function WhoToFollowItem({
   suggestedUserToFollow,
   loggedInUserId,
 }: WhoToFollowItemProps) {
+  console.log(`who to follow item render ...`);
+
   const followInitialState = {
     followers: suggestedUserToFollow._count.followers,
     isFollowedByUser: suggestedUserToFollow.followers.some(({ followerId }) => {

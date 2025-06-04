@@ -1,3 +1,5 @@
+"use client";
+
 import UserAvatar from "@/components/customComponents/UserAvatar";
 import Link from "next/link";
 import React from "react";

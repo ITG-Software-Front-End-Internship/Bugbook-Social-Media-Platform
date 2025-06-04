@@ -11,7 +11,7 @@ import React, { use, useState } from "react";
 import Comments from "../comments/Comments";
 import UserAvatar from "../customComponents/UserAvatar";
 import Linkify from "../Linkify";
-import UserToolTip from "../UserTooltip";
+import UserToolTip from "../UserTooltip/UserTooltip";
 import BookmarkButton from "./BookmarkButton";
 import LikeButton from "./LikeButton";
 import PostMoreButton from "./PostMoreButton";
