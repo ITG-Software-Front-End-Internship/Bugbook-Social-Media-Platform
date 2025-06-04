@@ -1,11 +1,10 @@
 import Comments from "@/components/comments/Comments";
 import { useLocaleSettings } from "@/hooks/useLocaleSettings";
 import { PostData } from "@/lib/types";
-import { useTranslations } from "next-intl";
 import { useState } from "react";
 import BookmarkButton from "../../BookmarkButton";
-import LikeButton from "../../LikeButton";
-import { CommentButton } from "../CommentButton";
+import { CommentButton } from "./components/CommentButton";
+import LikeButton from "./components/LikeButton";
 
 interface PostFooterProps {
   post: PostData;

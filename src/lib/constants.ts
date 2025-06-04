@@ -5,6 +5,8 @@ export const API_ENDPOINTS = {
   getUserFollowersEndpoint: (userId: string): string =>
     `/api/users/${userId}/followers`,
   forYouPostFeed: "/api/posts/for-you",
+  getPostLikesEndPoint: (postId: string): string =>
+    `/api/posts/${postId}/likes`,
 } as const;
 
 export const MAX_ATTACHMENT_NUMBER = 5;
