@@ -1,30 +1,24 @@
-"use client";
-
-import useFollowerInfo from "@/hooks/useFollowerInfo";
 import kyInstance from "@/lib/ky";
 import { FollowerInfo } from "@/lib/types";
-import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
+import { QueryClient, QueryKey, useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Button } from "./ui/button";
 
-interface FollowButtonProps {
+interface UseUpdateFollowStatusMutation {
   userId: string;
-  initialState: FollowerInfo;
+  isFollowedByUser: boolean;
+  queryClient: QueryClient;
 }
 
-export default function FollowButton({
+export function useUpdateFollowStatusMutation({
   userId,
-  initialState,
-}: FollowButtonProps) {
-  const queryClient = useQueryClient();
-
-  const { data } = useFollowerInfo(userId, initialState);
-
+  isFollowedByUser,
+  queryClient,
+}: UseUpdateFollowStatusMutation) {
   const queryKey: QueryKey = ["follower-info", userId];
 
-  const { mutate } = useMutation({
+  const updateFollowStatusMutation = useMutation({
     mutationFn: () =>
-      data.isFollowedByUser
+      isFollowedByUser
         ? kyInstance.delete(`/api/users/${userId}/followers`)
         : kyInstance.post(`/api/users/${userId}/followers`),
     onMutate: async () => {
@@ -61,12 +55,5 @@ export default function FollowButton({
     },
   });
 
-  return (
-    <Button
-      variant={data.isFollowedByUser ? "secondary" : "default"}
-      onClick={() => mutate()}
-    >
-      {data.isFollowedByUser ? "Unfollow" : "Follow"}
-    </Button>
-  );
+  return updateFollowStatusMutation;
 }

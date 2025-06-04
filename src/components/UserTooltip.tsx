@@ -5,8 +5,8 @@ import { useSession } from "@/app/(main)/SessionProvider";
 import { FollowerInfo, UserData } from "@/lib/types";
 import Link from "next/link";
 import { PropsWithChildren } from "react";
+import FollowButton from "./customComponents/TrendsSidebar/components/whoToFollow/components/FollowButton";
 import UserAvatar from "./customComponents/UserAvatar";
-import FollowButton from "./FollowButton";
 import Linkify from "./Linkify";
 import {
   Tooltip,
@@ -20,6 +20,8 @@ interface UserTooltipProps extends PropsWithChildren {
 }
 
 export default function UserToolTip({ children, user }: UserTooltipProps) {
+  console.log(`User tool tip render ...`);
+
   const { user: loggedInUser } = useSession();
 
   const followerState: FollowerInfo = {

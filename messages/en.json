@@ -128,6 +128,8 @@
     }
   },
   "whoToFollow": {
-    "title": "Who to follow"
+    "title": "Who to follow",
+    "follow": "Follow",
+    "unfollow": "Unfollow"
   }
 }

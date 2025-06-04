@@ -128,4 +128,6 @@ export const menuBarTranslations = {
 
 export const whoToFollowSidebarTranslations = {
   title: "whoToFollow.title",
+  follow: "whoToFollow.follow",
+  unfollow: "whoToFollow.unfollow",
 } as const;

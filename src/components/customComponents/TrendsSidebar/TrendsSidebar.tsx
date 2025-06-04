@@ -13,7 +13,7 @@ export default async function TrendsSidebar() {
       <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
         <div className="space-y-5">
           <WhoToFollow />
-          <TrendingTopics />
+          {/* <TrendingTopics />*/}
         </div>
       </Suspense>
     </div>
