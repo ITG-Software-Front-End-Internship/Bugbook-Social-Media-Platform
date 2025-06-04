@@ -1,6 +1,10 @@
 import prisma from "@/lib/prisma";
 import { unstable_cache } from "next/cache";
 
+const NUMBER_OF_HOURS = 3;
+const MINUTES_IN_HOUR = 60;
+const SECONDS_IN_MINUTE = 60;
+
 export const getTrendingTopics = unstable_cache(
   async () => {
     const result = await prisma.$queryRaw<{ hashtag: string; count: bigint }[]>`
@@ -21,6 +25,6 @@ export const getTrendingTopics = unstable_cache(
   },
   ["trending_topics"],
   {
-    revalidate: 3 * 60 * 60,
+    revalidate: NUMBER_OF_HOURS * MINUTES_IN_HOUR * SECONDS_IN_MINUTE,
   },
 );

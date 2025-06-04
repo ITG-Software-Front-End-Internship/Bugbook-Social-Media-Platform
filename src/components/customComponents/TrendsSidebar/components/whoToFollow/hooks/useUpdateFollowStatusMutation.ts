@@ -1,5 +1,3 @@
-import { API_ENDPOINTS } from "@/lib/constants";
-import kyInstance from "@/lib/ky";
 import { QUERY_KEYS } from "@/lib/queryKeys";
 import { errorsMessages } from "@/lib/translationKeys";
 import { QueryClient, QueryKey, useMutation } from "@tanstack/react-query";

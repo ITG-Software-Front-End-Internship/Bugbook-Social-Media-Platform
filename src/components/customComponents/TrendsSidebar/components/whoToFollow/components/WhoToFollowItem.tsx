@@ -19,6 +19,7 @@ export default async function WhoToFollowItem({
   const followInitialState = {
     followers: suggestedUserToFollow._count.followers,
     isFollowedByUser: suggestedUserToFollow.followers.some(({ followerId }) => {
+      /** Check if the loggedInUserId is a follower of  suggestedUserToFollow  */
       return followerId === loggedInUserId;
     }),
   };
