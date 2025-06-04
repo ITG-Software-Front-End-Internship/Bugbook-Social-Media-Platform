@@ -1,7 +1,11 @@
 import prisma from "@/lib/prisma";
+import { whoToFollowSidebarTranslations } from "@/lib/translationKeys";
 import { getUserDataSelect } from "@/lib/types";
+import { getTranslations } from "next-intl/server";
 
 export const getSuggestedUsersToFollow = async (loggedInUserId: string) => {
+  const t = await getTranslations();
+
   try {
     const suggestedUsersToFollow = await prisma.user.findMany({
       where: {
@@ -26,7 +30,7 @@ export const getSuggestedUsersToFollow = async (loggedInUserId: string) => {
     console.log(error);
 
     return {
-      error: "An error occurred while loading suggested users to follow",
+      error: t(whoToFollowSidebarTranslations.generalError),
     };
   }
 };

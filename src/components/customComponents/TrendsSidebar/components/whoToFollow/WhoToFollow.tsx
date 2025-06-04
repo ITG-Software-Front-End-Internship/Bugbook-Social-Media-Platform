@@ -19,9 +19,7 @@ export default async function WhoToFollow() {
   );
 
   if (error) {
-    <p className="text-center text-destructive">
-      {t(whoToFollowSidebarTranslations.generalError)}
-    </p>;
+    <p className="text-center text-destructive">{t(error)}</p>;
   }
 
   if (!suggestedUsersToFollow) {

@@ -138,6 +138,8 @@
     "notFound": "There is No suggested users to follow currently."
   },
   "trendingTopics": {
-    "title": "Trending Topics"
+    "title": "Trending Topics",
+    "generalError": "An error occurred while loading trending topics",
+    "notFound": "There is No trending topics available now"
   }
 }

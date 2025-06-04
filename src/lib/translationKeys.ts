@@ -139,4 +139,6 @@ export const whoToFollowSidebarTranslations = {
 
 export const trendingTopicsTranslations = {
   title: "trendingTopics.title",
+  generalError: "trendingTopics.generalError",
+  notFound: "trendingTopics.notFound",
 } as const;
