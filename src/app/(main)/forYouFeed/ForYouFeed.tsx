@@ -3,12 +3,13 @@
 import InfiniteScrollContainer from "@/components/customComponents/InfiniteScrollContainer";
 import Post from "@/components/posts/Post";
 import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
-import kyInstance from "@/lib/ky";
-import { PostsPage } from "@/lib/types";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { forYouFeedTranslations } from "@/lib/translationKeys";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useForYouFeedInfiniteQuery } from "./hooks/useForYouFeedInfiniteQuery";
 
 export default function ForYouFeed() {
+  const t = useTranslations();
   const {
     data,
     fetchNextPage,
@@ -16,33 +17,7 @@ export default function ForYouFeed() {
     isFetching,
     isFetchingNextPage,
     status,
-  } = useInfiniteQuery({
-    queryKey: ["post-feed", "for-you"],
-    queryFn: ({ pageParam }) =>
-      kyInstance
-        .get(
-          "/api/posts/for-you",
-          pageParam ? { searchParams: { cursor: pageParam } } : {},
-        )
-        .json<PostsPage>(),
-    /** Initally page params is null but we have to infer it to the type pageParam  */
-    initialPageParam: null as string | null,
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
-  });
-
-  /**   
-          inifinite loading return type
-          {
-            pageParams: any , note : "cursor ....",
-            pages: Pages[]
-          }
-
-          pages type : 
-          {
-            nextCursor: any (id of next page if it exist),
-            posts : Post[]
-          }
-           */
+  } = useForYouFeedInfiniteQuery();
 
   const posts = data?.pages.flatMap((page) => page.posts) || [];
 
@@ -53,14 +28,14 @@ export default function ForYouFeed() {
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
       <p className="text-center text-muted-foreground">
-        No one has posted anything yet.
+        {t(forYouFeedTranslations.noPosts)}
       </p>
     );
   }
   if (status === "error") {
     return (
       <p className="text-center text-destructive">
-        An error occurred while loading posts
+        {t(forYouFeedTranslations.error)}
       </p>
     );
   }

@@ -7,6 +7,8 @@ import WhoToFollowItem from "./components/WhoToFollowItem";
 import { getSuggestedUsersToFollow } from "./services/getSuggestedUsersToFollow";
 
 export default async function WhoToFollow() {
+  console.log(`Who to follow render ...`);
+
   const t = await getTranslations();
   const { user: loggedInUser } = await cachedValidateRequest();
 

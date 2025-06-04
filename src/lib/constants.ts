@@ -4,6 +4,7 @@ export const API_ENDPOINTS = {
   unreadMessagesCount: "/api/messages/unread-count",
   getUserFollowersEndpoint: (userId: string): string =>
     `/api/users/${userId}/followers`,
+  forYouPostFeed: "/api/posts/for-you",
 } as const;
 
 export const MAX_ATTACHMENT_NUMBER = 5;

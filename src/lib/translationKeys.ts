@@ -142,3 +142,8 @@ export const trendingTopicsTranslations = {
   generalError: "trendingTopics.generalError",
   notFound: "trendingTopics.notFound",
 } as const;
+
+export const forYouFeedTranslations = {
+  noPosts: "forYouFeed.noPosts",
+  error: "forYouFeed.error",
+} as const;

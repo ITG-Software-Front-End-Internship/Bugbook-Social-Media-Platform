@@ -141,5 +141,9 @@
     "title": "Trending Topics",
     "generalError": "An error occurred while loading trending topics",
     "notFound": "There is No trending topics available now"
+  },
+  "forYouFeed": {
+    "noPosts": "No one has posted anything yet.",
+    "error": "An error occurred while loading posts"
   }
 }

@@ -7,4 +7,5 @@ export const QUERY_KEYS = {
     "follower-info",
     userId,
   ],
+  forYouPostFeed: ["post-feed", "for-you"],
 } as const;

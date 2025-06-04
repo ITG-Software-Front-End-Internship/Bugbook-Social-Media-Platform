@@ -7,6 +7,8 @@ import Link from "next/link";
 import { getTrendingTopics } from "../../helpers/getTrendingTopics";
 
 export async function TrendingTopics() {
+  console.log(`TrendingTopics render ...`);
+
   const { trendingTopics, error } = await getTrendingTopics();
   const t = await getTranslations();
 
