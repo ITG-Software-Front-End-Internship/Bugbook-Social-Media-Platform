@@ -1,12 +1,13 @@
 "use client";
 
-import kyInstance from "@/lib/ky";
+import { QUERY_KEYS } from "@/lib/queryKeys";
 import { postTranslations } from "@/lib/translationKeys";
 import { LikeInfo } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { QueryKey, useQuery, useQueryClient } from "@tanstack/react-query";
+import { QueryKey, useQueryClient } from "@tanstack/react-query";
 import { Heart } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useFetchPostLikes } from "../hooks/useFetchPostLikes";
 import { useUpdateLikeStatusMutation } from "../hooks/useUpdateLikeStatusMutation";
 
 interface LikeButtonProps {
@@ -18,17 +19,15 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
   const t = useTranslations();
   const queryClient = useQueryClient();
 
-  /** TODO: move it to sperate hook */
+  const queryKey: QueryKey = QUERY_KEYS.getLikeInfoPost(postId);
 
-  const queryKey: QueryKey = ["like-info", postId];
-
-  const { data } = useQuery({
-    queryKey: queryKey,
-    queryFn: () =>
-      kyInstance.get(`/api/posts/${postId}/likes`).json<LikeInfo>(),
-    initialData: initialState,
-    staleTime: Infinity,
+  const { data } = useFetchPostLikes({
+    postId,
+    queryKey,
+    initialState,
   });
+
+  const numberOfLikes = data.likes;
 
   const { mutate: updateLikeMutate } = useUpdateLikeStatusMutation({
     postId,
@@ -49,7 +48,7 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
         )}
       />
       <span className="text-sm font-medium tabular-nums">
-        {data.likes}{" "}
+        {numberOfLikes}{" "}
         <span className="hidden sm:inline">
           {t(postTranslations.footer.likes)}
         </span>
