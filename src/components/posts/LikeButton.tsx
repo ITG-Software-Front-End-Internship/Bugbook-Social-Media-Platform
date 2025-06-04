@@ -1,6 +1,7 @@
 "use client";
 
 import kyInstance from "@/lib/ky";
+import { postTranslations } from "@/lib/translationKeys";
 import { LikeInfo } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import {
@@ -10,6 +11,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { Heart } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 interface LikeButtonProps {
@@ -18,6 +20,7 @@ interface LikeButtonProps {
 }
 
 export default function LikeButton({ postId, initialState }: LikeButtonProps) {
+  const t = useTranslations();
   const queryClient = useQueryClient();
 
   /** TODO: move it to sperate hook */
@@ -90,7 +93,10 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
         )}
       />
       <span className="text-sm font-medium tabular-nums">
-        {data.likes} <span className="hidden sm:inline">Likes</span>
+        {data.likes}{" "}
+        <span className="hidden sm:inline">
+          {t(postTranslations.footer.likes)}
+        </span>
       </span>
     </button>
   );

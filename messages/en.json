@@ -145,5 +145,11 @@
   "forYouFeed": {
     "noPosts": "No one has posted anything yet.",
     "error": "An error occurred while loading posts"
+  },
+  "post": {
+    "footer": {
+      "likes": "Likes",
+      "comments": "Comments"
+    }
   }
 }

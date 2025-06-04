@@ -147,3 +147,10 @@ export const forYouFeedTranslations = {
   noPosts: "forYouFeed.noPosts",
   error: "forYouFeed.error",
 } as const;
+
+export const postTranslations = {
+  footer: {
+    likes: "post.footer.likes",
+    comments: "post.footer.comments",
+  },
+};

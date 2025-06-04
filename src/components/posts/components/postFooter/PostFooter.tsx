@@ -1,5 +1,7 @@
 import Comments from "@/components/comments/Comments";
+import { useLocaleSettings } from "@/hooks/useLocaleSettings";
 import { PostData } from "@/lib/types";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import BookmarkButton from "../../BookmarkButton";
 import LikeButton from "../../LikeButton";
@@ -14,10 +16,11 @@ export default function PostFooter({ post, loggedInUserId }: PostFooterProps) {
   console.log(`PostFooter render ...`);
 
   const [showComment, setShowComment] = useState<boolean>(false);
+  const { direction } = useLocaleSettings();
 
   return (
     <>
-      <div className="flex justify-between gap-5">
+      <div className="flex justify-between gap-5" dir={direction}>
         <div className="flex items-center gap-5">
           <LikeButton
             postId={post.id}

@@ -16,7 +16,9 @@ export default function PostContent({
   return (
     <>
       <Linkify>
-        <div className="whitespace-pre-line break-words">{postTextContent}</div>
+        <div className="whitespace-pre-line break-words" dir="rtl">
+          {postTextContent}
+        </div>
       </Linkify>
       {!!postAttachments.length && (
         <>
