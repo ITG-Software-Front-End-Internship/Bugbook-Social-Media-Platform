@@ -147,6 +147,9 @@
     "error": "An error occurred while loading posts"
   },
   "post": {
+    "media": {
+      "unsupported": "Unsupported media type"
+    },
     "footer": {
       "likes": "Likes",
       "comments": "Comments"

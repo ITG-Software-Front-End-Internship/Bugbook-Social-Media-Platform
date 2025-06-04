@@ -1,4 +1,6 @@
 import { Media } from "@/generated/prisma";
+import { postTranslations } from "@/lib/translationKeys";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 interface MediaPreviewProps {
@@ -6,6 +8,8 @@ interface MediaPreviewProps {
 }
 
 export default function MediaPreview({ media }: MediaPreviewProps) {
+  const t = useTranslations();
+
   if (media.type === "IMAGE") {
     return (
       <Image
@@ -30,5 +34,7 @@ export default function MediaPreview({ media }: MediaPreviewProps) {
     );
   }
 
-  return <p className="text-destructive">Unsupported media type</p>;
+  return (
+    <p className="text-destructive">{t(postTranslations.media.unsupported)}</p>
+  );
 }

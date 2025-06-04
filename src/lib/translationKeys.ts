@@ -149,6 +149,9 @@ export const forYouFeedTranslations = {
 } as const;
 
 export const postTranslations = {
+  media: {
+    unsupported: "post.media.unsupported",
+  },
   footer: {
     likes: "post.footer.likes",
     comments: "post.footer.comments",
