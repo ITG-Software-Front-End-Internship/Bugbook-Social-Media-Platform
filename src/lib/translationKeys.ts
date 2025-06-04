@@ -24,7 +24,10 @@ export const validationsMessages = {
 } as const;
 
 export const errorsMessages = {
-  general: "errors.general",
+  general: {
+    title: "errors.general.title",
+    description: "errors.general.description",
+  },
   files: {
     upload: {
       failed: "errors.files.upload.failed",

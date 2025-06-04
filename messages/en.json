@@ -118,7 +118,10 @@
     }
   },
   "errors": {
-    "general": "Something went wrong. Please try again.",
+    "general": {
+      "title": "Something went wrong.",
+      "description": "Something went wrong. Please try again."
+    },
     "files": {
       "upload": {
         "failed": "Failed to upload files",

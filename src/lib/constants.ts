@@ -2,6 +2,7 @@ export const API_ENDPOINTS = {
   bookmarkedPosts: "/api/posts/bookmarked",
   unreadNotificationsCount: "/api/notifications/unread-count",
   unreadMessagesCount: "/api/messages/unread-count",
+  userFollowers: (userId: string): string => `/api/users/${userId}/followers`,
 } as const;
 
 export const MAX_ATTACHMENT_NUMBER = 5;

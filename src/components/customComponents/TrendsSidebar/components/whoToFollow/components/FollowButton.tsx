@@ -1,13 +1,12 @@
 "use client";
 
 import useFollowerInfo from "@/hooks/useFollowerInfo";
-import kyInstance from "@/lib/ky";
 import { whoToFollowSidebarTranslations } from "@/lib/translationKeys";
 import { FollowerInfo } from "@/lib/types";
-import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 import { Button } from "../../../../../ui/button";
+import { useUpdateFollowStatusMutation } from "../hooks/useUpdateFollowStatusMutation";
 
 interface FollowButtonProps {
   userId: string;
@@ -21,58 +20,21 @@ export default function FollowButton({
   console.log(`FollowButton render ...`);
 
   const t = useTranslations();
-
   const queryClient = useQueryClient();
+  const { data: followerInfo } = useFollowerInfo(userId, initialState);
 
-  const { data } = useFollowerInfo(userId, initialState);
-
-  const queryKey: QueryKey = ["follower-info", userId];
-
-  const { mutate } = useMutation({
-    mutationFn: () =>
-      data.isFollowedByUser
-        ? kyInstance.delete(`/api/users/${userId}/followers`)
-        : kyInstance.post(`/api/users/${userId}/followers`),
-    onMutate: async () => {
-      /** Cancel any running Queries */
-
-      await queryClient.cancelQueries({ queryKey });
-
-      /** Get current caches data */
-
-      const previousState = queryClient.getQueryData<FollowerInfo>(queryKey);
-
-      /** Know we want to apply the optimistic update (on caches data) */
-
-      queryClient.setQueryData<FollowerInfo>(queryKey, () => ({
-        followers:
-          (previousState?.followers || 0) +
-          (previousState?.isFollowedByUser ? -1 : 1),
-        isFollowedByUser: !previousState?.isFollowedByUser,
-      }));
-
-      /** To roll back to it on error */
-      return { previousState };
-    },
-    onError: (error, variables, context) => {
-      /**
-       * Return to the prev snapshot if an error happen when mutate
-       */
-      queryClient.setQueryData(queryKey, context?.previousState);
-
-      console.error(error);
-      toast.error("Something went wrong!", {
-        description: "Something went wrong!. Please try again",
-      });
-    },
+  const { mutate: updateFollowStatusMutate } = useUpdateFollowStatusMutation({
+    userId,
+    isFollowedByUser: followerInfo.isFollowedByUser,
+    queryClient,
   });
 
   return (
     <Button
-      variant={data.isFollowedByUser ? "secondary" : "default"}
-      onClick={() => mutate()}
+      variant={followerInfo.isFollowedByUser ? "secondary" : "default"}
+      onClick={() => updateFollowStatusMutate()}
     >
-      {data.isFollowedByUser
+      {followerInfo.isFollowedByUser
         ? t(whoToFollowSidebarTranslations.unfollow)
         : t(whoToFollowSidebarTranslations.follow)}
     </Button>

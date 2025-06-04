@@ -1,7 +1,12 @@
+import { API_ENDPOINTS } from "@/lib/constants";
 import kyInstance from "@/lib/ky";
-import { FollowerInfo } from "@/lib/types";
+import { QUERY_KEYS } from "@/lib/queryKeys";
+import { errorsMessages } from "@/lib/translationKeys";
 import { QueryClient, QueryKey, useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { useTranslations } from "next-intl";
+import { handleFollowStatusOptimisticUpdate } from "../helpers/handleFollowStatusOptimisticUpdate ";
+import { handleOnUpdateFollowStatusMutationError } from "../helpers/handleOnUpdateFollowStatusMutationError";
+import { followUser, unFollowUser } from "../services/updateFollowStatus";
 
 interface UseUpdateFollowStatusMutation {
   userId: string;
@@ -14,43 +19,31 @@ export function useUpdateFollowStatusMutation({
   isFollowedByUser,
   queryClient,
 }: UseUpdateFollowStatusMutation) {
-  const queryKey: QueryKey = ["follower-info", userId];
+  const t = useTranslations();
+  const queryKey: QueryKey = QUERY_KEYS.getUserFollowerInfoKey(userId);
 
   const updateFollowStatusMutation = useMutation({
     mutationFn: () =>
-      isFollowedByUser
-        ? kyInstance.delete(`/api/users/${userId}/followers`)
-        : kyInstance.post(`/api/users/${userId}/followers`),
-    onMutate: async () => {
-      /** Cancel any running Queries */
-
-      await queryClient.cancelQueries({ queryKey });
-
-      /** Get current caches data */
-
-      const previousState = queryClient.getQueryData<FollowerInfo>(queryKey);
-
-      /** Know we want to apply the optimistic update (on caches data) */
-
-      queryClient.setQueryData<FollowerInfo>(queryKey, () => ({
-        followers:
-          (previousState?.followers || 0) +
-          (previousState?.isFollowedByUser ? -1 : 1),
-        isFollowedByUser: !previousState?.isFollowedByUser,
-      }));
-
-      /** To roll back to it on error */
-      return { previousState };
-    },
+      isFollowedByUser ? unFollowUser(userId) : followUser(userId),
+    onMutate: () =>
+      handleFollowStatusOptimisticUpdate({ queryClient, queryKey }),
     onError: (error, variables, context) => {
-      /**
-       * Return to the prev snapshot if an error happen when mutate
-       */
-      queryClient.setQueryData(queryKey, context?.previousState);
+      const onUpdateFollowStatusMutationErrorMessages = {
+        errorGeneralTitle: t(errorsMessages.general.title),
+        errorGeneralDescription: t(errorsMessages.general.description),
+      } as const;
 
-      console.error(error);
-      toast.error("Something went wrong!", {
-        description: "Something went wrong!. Please try again",
+      const errorMutation = {
+        error,
+        variables,
+        context,
+      } as const;
+
+      handleOnUpdateFollowStatusMutationError({
+        errorMutation,
+        queryClient,
+        queryKey,
+        onUpdateFollowStatusMutationErrorMessages,
       });
     },
   });
