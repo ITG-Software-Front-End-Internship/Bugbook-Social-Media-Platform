@@ -133,4 +133,10 @@ export const whoToFollowSidebarTranslations = {
   title: "whoToFollow.title",
   follow: "whoToFollow.follow",
   unfollow: "whoToFollow.unfollow",
+  generalError: "whoToFollow.generalError",
+  notFound: "whoToFollow.notFound",
+} as const;
+
+export const trendingTopicsTranslations = {
+  title: "trendingTopics.title",
 } as const;

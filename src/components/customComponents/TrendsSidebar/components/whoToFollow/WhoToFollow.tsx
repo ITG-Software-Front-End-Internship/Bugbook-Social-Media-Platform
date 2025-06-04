@@ -14,24 +14,44 @@ export default async function WhoToFollow() {
     return null;
   }
 
-  const suggestedUsersToFollow = await getSuggestedUsersToFollow(
+  const { suggestedUsersToFollow, error } = await getSuggestedUsersToFollow(
     loggedInUser.id,
   );
 
+  if (error) {
+    <p className="text-center text-destructive">
+      {t(whoToFollowSidebarTranslations.generalError)}
+    </p>;
+  }
+
+  if (!suggestedUsersToFollow) {
+    return (
+      <p className="text-center text-muted-foreground">
+        {t(whoToFollowSidebarTranslations.notFound)}
+      </p>
+    );
+  }
+
   return (
     <div className="space-y-5 rounded-2xl bg-card p-5 shadow-sm">
-      <div className="text-lg font-bold">
+      <div className="text-base font-bold">
         {t(whoToFollowSidebarTranslations.title)}
       </div>
-      {suggestedUsersToFollow.map((suggestedUserToFollow) => {
-        return (
-          <WhoToFollowItem
-            key={suggestedUserToFollow.id}
-            suggestedUserToFollow={suggestedUserToFollow}
-            loggedInUserId={loggedInUser.id}
-          />
-        );
-      })}
+      {suggestedUsersToFollow.length > 0 ? (
+        suggestedUsersToFollow.map((suggestedUserToFollow) => {
+          return (
+            <WhoToFollowItem
+              key={suggestedUserToFollow.id}
+              suggestedUserToFollow={suggestedUserToFollow}
+              loggedInUserId={loggedInUser.id}
+            />
+          );
+        })
+      ) : (
+        <p className="text-center text-muted-foreground">
+          {t(whoToFollowSidebarTranslations.notFound)}
+        </p>
+      )}
     </div>
   );
 }
