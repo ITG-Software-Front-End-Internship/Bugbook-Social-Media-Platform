@@ -2,9 +2,7 @@
 
 import { useSession } from "@/app/(main)/SessionProvider";
 import { PostData } from "@/lib/types";
-import PostContent from "./components/postContent/PostContent";
-import PostFooter from "./components/postFooter/PostFooter";
-import PostHeader from "./components/postHeader/PostHeader";
+import { PostContent, PostFooter, PostHeader } from "./index";
 
 interface PostProps {
   post: PostData;

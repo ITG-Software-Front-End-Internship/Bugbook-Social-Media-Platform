@@ -1,7 +1,7 @@
 "use client";
 
 import InfiniteScrollContainer from "@/components/customComponents/InfiniteScrollContainer";
-import Post from "@/components/posts/Post";
+import Post from "@/components/posts/components/post/Post";
 import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 import { forYouFeedTranslations } from "@/lib/translationKeys";
 import { Loader2 } from "lucide-react";

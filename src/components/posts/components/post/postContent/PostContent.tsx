@@ -1,6 +1,6 @@
 import Linkify from "@/components/Linkify";
 import { Media } from "@/generated/prisma";
-import MediaPreviews from "../MediaPreviews";
+import MediaPreviews from "./components/postMedia/MediaPreviews";
 
 interface PostContentProps {
   postTextContent: string;
