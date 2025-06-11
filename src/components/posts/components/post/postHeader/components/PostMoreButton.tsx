@@ -1,32 +1,33 @@
-import { useLocaleSettings } from "@/hooks/useLocaleSettings";
-import { postTranslations } from "@/lib/translationKeys";
-import { CommentData } from "@/lib/types";
-import { MoreHorizontal, Trash2 } from "lucide-react";
-import { useTranslations } from "next-intl";
-import React, { useState } from "react";
-import { Button } from "../../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../../ui/dropdown-menu";
-import DeleteCommentDialog from "./DeleteCommentDialog";
+} from "@/components/ui/dropdown-menu";
+import { useLocaleSettings } from "@/hooks/useLocaleSettings";
+import { postTranslations } from "@/lib/translationKeys";
+import { PostData } from "@/lib/types";
+import { MoreHorizontal, Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
+import React, { useCallback, useState } from "react";
+import DeletePostDialog from "./DeletePostDialog";
 
-interface CommentMoreButtonProps {
-  comment: CommentData;
+interface PostMoreButtonProps {
+  post: PostData;
   className?: string;
 }
 
-export default function CommentMoreButton({
-  comment,
-  className,
-}: CommentMoreButtonProps) {
-  console.log(`Comment more button render ...`);
+function PostMoreButton({ post, className }: PostMoreButtonProps) {
+  console.log(`PostMoreButton render ...`);
 
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
   const t = useTranslations();
   const { direction } = useLocaleSettings();
+
+  const onPostDialogClose = useCallback(() => {
+    setShowDeleteDialog((previousState) => !previousState);
+  }, []);
 
   return (
     <>
@@ -43,16 +44,18 @@ export default function CommentMoreButton({
           >
             <span className="flex cursor-pointer select-none items-center gap-3 text-destructive">
               <Trash2 className="size-4" />
-              {t(postTranslations.footer.comments.delete.deleteComment)}
+              {t(postTranslations.header.delete.title)}
             </span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DeleteCommentDialog
-        comment={comment}
+      <DeletePostDialog
+        post={post}
         isOpen={showDeleteDialog}
-        onClose={() => setShowDeleteDialog(!showDeleteDialog)}
+        onClose={onPostDialogClose}
       />
     </>
   );
 }
+
+export default React.memo(PostMoreButton);

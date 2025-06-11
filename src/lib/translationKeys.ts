@@ -146,9 +146,32 @@ export const trendingTopicsTranslations = {
 export const forYouFeedTranslations = {
   noPosts: "forYouFeed.noPosts",
   error: "forYouFeed.error",
+  title: "forYouFeed.title",
+} as const;
+
+export const followingFeedTranslations = {
+  noPosts: "followingFeed.noPosts",
+  error: "followingFeed.error",
+  title: "followingFeed.title",
 } as const;
 
 export const postTranslations = {
+  header: {
+    delete: {
+      title: "post.header.delete.title",
+      description: "post.header.delete.description",
+      buttonLabel: "post.header.delete.buttonLabel",
+      cancelButtonLabel: "post.header.delete.cancelButtonLabel",
+      success: {
+        title: "post.header.delete.success.title",
+        description: "post.header.delete.success.description",
+      },
+      failed: {
+        title: "post.header.delete.failed.title",
+        description: "post.header.delete.failed.description",
+      },
+    },
+  },
   media: {
     unsupported: "post.media.unsupported",
   },
@@ -172,6 +195,28 @@ export const postTranslations = {
         success: {
           title: "post.footer.comments.delete.success.title",
           description: "post.footer.comments.delete.success.description",
+        },
+      },
+    },
+    bookmarks: {
+      bookmark: {
+        success: {
+          title: "post.footer.bookmarks.bookmark.success.title",
+          description: "post.footer.bookmarks.bookmark.success.description",
+        },
+        failed: {
+          title: "post.footer.bookmarks.bookmark.failed.title",
+          description: "post.footer.bookmarks.bookmark.failed.description",
+        },
+      },
+      unBookmark: {
+        success: {
+          title: "post.footer.bookmarks.unBookmark.success.title",
+          description: "post.footer.bookmarks.unBookmark.success.description",
+        },
+        failed: {
+          title: "post.footer.bookmarks.unBookmark.failed.title",
+          description: "post.footer.bookmarks.unBookmark.failed.description",
         },
       },
     },

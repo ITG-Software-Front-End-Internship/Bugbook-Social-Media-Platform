@@ -1,4 +1,4 @@
-import { errorsMessages } from "@/lib/translationKeys";
+import { errorsMessages, postTranslations } from "@/lib/translationKeys";
 import { QueryClient, QueryKey, useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import handleBookmarkStatusOptimisticUpdate from "../helpers/bookmarks/handleBookmarkStatusOptimisticUpdate";
@@ -24,12 +24,26 @@ export function useUpdateBookmarkStatusMutation({
     mutationFn: () => {
       return isBookedmarkByUser ? unBookmarkPost(postId) : bookmarkPost(postId);
     },
-    onMutate: () =>
-      handleBookmarkStatusOptimisticUpdate({
-        isBookedmarkByUser,
+    onMutate: () => {
+      const successUpdateBookmarkStatusTitle = isBookedmarkByUser
+        ? t(postTranslations.footer.bookmarks.unBookmark.success.title)
+        : t(postTranslations.footer.bookmarks.bookmark.success.title);
+
+      const successUpdateBookmarkStatusDescription = isBookedmarkByUser
+        ? t(postTranslations.footer.bookmarks.unBookmark.success.description)
+        : t(postTranslations.footer.bookmarks.bookmark.success.description);
+
+      const onUpdateBookmarkStatusMutationSuccessMessages = {
+        title: successUpdateBookmarkStatusTitle,
+        description: successUpdateBookmarkStatusDescription,
+      };
+
+      return handleBookmarkStatusOptimisticUpdate({
         queryClient,
         queryKey,
-      }),
+        onUpdateBookmarkStatusMutationSuccessMessages,
+      });
+    },
     onError(error, variables, context) {
       const errorMutation = { error, variables, context };
 

@@ -9,6 +9,8 @@ import { useTranslations } from "next-intl";
 import { useForYouFeedInfiniteQuery } from "./hooks/useForYouFeedInfiniteQuery";
 
 export default function ForYouFeed() {
+  console.log(`ForYouFeed render ...`);
+
   const t = useTranslations();
   const {
     data,

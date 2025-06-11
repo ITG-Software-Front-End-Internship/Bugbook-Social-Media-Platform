@@ -143,10 +143,32 @@
     "notFound": "There is No trending topics available now"
   },
   "forYouFeed": {
+    "title": "For you",
+    "noPosts": "No one has posted anything yet.",
+    "error": "An error occurred while loading posts"
+  },
+  "followingFeed": {
+    "title": "For you",
     "noPosts": "No one has posted anything yet.",
     "error": "An error occurred while loading posts"
   },
   "post": {
+    "header": {
+      "delete": {
+        "title": "Delete Post",
+        "description": "Are you sure you want to delete this post ? This action can not be undone.",
+        "buttonLabel": "Delete",
+        "cancelButtonLabel": "Cancel",
+        "success": {
+          "title": "Deleted successfully",
+          "description": "Post deleted successfully"
+        },
+        "failed": {
+          "title": "Faild to delete post",
+          "description": "An error occurred during the deletion of post. Please try again."
+        }
+      }
+    },
     "media": {
       "unsupported": "Unsupported media type"
     },
@@ -171,6 +193,28 @@
             "title": "Comment deleted",
             "description": "Comment deleted successfully"
           }
+        }
+      }
+    },
+    "bookmarks": {
+      "bookmark": {
+        "success": {
+          "title": "Post bookmarked",
+          "description": "Post bookmarked successfully"
+        },
+        "failed": {
+          "title": "Failld to bookmarked post",
+          "description": "An error occurred the Post bookmarked. Please try again."
+        }
+      },
+      "unBookmark": {
+        "success": {
+          "title": "Post unBookmarked",
+          "description": "Post unBookmarked successfully"
+        },
+        "failed": {
+          "title": "Failld to unBookmarked post",
+          "description": "An error occurred the Post unBookmarked. Please try again."
         }
       }
     }

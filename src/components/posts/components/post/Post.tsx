@@ -13,9 +13,8 @@ function Post({ post }: PostProps) {
   console.log(`Post render ...`);
 
   const { user: loggedInUser } = useSession();
-  const isCurrentUserPost = post.user.id === loggedInUser.id;
 
-  /** We need this state to show and hide the comment */
+  const isCurrentUserPost = post.user.id === loggedInUser.id;
 
   return (
     <article className="group/post space-y-3 rounded-2xl bg-card p-5 shadow-sm">

@@ -3,18 +3,18 @@ import { QueryClient, QueryKey } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 interface HandleBookmarkStatusOptimisticUpdateProps {
-  isBookedmarkByUser: boolean;
   queryClient: QueryClient;
   queryKey: QueryKey;
+  onUpdateBookmarkStatusMutationSuccessMessages: { [key: string]: string };
 }
 
 export default async function handleBookmarkStatusOptimisticUpdate({
-  isBookedmarkByUser,
   queryClient,
   queryKey,
+  onUpdateBookmarkStatusMutationSuccessMessages,
 }: HandleBookmarkStatusOptimisticUpdateProps) {
-  toast.success(`Post ${isBookedmarkByUser ? "un" : ""}bookmarked`, {
-    description: `Post ${isBookedmarkByUser ? "un" : ""}bookmarked successfully`,
+  toast.success(onUpdateBookmarkStatusMutationSuccessMessages.title, {
+    description: onUpdateBookmarkStatusMutationSuccessMessages.description,
   });
 
   /** Cancel any running Queries */

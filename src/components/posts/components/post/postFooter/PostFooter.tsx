@@ -17,16 +17,14 @@ export default function PostFooter({ post, loggedInUserId }: PostFooterProps) {
   const [showComment, setShowComment] = useState<boolean>(false);
   const { direction } = useLocaleSettings();
 
-  /*const postLikes = useMemo(() => post.likes, [post.likes]);*/
-
-  /*const likeInitialState = useMemo(() => {
+  const likeInitialState = useMemo(() => {
     return {
       likes: post._count.likes,
       isLikedByUser: post.likes.some((post) => {
         return post.userId === loggedInUserId;
       }),
     };
-  }, [loggedInUserId, post._count.likes, post.likes]);*/
+  }, [loggedInUserId, post._count.likes, post.likes]);
 
   const bookmarkInitialState = useMemo(() => {
     return {
@@ -44,13 +42,10 @@ export default function PostFooter({ post, loggedInUserId }: PostFooterProps) {
     <>
       <div className="flex justify-between gap-5" dir={direction}>
         <div className="flex items-center gap-5">
-          {/*<LikeButton postId={post.id} initialState={likeInitialState} />*/}
-          {<CommentButton post={post} onClick={toggleShowComment} />}
+          <LikeButton postId={post.id} initialState={likeInitialState} />
+          <CommentButton post={post} onClick={toggleShowComment} />
         </div>
-        {/*  <BookmarkButton
-            postId={post.id}
-            initialState={bookmarkInitialState}
-          />*/}
+        <BookmarkButton postId={post.id} initialState={bookmarkInitialState} />
       </div>
       {showComment && <Comments post={post} />}
     </>
