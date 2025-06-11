@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { QueryKey, useQueryClient } from "@tanstack/react-query";
 import { Heart } from "lucide-react";
 import { useTranslations } from "next-intl";
+import React from "react";
 import { useFetchPostLikes } from "../hooks/useFetchPostLikes";
 import { useUpdateLikeStatusMutation } from "../hooks/useUpdateLikeStatusMutation";
 
@@ -15,7 +16,8 @@ interface LikeButtonProps {
   initialState: LikeInfo;
 }
 
-export default function LikeButton({ postId, initialState }: LikeButtonProps) {
+function LikeButton({ postId, initialState }: LikeButtonProps) {
+  console.log(`Like button render ...`);
   const t = useTranslations();
   const queryClient = useQueryClient();
 
@@ -56,3 +58,5 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
     </button>
   );
 }
+
+export default React.memo(LikeButton);

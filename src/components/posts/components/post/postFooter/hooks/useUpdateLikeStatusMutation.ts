@@ -1,8 +1,8 @@
 import { errorsMessages } from "@/lib/translationKeys";
 import { QueryClient, QueryKey, useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { handleLikeStatusOptimisticUpdate } from "../helpers/handleLikeStatusOptimisticUpdate";
-import { handleOnUpdateLikeStatusError } from "../helpers/handleOnUpdateLikeStatusError";
+import { handleLikeStatusOptimisticUpdate } from "../helpers/likes/handleLikeStatusOptimisticUpdate";
+import { handleOnUpdateLikeStatusError } from "../helpers/likes/handleOnUpdateLikeStatusError";
 import { likePost, unLikePost } from "../services/likeService";
 
 interface UseUpdateLikeStatusMutation {

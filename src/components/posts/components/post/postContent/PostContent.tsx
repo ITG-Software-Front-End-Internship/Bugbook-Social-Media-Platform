@@ -21,9 +21,7 @@ export default function PostContent({
         </div>
       </Linkify>
       {!!postAttachments.length && (
-        <>
-          <MediaPreviews attachments={postAttachments} />
-        </>
+        <MediaPreviews attachments={postAttachments} />
       )}
     </>
   );

@@ -9,4 +9,5 @@ export const QUERY_KEYS = {
   ],
   forYouPostFeed: ["post-feed", "for-you"],
   getLikeInfoPost: (postId: string) => ["like-info", postId],
+  getBookmarkInfoPost: (postId: string) => ["bookmark-info", postId],
 } as const;

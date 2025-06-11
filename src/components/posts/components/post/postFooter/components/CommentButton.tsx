@@ -2,13 +2,24 @@ import { postTranslations } from "@/lib/translationKeys";
 import { PostData } from "@/lib/types";
 import { MessageSquare } from "lucide-react";
 import { useTranslations } from "next-intl";
+import React, { useEffect } from "react";
 
 interface CommentButtonProps {
   post: PostData;
   onClick: () => void;
 }
 
-export function CommentButton({ post, onClick }: CommentButtonProps) {
+function CommentButton({ post, onClick }: CommentButtonProps) {
+  console.log(`Comment button render ...`);
+
+  useEffect(() => {
+    console.log(`post comment button instance changed`);
+  }, [post]);
+
+  useEffect(() => {
+    console.log(`onClick comment button instance changed`);
+  }, [onClick]);
+
   const t = useTranslations();
   const numberOfComments = post._count.comments;
 
@@ -24,3 +35,5 @@ export function CommentButton({ post, onClick }: CommentButtonProps) {
     </button>
   );
 }
+
+export default React.memo(CommentButton);

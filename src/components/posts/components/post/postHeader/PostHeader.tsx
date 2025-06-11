@@ -1,12 +1,12 @@
 "use client";
 
 import UserAvatar from "@/components/customComponents/UserAvatar";
+import PostMoreButton from "@/components/posts/PostMoreButton";
 import UserTooltip from "@/components/UserTooltip/UserTooltip";
 import { useLocaleSettings } from "@/hooks/useLocaleSettings";
 import { PostData } from "@/lib/types";
 import { formatRelativeDate } from "@/lib/utils";
 import Link from "next/link";
-import PostMoreButton from "../../PostMoreButton";
 
 interface PostHeaderProps {
   post: PostData;

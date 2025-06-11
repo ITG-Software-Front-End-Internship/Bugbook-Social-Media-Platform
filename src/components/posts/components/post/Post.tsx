@@ -2,13 +2,14 @@
 
 import { useSession } from "@/app/(main)/SessionProvider";
 import { PostData } from "@/lib/types";
+import React from "react";
 import { PostContent, PostFooter, PostHeader } from "./index";
 
 interface PostProps {
   post: PostData;
 }
 
-export default function Post({ post }: PostProps) {
+function Post({ post }: PostProps) {
   console.log(`Post render ...`);
 
   const { user: loggedInUser } = useSession();
@@ -28,3 +29,5 @@ export default function Post({ post }: PostProps) {
     </article>
   );
 }
+
+export default React.memo(Post);

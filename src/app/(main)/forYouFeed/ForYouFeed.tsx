@@ -51,7 +51,7 @@ export default function ForYouFeed() {
       onBottomReached={handleOnBottomReached}
       className="space-y-5"
     >
-      {posts.map((post) => {
+      {posts.slice(0, 1).map((post) => {
         return <Post key={post.id} post={post} />;
       })}
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
