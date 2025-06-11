@@ -1,9 +1,8 @@
 "use client";
 
 import avatarPlaceHolder from "@/assets/avatar-placeholder.png";
-import CropImageDialog from "@/components/CropImageDialog";
 import LoadingButton from "@/components/customComponents/LoadingButton";
-import { Button } from "@/components/ui/button";
+import CropImageDialog from "@/components/posts/components/post/postContent/components/cropImageDialog/CropImageDialog";
 import {
   Dialog,
   DialogContent,

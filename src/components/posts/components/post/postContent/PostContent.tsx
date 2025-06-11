@@ -1,4 +1,4 @@
-import Linkify from "@/components/Linkify";
+import Linkify from "@/components/linkify/Linkify";
 import { Media } from "@/generated/prisma";
 import MediaPreviews from "./components/postMedia/MediaPreviews";
 

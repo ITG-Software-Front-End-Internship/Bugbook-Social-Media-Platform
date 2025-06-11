@@ -1,7 +1,7 @@
 import { cachedValidateRequest } from "@/auth";
 import FollowButton from "@/components/customComponents/TrendsSidebar/components/whoToFollow/components/FollowButton";
 import UserAvatar from "@/components/customComponents/UserAvatar";
-import Linkify from "@/components/Linkify";
+import Linkify from "@/components/linkify/Linkify";
 import Post from "@/components/posts/components/post/Post";
 import UserToolTip from "@/components/UserTooltip/UserTooltip";
 import prisma from "@/lib/prisma";

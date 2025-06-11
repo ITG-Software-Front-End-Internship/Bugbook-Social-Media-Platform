@@ -2,7 +2,7 @@ import { cachedValidateRequest } from "@/auth";
 import FollowButton from "@/components/customComponents/TrendsSidebar/components/whoToFollow/components/FollowButton";
 import TrendsSidebar from "@/components/customComponents/TrendsSidebar/TrendsSidebar";
 import UserAvatar from "@/components/customComponents/UserAvatar";
-import Linkify from "@/components/Linkify";
+import Linkify from "@/components/linkify/Linkify";
 import prisma from "@/lib/prisma";
 import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
