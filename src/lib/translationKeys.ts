@@ -154,6 +154,18 @@ export const postTranslations = {
   },
   footer: {
     likes: "post.footer.likes",
-    comments: "post.footer.comments",
+    comments: {
+      title: "post.footer.comments.title",
+      writeAComment: "post.footer.comments.writeAComment",
+      loadPrevComment: "post.footer.comments.loadPrevComment",
+      noComments: "post.footer.comments.noComments",
+      error: "post.footer.comments.error",
+      delete: {
+        deleteComment: "post.footer.comments.delete.deleteComment",
+        title: "post.footer.comments.delete.title",
+        cancel: "post.footer.comments.delete.cancel",
+        description: "post.footer.comments.delete.description",
+      },
+    },
   },
 };

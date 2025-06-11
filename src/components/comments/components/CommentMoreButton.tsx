@@ -1,14 +1,15 @@
+import { postTranslations } from "@/lib/translationKeys";
 import { CommentData } from "@/lib/types";
 import { MoreHorizontal, Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
-import DeletePostDialog from "../posts/DeletePostDialog";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../../ui/dropdown-menu";
 import DeleteCommentDialog from "./DeleteCommentDialog";
 
 interface CommentMoreButtonProps {
@@ -20,7 +21,10 @@ export default function CommentMoreButton({
   comment,
   className,
 }: CommentMoreButtonProps) {
+  console.log(`Comment more button render ...`);
+
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
+  const t = useTranslations();
 
   return (
     <>
@@ -34,7 +38,7 @@ export default function CommentMoreButton({
           <DropdownMenuItem onClick={() => setShowDeleteDialog(true)}>
             <span className="flex cursor-pointer select-none items-center gap-3 text-destructive">
               <Trash2 className="size-4" />
-              Delete
+              {t(postTranslations.footer.comments.delete.deleteComment)}
             </span>
           </DropdownMenuItem>
         </DropdownMenuContent>

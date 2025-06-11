@@ -29,7 +29,7 @@ function CommentButton({ post, onClick }: CommentButtonProps) {
       <span className="text-sm font-medium tabular-nums">
         {numberOfComments}{" "}
         <span className="hide sm:inline">
-          {t(postTranslations.footer.comments)}
+          {t(postTranslations.footer.comments.title)}
         </span>
       </span>
     </button>

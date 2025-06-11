@@ -42,7 +42,7 @@ export default function PostHeader({
             href={`/posts/${post.id}`}
             className="block text-sm text-muted-foreground hover:underline"
           >
-            {formatRelativeDate(post.createdAt, locale === "ar" ? "ar" : "en")}
+            {formatRelativeDate(post.createdAt, locale as "ar" | "en")}
           </Link>
         </div>
       </div>

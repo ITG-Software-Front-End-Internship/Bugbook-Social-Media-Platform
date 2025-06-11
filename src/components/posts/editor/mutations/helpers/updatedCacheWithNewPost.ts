@@ -1,4 +1,4 @@
-import { InfinitePostsPageData, PostData, PostsPage } from "@/lib/types";
+import { InfinitePostsPageData, PostData } from "@/lib/types";
 
 export const updatedCacheWithNewPost = (
   oldPosts: InfinitePostsPageData | undefined,

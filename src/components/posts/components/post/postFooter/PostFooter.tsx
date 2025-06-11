@@ -1,4 +1,4 @@
-import Comments from "@/components/comments/Comments";
+import Comments from "@/components/comments/components/Comments";
 import { useLocaleSettings } from "@/hooks/useLocaleSettings";
 import { PostData } from "@/lib/types";
 import { useCallback, useMemo, useState } from "react";

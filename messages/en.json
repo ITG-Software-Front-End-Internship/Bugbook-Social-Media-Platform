@@ -152,7 +152,19 @@
     },
     "footer": {
       "likes": "Likes",
-      "comments": "Comments"
+      "comments": {
+        "title": "Comments",
+        "writeAComment": "Write a comment ...",
+        "loadPrevComment": "Load previous comments",
+        "noComments": "No comments yet.",
+        "error": "An error occurred while loading comments",
+        "delete": {
+          "deleteComment": "Delete",
+          "cancel": "Cancel",
+          "title": "Delete comment ?",
+          "description": "Are you sure you want to delete this comment ? This action can not be undone."
+        }
+      }
     }
   }
 }

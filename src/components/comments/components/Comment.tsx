@@ -1,9 +1,10 @@
 import { useSession } from "@/app/(main)/SessionProvider";
+import { useLocaleSettings } from "@/hooks/useLocaleSettings";
 import { CommentData } from "@/lib/types";
 import { formatRelativeDate } from "@/lib/utils";
 import Link from "next/link";
-import UserAvatar from "../customComponents/UserAvatar";
-import UserToolTip from "../UserTooltip/UserTooltip";
+import UserAvatar from "../../customComponents/UserAvatar";
+import UserToolTip from "../../UserTooltip/UserTooltip";
 import CommentMoreButton from "./CommentMoreButton";
 
 interface CommentProps {
@@ -11,7 +12,11 @@ interface CommentProps {
 }
 
 export default function Comment({ comment }: CommentProps) {
+  console.log(`Comment render ....`);
+
   const { user: loggedInUser } = useSession();
+
+  const { locale } = useLocaleSettings();
 
   return (
     <div className="group/comment flex gap-3 py-3">
@@ -33,7 +38,7 @@ export default function Comment({ comment }: CommentProps) {
             </Link>
           </UserToolTip>
           <span className="text-muted-foreground">
-            {formatRelativeDate(comment.createdAt)}
+            {formatRelativeDate(comment.createdAt, locale as "ar" | "en")}
           </span>
         </div>
         <div>{comment.content}</div>

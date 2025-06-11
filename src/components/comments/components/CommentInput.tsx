@@ -1,23 +1,26 @@
+import { postTranslations } from "@/lib/translationKeys";
 import { PostData } from "@/lib/types";
 import { Loader2, SendHorizonal } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { useSubmitCommentMutation } from "./mutations";
+import { Button } from "../../ui/button";
+import { Input } from "../../ui/input";
+import { useSubmitCommentMutation } from "../hooks/useSubmitCommentMutation";
 
 interface CommentInputProps {
   post: PostData;
 }
 
 export default function CommentInput({ post }: CommentInputProps) {
+  console.log(`Comment input render ...`);
+
+  const t = useTranslations();
+
   const [commentInput, setCommentInput] = useState<string>("");
 
-  const mutation = useSubmitCommentMutation(post.id);
-
-  /**
-   * * Since comment dose not need any error messages validations, so i decided to use simple input field without any form library.
-   * TODO: change it later to tiptap editor and add form library ti it.
-   */
+  const { mutate: submitCommentMutate, isPending } = useSubmitCommentMutation(
+    post.id,
+  );
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -26,14 +29,13 @@ export default function CommentInput({ post }: CommentInputProps) {
       return;
     }
 
-    mutation.mutate(
+    submitCommentMutate(
       {
         post: post,
         content: commentInput,
       },
       {
         onSuccess() {
-          /** Make comment input empty again */
           setCommentInput("");
         },
       },
@@ -43,7 +45,7 @@ export default function CommentInput({ post }: CommentInputProps) {
   return (
     <form className="flex w-full items-center gap-2" onSubmit={onSubmit}>
       <Input
-        placeholder="Write a comment ..."
+        placeholder={t(postTranslations.footer.comments.writeAComment)}
         value={commentInput}
         onChange={(e) => setCommentInput(e.target.value)}
         autoFocus
@@ -52,9 +54,9 @@ export default function CommentInput({ post }: CommentInputProps) {
         type="submit"
         variant="ghost"
         size="icon"
-        disabled={!commentInput.trim() || mutation.isPending}
+        disabled={!commentInput.trim() || isPending}
       >
-        {!mutation.isPending ? (
+        {!isPending ? (
           <SendHorizonal className="size-5 cursor-pointer" />
         ) : (
           <Loader2 className="animate-spin" />
