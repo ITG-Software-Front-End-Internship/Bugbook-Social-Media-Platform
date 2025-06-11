@@ -11,4 +11,5 @@ export const QUERY_KEYS = {
   getLikeInfoPost: (postId: string) => ["like-info", postId],
   getBookmarkInfoPost: (postId: string) => ["bookmark-info", postId],
   getCommentPost: (postId: string) => ["comments", postId],
+  getUserData: (username: string) => ["user-data", username],
 } as const;

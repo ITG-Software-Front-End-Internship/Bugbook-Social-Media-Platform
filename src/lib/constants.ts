@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
     `/api/posts/${postId}/likes`,
   getPostBookmarksEndPoint: (postId: string) => `/api/posts/${postId}/bookmark`,
   getPostCommentsEndPoint: (postId: string) => `/api/posts/${postId}/comments`,
+  getUserDataEndpoint: (username: string) => `/api/users/username/${username}`,
 } as const;
 
 export const MAX_ATTACHMENT_NUMBER = 5;
