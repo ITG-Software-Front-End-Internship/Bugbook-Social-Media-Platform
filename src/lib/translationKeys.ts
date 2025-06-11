@@ -165,6 +165,14 @@ export const postTranslations = {
         title: "post.footer.comments.delete.title",
         cancel: "post.footer.comments.delete.cancel",
         description: "post.footer.comments.delete.description",
+        failed: {
+          title: "post.footer.comments.delete.failed.title",
+          description: "post.footer.comments.delete.failed.description",
+        },
+        success: {
+          title: "post.footer.comments.delete.success.title",
+          description: "post.footer.comments.delete.success.description",
+        },
       },
     },
   },

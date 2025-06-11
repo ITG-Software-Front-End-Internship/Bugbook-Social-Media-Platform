@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../../ui/dialog";
-import { useDeleteCommentMutation } from "../mutations";
+import { useDeleteCommentMutation } from "../hooks/useDeleteCommentMutation";
 
 interface DeleteCommentDialogProps {
   comment: CommentData;
@@ -30,7 +30,7 @@ export default function DeleteCommentDialog({
 
   const t = useTranslations();
 
-  const deleteCommentMutation = useDeleteCommentMutation();
+  const { isPending, mutate: deleteCommentMutate } = useDeleteCommentMutation();
 
   const { direction } = useLocaleSettings();
   const aligningDirection =
@@ -39,13 +39,13 @@ export default function DeleteCommentDialog({
   console.log({ direction });
 
   function handleOpenChange(open: boolean) {
-    if (!open || !deleteCommentMutation.isPending) {
+    if (!open || !isPending) {
       onClose();
     }
   }
 
   function handleOnDeletePress() {
-    deleteCommentMutation.mutate(comment.id, {
+    deleteCommentMutate(comment.id, {
       onSuccess: onClose,
     });
   }
@@ -67,15 +67,11 @@ export default function DeleteCommentDialog({
           <LoadingButton
             variant="destructive"
             onClick={handleOnDeletePress}
-            isLoading={deleteCommentMutation.isPending}
+            isLoading={isPending}
           >
             {t(postTranslations.footer.comments.delete.deleteComment)}
           </LoadingButton>
-          <Button
-            variant="outline"
-            onClick={onClose}
-            disabled={deleteCommentMutation.isPending}
-          >
+          <Button variant="outline" onClick={onClose} disabled={isPending}>
             {t(postTranslations.footer.comments.delete.cancel)}
           </Button>
         </DialogFooter>

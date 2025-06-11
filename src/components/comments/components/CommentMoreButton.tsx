@@ -2,7 +2,7 @@ import { postTranslations } from "@/lib/translationKeys";
 import { CommentData } from "@/lib/types";
 import { MoreHorizontal, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "../../ui/button";
 import {
   DropdownMenu,
