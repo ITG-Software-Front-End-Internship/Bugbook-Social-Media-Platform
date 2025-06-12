@@ -234,8 +234,14 @@ export const searchTranslations = {
 };
 
 export const profileTranslations = {
+  posts: {
+    title: "profile.posts.title",
+  },
   edit: {
     title: "profile.edit.title",
+    description: "profile.edit.description",
+    memberSince: "profile.edit.memberSince",
+    save: "profile.edit.save",
     success: {
       title: "profile.edit.success.title",
       description: "profile.edit.success.description",
@@ -243,6 +249,19 @@ export const profileTranslations = {
     failed: {
       title: "profile.edit.failed.title",
       description: "profile.edit.failed.description",
+    },
+    user: {
+      avatar: {
+        title: "profile.edit.user.avatar.title",
+      },
+      displayName: {
+        title: "profile.edit.user.displayName.title",
+        placeholder: "profile.edit.user.displayName.placeholder",
+      },
+      bio: {
+        title: "profile.edit.user.bio.title",
+        placeholder: "profile.edit.user.bio.placeholder",
+      },
     },
   },
 };

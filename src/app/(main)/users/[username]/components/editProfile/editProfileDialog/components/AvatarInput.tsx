@@ -10,6 +10,8 @@ interface AvatarInputProps {
 }
 
 export default function AvatarInput({ src, onImageCropped }: AvatarInputProps) {
+  console.log(`AvatarInput render ...`);
+
   const [imageToCrop, setImageToCrop] = useState<File>();
 
   const fileInputRef = useRef<HTMLInputElement>(null);

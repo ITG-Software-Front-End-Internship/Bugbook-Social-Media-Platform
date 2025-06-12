@@ -12,6 +12,8 @@ interface EditProfileButtonProps {
 }
 
 export default function EditProfileButton({ user }: EditProfileButtonProps) {
+  console.log(`EditProfileButton render ...`);
+
   const [showDialog, setShowDialog] = useState(false);
   const t = useTranslations();
 

@@ -2,7 +2,10 @@
 
 import { cachedValidateRequest } from "@/auth";
 import TrendsSidebar from "@/components/customComponents/TrendsSidebar/TrendsSidebar";
+import { getLocaleSettings } from "@/hooks/useLocaleSettings";
+import { profileTranslations } from "@/lib/translationKeys";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import UserProfile from "./components/userProfile/UserProfile";
 import getUser from "./helpers/getUser";
 import UserPosts from "./UserPosts";
@@ -53,18 +56,25 @@ export default async function page({
 
   const user = await getUser(username, loggedInUser.id);
 
+  const t = await getTranslations();
+
+  const { direction } = await getLocaleSettings();
+
+  const userPostTitle =
+    direction === "rtl"
+      ? `${t(profileTranslations.posts.title)} ${user.displayName}`
+      : `${user.displayName} ${t(profileTranslations.posts.title)}`;
+
   return (
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
         <UserProfile user={user} loggedInUserId={loggedInUser.id} />
         <div className="rounded-2xl bg-card p-5 shadow-sm">
-          <h2 className="text-center text-2xl font-bold">
-            {user.displayName}&apos;s posts
-          </h2>
+          <h2 className="text-center text-2xl font-bold">{userPostTitle}</h2>
         </div>
-        <UserPosts userId={user.id} />
+        {/*<UserPosts userId={user.id} />*/}
       </div>
-      <TrendsSidebar />
+      {/*<TrendsSidebar />*/}
     </main>
   );
 }

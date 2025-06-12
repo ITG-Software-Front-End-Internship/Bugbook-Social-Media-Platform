@@ -1,9 +1,14 @@
+"use server";
+
 import FollowButton from "@/components/customComponents/TrendsSidebar/components/whoToFollow/components/FollowButton";
 import UserAvatar from "@/components/customComponents/UserAvatar";
 import Linkify from "@/components/linkify/Linkify";
+import { getLocaleSettings } from "@/hooks/useLocaleSettings";
+import { profileTranslations } from "@/lib/translationKeys";
 import { FollowerInfo, UserData } from "@/lib/types";
-import { formatNumber } from "@/lib/utils";
+import { formatNumber, getMappedLocale, SupportedLang } from "@/lib/utils";
 import { formatDate } from "date-fns";
+import { getTranslations } from "next-intl/server";
 import FollowerCount from "../../../components/followingFeed/followerCount/FollowerCount";
 import EditProfileButton from "../editProfile/EditProfileButton";
 
@@ -23,6 +28,18 @@ export default async function UserProfile({
     }),
   };
 
+  const { locale } = await getLocaleSettings();
+
+  const t = await getTranslations();
+
+  const formattedUserCreatedAtAccount = formatDate(
+    user.createdAt,
+    "MMMM d, yyyy",
+    {
+      locale: getMappedLocale(locale as SupportedLang),
+    },
+  );
+
   return (
     <div className="h-fit w-full space-y-5 rounded-2xl bg-card p-5 shadow-sm">
       <UserAvatar
@@ -36,10 +53,13 @@ export default async function UserProfile({
             <h1 className="text-3xl font-bold">{user.displayName}</h1>
             <div className="text-muted-foreground">@{user.username}</div>
           </div>
-          <div>Member since {formatDate(user.createdAt, "MMMM d, yyyy")}</div>
+          <div>
+            {t(profileTranslations.edit.memberSince)}{" "}
+            {formattedUserCreatedAtAccount}
+          </div>
           <div className="flex items-center gap-3">
             <span>
-              Posts:{""}{" "}
+              {t(profileTranslations.posts.title)}:{""}{" "}
               <span className="font-semibold">
                 {formatNumber(user._count.posts)}
               </span>

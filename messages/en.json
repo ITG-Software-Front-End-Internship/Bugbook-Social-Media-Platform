@@ -228,8 +228,14 @@
     "title": "Search results for"
   },
   "profile": {
+    "posts": {
+      "title": "Posts"
+    },
     "edit": {
       "title": "Edit profile",
+      "description": "Update your public profile information. Changes will be visible to others.",
+      "memberSince": "Member since",
+      "save": "Save",
       "success": {
         "title": "Profile updated",
         "description": "Profile updated successfully"
@@ -237,6 +243,19 @@
       "failed": {
         "title": "Failed to update profile",
         "description": "An error occurred during update profile. Please try again"
+      },
+      "user": {
+        "avatar": {
+          "title": "Avatar"
+        },
+        "displayName": {
+          "title": "Display Name",
+          "placeholder": "Your display name here ..."
+        },
+        "bio": {
+          "title": "Bio",
+          "placeholder": "Tell us a little bit about yourself"
+        }
       }
     }
   }
