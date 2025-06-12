@@ -13,4 +13,5 @@ export const QUERY_KEYS = {
   getCommentPost: (postId: string) => ["comments", postId],
   getUserData: (username: string) => ["user-data", username],
   followingPostFeed: ["post-feed", "following"],
+  postFeedSearch: (query: string) => ["post-feed", "search", query],
 } as const;

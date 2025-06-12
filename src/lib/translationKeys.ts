@@ -226,3 +226,9 @@ export const postTranslations = {
 export const followersTranslations = {
   title: "followers.title",
 };
+
+export const searchTranslations = {
+  notFound: "search.notFound",
+  error: "search.error",
+  title: "search.title",
+};

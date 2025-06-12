@@ -221,5 +221,10 @@
   },
   "followers": {
     "title": "Followers"
+  },
+  "search": {
+    "notFound": "No posts found for this query.",
+    "error": "An error occurred while loading posts.",
+    "title": "Search results for"
   }
 }
