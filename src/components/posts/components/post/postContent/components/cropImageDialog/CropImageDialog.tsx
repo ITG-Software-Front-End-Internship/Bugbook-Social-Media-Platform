@@ -1,7 +1,7 @@
 import "cropperjs/dist/cropper.css";
 import { useRef } from "react";
 import { Cropper, ReactCropperElement } from "react-cropper";
-import { Button } from "./ui/button";
+import { Button } from "./../../../../../../ui/button";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +9,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "./ui/dialog";
+} from "./../../../../../../ui/dialog";
 
 interface CropImageDialogProps {
   src: string;

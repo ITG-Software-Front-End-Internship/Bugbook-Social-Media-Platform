@@ -232,3 +232,17 @@ export const searchTranslations = {
   error: "search.error",
   title: "search.title",
 };
+
+export const profileTranslations = {
+  edit: {
+    title: "profile.edit.title",
+    success: {
+      title: "profile.edit.success.title",
+      description: "profile.edit.success.description",
+    },
+    failed: {
+      title: "profile.edit.failed.title",
+      description: "profile.edit.failed.description",
+    },
+  },
+};
