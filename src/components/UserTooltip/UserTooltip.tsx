@@ -1,7 +1,7 @@
 "use client";
 
-import FollowerCount from "@/app/(main)/FollowerCount";
 import { useSession } from "@/app/(main)/SessionProvider";
+import FollowerCount from "@/app/(main)/users/components/followingFeed/followerCount/FollowerCount";
 import { FollowerInfo, UserData } from "@/lib/types";
 import Link from "next/link";
 import { memo, PropsWithChildren, useEffect, useMemo } from "react";

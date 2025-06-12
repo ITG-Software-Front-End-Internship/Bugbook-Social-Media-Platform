@@ -222,3 +222,7 @@ export const postTranslations = {
     },
   },
 };
+
+export const followersTranslations = {
+  title: "followers.title",
+};

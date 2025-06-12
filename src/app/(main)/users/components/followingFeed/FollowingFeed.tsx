@@ -3,10 +3,11 @@
 import InfiniteScrollContainer from "@/components/customComponents/InfiniteScrollContainer";
 import Post from "@/components/posts/components/post/Post";
 import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
-import kyInstance from "@/lib/ky";
-import { PostsPage } from "@/lib/types";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { followingFeedTranslations } from "@/lib/translationKeys";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useCallback } from "react";
+import { useFollowingFeedInfiniteQuery } from "./hooks/useFollowingFeedInfiniteQuery";
 
 export default function FollowingFeed() {
   const {
@@ -16,20 +17,17 @@ export default function FollowingFeed() {
     isFetching,
     isFetchingNextPage,
     status,
-  } = useInfiniteQuery({
-    queryKey: ["post-feed", "following"],
-    queryFn: ({ pageParam }) =>
-      kyInstance
-        .get(
-          "/api/posts/following",
-          pageParam ? { searchParams: { cursor: pageParam } } : {},
-        )
-        .json<PostsPage>(),
-    initialPageParam: null as string | null,
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
-  });
+  } = useFollowingFeedInfiniteQuery();
 
-  console.log(data);
+  console.log({ followingFeedData: data });
+
+  const t = useTranslations();
+
+  const handleOnBottomReached = useCallback(() => {
+    if (hasNextPage && !isFetching) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage, isFetching]);
 
   const posts = data?.pages.flatMap((page) => page.posts) || [];
 
@@ -40,22 +38,16 @@ export default function FollowingFeed() {
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
       <p className="text-center text-muted-foreground">
-        No posts found. Start following people to see their posts here.
+        {t(followingFeedTranslations.noPosts)}
       </p>
     );
   }
   if (status === "error") {
     return (
       <p className="text-center text-destructive">
-        An error occurred while loading posts
+        {t(followingFeedTranslations.error)}
       </p>
     );
-  }
-
-  function handleOnBottomReached() {
-    if (hasNextPage && !isFetching) {
-      fetchNextPage();
-    }
   }
 
   return (

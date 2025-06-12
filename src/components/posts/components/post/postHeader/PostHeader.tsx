@@ -1,7 +1,7 @@
 "use client";
 
 import UserAvatar from "@/components/customComponents/UserAvatar";
-import UserTooltip from "@/components/UserTooltip/UserTooltip";
+import UserTooltip from "@/components/userTooltip/UserTooltip";
 import { useLocaleSettings } from "@/hooks/useLocaleSettings";
 import { PostData } from "@/lib/types";
 import { formatRelativeDate } from "@/lib/utils";

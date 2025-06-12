@@ -1,4 +1,4 @@
-import UserLinkWithTooltip from "@/components/UserTooltip/UserLinkWithTooltip";
+import UserLinkWithTooltip from "@/components/userTooltip/UserLinkWithTooltip";
 import { ReactNode } from "react";
 import { LinkIt } from "react-linkify-it";
 

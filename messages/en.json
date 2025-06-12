@@ -149,7 +149,7 @@
   },
   "followingFeed": {
     "title": "For you",
-    "noPosts": "No one has posted anything yet.",
+    "noPosts": " No posts found. Start following people to see their posts here.",
     "error": "An error occurred while loading posts"
   },
   "post": {
@@ -218,5 +218,8 @@
         }
       }
     }
+  },
+  "followers": {
+    "title": "Followers"
   }
 }

@@ -7,8 +7,8 @@ import {
   forYouFeedTranslations,
 } from "@/lib/translationKeys";
 import { getTranslations } from "next-intl/server";
-import FollowingFeed from "./FollowingFeed";
 import ForYouFeed from "./forYouFeed/ForYouFeed";
+import FollowingFeed from "./users/components/followingFeed/FollowingFeed";
 
 export default async function Home() {
   const t = await getTranslations();
@@ -17,7 +17,7 @@ export default async function Home() {
   return (
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
-        {<PostEditor />}
+        {/*<PostEditor />*/}
         {
           <Tabs defaultValue="for-you" dir={direction}>
             <TabsList>
@@ -28,12 +28,12 @@ export default async function Home() {
                 {t(followingFeedTranslations.title)}
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="for-you">
-              <ForYouFeed />
-            </TabsContent>
-            {/*<TabsContent value="following">
-              <FollowingFeed />
-            </TabsContent>*/}
+            <TabsContent value="for-you">{/* <ForYouFeed />*/}</TabsContent>
+            {
+              <TabsContent value="following">
+                <FollowingFeed />
+              </TabsContent>
+            }
           </Tabs>
         }
       </div>

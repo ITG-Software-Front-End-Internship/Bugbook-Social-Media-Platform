@@ -10,7 +10,7 @@ import { formatDate } from "date-fns";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
-import FollowerCount from "../../FollowerCount";
+import FollowerCount from "../components/followingFeed/followerCount/FollowerCount";
 import EditProfileButton from "./EditProfileButton";
 import UserPosts from "./UserPosts";
 
