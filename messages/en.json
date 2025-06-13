@@ -262,8 +262,24 @@
     }
   },
   "chat": {
+    "messages": {
+      "title": "Messages",
+      "newChat": {
+        "start": "Start a new chat."
+      }
+    },
     "users": {
       "notFound": "No user"
+    },
+    "newChat": {
+      "title": "New chat.",
+      "startChat": "Start chat",
+      "dialogDescription": "Select users to start a new conversation.",
+      "searchUsers": "Search users ...",
+      "error": {
+        "title": "Error starting chat",
+        "description": "Error starting chat, please try again ..."
+      }
     }
   }
 }

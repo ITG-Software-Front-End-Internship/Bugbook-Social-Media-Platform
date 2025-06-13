@@ -269,7 +269,23 @@ export const profileTranslations = {
 };
 
 export const chatTranslations = {
+  messages: {
+    title: "chat.messages.title",
+    newChat: {
+      start: "chat.messages.newChat.start",
+    },
+  },
   users: {
     notFound: "chat.users.notFound",
+  },
+  newChat: {
+    title: "chat.newChat.title",
+    startChat: "chat.newChat.startChat",
+    dialogDescription: "chat.newChat.dialogDescription",
+    searchUsers: "chat.newChat.searchUsers",
+    error: {
+      title: "chat.newChat.error.title",
+      description: "chat.newChat.error.description",
+    },
   },
 };

@@ -1,5 +1,9 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { chatTranslations } from "@/lib/translationKeys";
 import { MailPlus, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import NewChatDialog from "../../newChatDialog/NewChatDialog";
 
@@ -10,6 +14,8 @@ interface MenuHeaderProps {
 export default function MenuHeader({ onClose }: MenuHeaderProps) {
   const [showNewChatDialog, setShowNewChatDialog] = useState<boolean>(false);
 
+  const t = useTranslations();
+
   return (
     <>
       <div className="flex items-center gap-3 p-2">
@@ -18,11 +24,13 @@ export default function MenuHeader({ onClose }: MenuHeaderProps) {
             <X className="size-5" />
           </Button>
         </div>
-        <h1 className="me-auto text-xl font-bold md:ms-2">Messages</h1>
+        <h1 className="me-auto text-xl font-bold md:ms-2">
+          {t(chatTranslations.messages.title)}
+        </h1>
         <Button
           size="icon"
           variant="ghost"
-          title="Start a new chat."
+          title={t(chatTranslations.messages.newChat.start)}
           onClick={() => setShowNewChatDialog(true)}
         >
           <MailPlus className="size-5" />

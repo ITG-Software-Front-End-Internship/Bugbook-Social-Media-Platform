@@ -10,6 +10,8 @@ export default function CustomChannelHeader({
   openSidebar,
   ...props
 }: CustomChannelHeaderProps) {
+  console.log(`CustomChannelHeader render ....`);
+
   return (
     <div className="flex items-center gap-3">
       <div className="h-full p-2 md:hidden">

@@ -15,6 +15,8 @@ interface ChatSidebarProps {
 }
 
 export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
+  console.log(`ChatSidebar redner ...`);
+
   const { user } = useSession();
 
   useInvalidateUnreadMessages();

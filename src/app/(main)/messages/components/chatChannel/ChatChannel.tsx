@@ -8,6 +8,8 @@ interface ChatChannelProps {
 }
 
 export default function ChatChannel({ isOpen, openSidebar }: ChatChannelProps) {
+  console.log(`ChatChannel render...`);
+
   return (
     <div className={cn("w-full md:block", !isOpen && "hidden")}>
       <Channel>

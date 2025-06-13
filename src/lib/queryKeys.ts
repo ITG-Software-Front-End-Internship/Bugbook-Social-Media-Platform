@@ -15,4 +15,8 @@ export const QUERY_KEYS = {
   followingPostFeed: ["post-feed", "following"],
   postFeedSearch: (query: string) => ["post-feed", "search", query],
   userForYouPostFeed: (userId: string) => ["post-feed", "for-you", userId],
+  streamUsersSearch: (searchInputDebounced: string) => [
+    "stream-users",
+    searchInputDebounced,
+  ],
 } as const;
