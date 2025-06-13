@@ -77,6 +77,7 @@ export default function NewChatDialog({
           <DialogTitle>{t(chatTranslations.newChat.title)}</DialogTitle>
           <DialogDescription>
             {t(chatTranslations.newChat.dialogDescription)}
+            {JSON.stringify(selectedUsers.map((user) => user.name))}
           </DialogDescription>
         </DialogHeader>
         <div>
@@ -102,7 +103,7 @@ export default function NewChatDialog({
         </div>
         <DialogFooter className={cn("px-6 pb-6", alignDirection)}>
           <LoadingButton
-            disabled={!!selectedUsers.length}
+            disabled={selectedUsers.length < 1}
             isLoading={isPending}
             onClick={() => createNewChatMutate()}
           >
