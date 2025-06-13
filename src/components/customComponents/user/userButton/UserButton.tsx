@@ -2,13 +2,6 @@
 
 import { logout } from "@/app/(auth)/logout/actions";
 import { useSession } from "@/app/(main)/SessionProvider";
-import { useLocaleSettings } from "@/hooks/useLocaleSettings";
-import { headerTranslations } from "@/lib/translationKeys";
-import { cn } from "@/lib/utils";
-import { useQueryClient } from "@tanstack/react-query";
-import { LogOutIcon, Monitor, UserIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
-import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,9 +11,16 @@ import {
   DropdownMenuSub,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import UserAvatar from "./UserAvatar";
-import ThemeDropdownMenu from "./theme/ThemeDropdownMenu";
+} from "@/components/ui/dropdown-menu";
+import { useLocaleSettings } from "@/hooks/useLocaleSettings";
+import { headerTranslations } from "@/lib/translationKeys";
+import { cn } from "@/lib/utils";
+import { useQueryClient } from "@tanstack/react-query";
+import { LogOutIcon, Monitor, UserIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
+import ThemeDropdownMenu from "../../theme/ThemeDropdownMenu";
+import UserAvatar from "../userAvatar/UserAvatar";
 
 interface UserButtonProps {
   className?: string;

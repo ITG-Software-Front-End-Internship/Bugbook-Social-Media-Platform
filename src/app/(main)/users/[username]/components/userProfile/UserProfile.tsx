@@ -1,7 +1,7 @@
 "use server";
 
 import FollowButton from "@/components/customComponents/TrendsSidebar/components/whoToFollow/components/FollowButton";
-import UserAvatar from "@/components/customComponents/UserAvatar";
+import UserAvatar from "@/components/customComponents/user/userAvatar/UserAvatar";
 import Linkify from "@/components/linkify/Linkify";
 import { getLocaleSettings } from "@/hooks/useLocaleSettings";
 import { profileTranslations } from "@/lib/translationKeys";

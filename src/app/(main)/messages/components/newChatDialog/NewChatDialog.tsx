@@ -1,7 +1,8 @@
 "use client";
 
+import { useSession } from "@/app/(main)/SessionProvider";
 import LoadingButton from "@/components/customComponents/LoadingButton";
-import UserAvatar from "@/components/customComponents/UserAvatar";
+
 import {
   Dialog,
   DialogContent,
@@ -11,12 +12,13 @@ import {
 } from "@/components/ui/dialog";
 import useDebounce from "@/hooks/useDebounce";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Check, Loader2, SearchIcon, X } from "lucide-react";
+import { Loader2, SearchIcon, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { UserResponse } from "stream-chat";
 import { useChatContext } from "stream-chat-react";
-import { useSession } from "../SessionProvider";
+import SelectedUserTag from "./components/SelectedUserTag";
+import UserResult from "./components/UserResult";
 
 interface NewChatDialogProps {
   onOpenChange: (isOpen: boolean) => void;
@@ -180,47 +182,5 @@ export default function NewChatDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
-}
-
-interface UserResultProps {
-  user: UserResponse;
-  selected: boolean;
-  onClick: () => void;
-}
-
-function UserResult({ user, selected, onClick }: UserResultProps) {
-  return (
-    <button
-      onClick={onClick}
-      className="flex w-full items-center justify-between px-4 py-2.5 transition-colors hover:bg-muted/50"
-    >
-      <div className="flex items-center gap-2">
-        <UserAvatar avatarUrl={user.image} />
-        <div className="flex flex-col text-start">
-          <p className="font-bold">{user.name}</p>
-          <p className="text-muted-foreground">@{user.username}</p>
-        </div>
-      </div>
-      {selected && <Check className="size-5 text-green-500" />}
-    </button>
-  );
-}
-
-interface SelectedUserTagProps {
-  user: UserResponse;
-  onRemove: () => void;
-}
-
-function SelectedUserTag({ user, onRemove }: SelectedUserTagProps) {
-  return (
-    <button
-      onClick={onRemove}
-      className="flex items-center gap-2 rounded-full border p-1 hover:bg-muted/50"
-    >
-      <UserAvatar avatarUrl={user.image} size={24} />
-      <p className="font-bold">{user.name}</p>
-      <X className="mx-2 size-5 text-muted-foreground" />
-    </button>
   );
 }

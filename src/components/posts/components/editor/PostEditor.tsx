@@ -2,7 +2,7 @@
 
 import { useSession } from "@/app/(main)/SessionProvider";
 import LoadingButton from "@/components/customComponents/LoadingButton";
-import UserAvatar from "@/components/customComponents/UserAvatar";
+import UserAvatar from "@/components/customComponents/user/userAvatar/UserAvatar";
 import { MAX_ATTACHMENT_NUMBER } from "@/lib/constants";
 import { postEditorTranslations } from "@/lib/translationKeys";
 import { Loader2 } from "lucide-react";

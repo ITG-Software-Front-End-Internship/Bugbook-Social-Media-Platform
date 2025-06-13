@@ -1,4 +1,4 @@
-import UserAvatar from "@/components/customComponents/UserAvatar";
+import UserAvatar from "@/components/customComponents/user/userAvatar/UserAvatar";
 import { NotificationType } from "@/generated/prisma";
 import { NotificationData } from "@/lib/types";
 import { cn } from "@/lib/utils";

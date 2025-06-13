@@ -1,6 +1,6 @@
 "use client";
 
-import UserAvatar from "@/components/customComponents/UserAvatar";
+import UserAvatar from "@/components/customComponents/user/userAvatar/UserAvatar";
 import UserTooltip from "@/components/userTooltip/UserTooltip";
 import { useLocaleSettings } from "@/hooks/useLocaleSettings";
 import { PostData } from "@/lib/types";

@@ -6,7 +6,7 @@ import { FollowerInfo, UserData } from "@/lib/types";
 import Link from "next/link";
 import { memo, PropsWithChildren, useEffect, useMemo } from "react";
 import FollowButton from "../customComponents/TrendsSidebar/components/whoToFollow/components/FollowButton";
-import UserAvatar from "../customComponents/UserAvatar";
+import UserAvatar from "../customComponents/user/userAvatar/UserAvatar";
 import Linkify from "../linkify/Linkify";
 import {
   Tooltip,

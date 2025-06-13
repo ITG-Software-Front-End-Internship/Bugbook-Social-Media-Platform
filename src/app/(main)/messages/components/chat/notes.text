@@ -1,0 +1,12 @@
+  /**
+   * resolvedTheme: if always light or dark (no system choice)
+   */
+   
+    /** chatClient can be null before the userclient has been initialized */
+  
+  
+  /**
+   * We could initialize the chat client in the rootlayout (as a sidebar for ex) so it starts as soon as we open any page in our website.
+   
+  * I decided to create it in here, in chat page because we do not create an unnecessry connection (The more connections the more you pay)
+   */
