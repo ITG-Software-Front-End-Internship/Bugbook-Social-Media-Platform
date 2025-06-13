@@ -1,6 +1,7 @@
 export const QUERY_KEYS = {
   postFeed: ["post-feed"],
   bookmarkedPosts: ["post-feed", "bookmarks"],
+
   unreadNotificationsCount: ["unread-notification-count"],
   unreadMessagesCount: ["unread-messages-count"],
   getUserFollowerInfoKey: (userId: string): Array<string> => [
@@ -19,4 +20,5 @@ export const QUERY_KEYS = {
     "stream-users",
     searchInputDebounced,
   ],
+  notifications: ["notifications"],
 } as const;

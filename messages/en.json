@@ -281,5 +281,15 @@
         "description": "Error starting chat, please try again ..."
       }
     }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "notFound": "You do not have any notifications yet.",
+    "error": "An error occurred while loading notifications",
+    "messages": {
+      "like": "liked your post",
+      "follow": "followed you.",
+      "comment": "comment on your post."
+    }
   }
 }

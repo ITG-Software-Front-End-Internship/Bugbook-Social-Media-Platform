@@ -6,9 +6,9 @@ import { useTheme } from "next-themes";
 import { useCallback, useMemo, useState } from "react";
 import { Chat as StreamChat, Streami18n } from "stream-chat-react";
 import arStreamChattranslations from "../../../../../../messages/arStreamChattranslations.json";
-import { useInitializeChatClient } from "../../useInitializeChatClient";
 import ChatChannel from "../chatChannel/ChatChannel";
 import ChatSidebar from "../chatSidebar/ChatSidebar";
+import { useInitializeChatClient } from "../hooks/useInitializeChatClient";
 
 export default function Chat() {
   console.log(`Chat component redner ...`);

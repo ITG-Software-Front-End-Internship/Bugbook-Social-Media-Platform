@@ -12,6 +12,8 @@ export const API_ENDPOINTS = {
   getUserDataEndpoint: (username: string) => `/api/users/username/${username}`,
   search: "/api/search",
   getUserPostsEndpoint: (userId: string) => `/api/users/${userId}/posts`,
+  notificationsEndpoint: "/api/notifications",
+  markNotificationAsReadEndpoint: "/api/notifications/mark-as-read",
 } as const;
 
 export const MAX_ATTACHMENT_NUMBER = 5;

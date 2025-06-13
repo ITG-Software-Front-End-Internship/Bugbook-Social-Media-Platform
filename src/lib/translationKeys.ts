@@ -289,3 +289,14 @@ export const chatTranslations = {
     },
   },
 };
+
+export const notificationsTranslations = {
+  title: "notifications.title",
+  notFound: "notifications.notFound",
+  error: "notifications.error",
+  messages: {
+    like: "notifications.messages.like",
+    follow: "notifications.messages.follow",
+    comment: "notifications.messages.comment",
+  },
+};

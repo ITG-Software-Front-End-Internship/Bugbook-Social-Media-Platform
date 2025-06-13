@@ -1,16 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function NotificationsLoadingSkeleton() {
-  return (
-    <div className="space-y-5">
-      <NotificationLoadingSkeleton />
-      <NotificationLoadingSkeleton />
-      <NotificationLoadingSkeleton />
-    </div>
-  );
-}
-
-function NotificationLoadingSkeleton() {
+export default function NotificationLoadingSkeleton() {
   return (
     <div className="w-full animate-pulse space-y-3 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex flex-wrap gap-3">

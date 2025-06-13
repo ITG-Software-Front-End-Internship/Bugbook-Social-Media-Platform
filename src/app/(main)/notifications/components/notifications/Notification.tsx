@@ -1,8 +1,10 @@
 import UserAvatar from "@/components/customComponents/user/userAvatar/UserAvatar";
 import { NotificationType } from "@/generated/prisma";
+import { notificationsTranslations } from "@/lib/translationKeys";
 import { NotificationData } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { HeartIcon, MessageCircle, User2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { JSX } from "react";
 
@@ -11,22 +13,24 @@ interface NotificationProps {
 }
 
 export default function Notification({ notification }: NotificationProps) {
+  const t = useTranslations();
+
   const notificationTypeMap: Record<
     NotificationType,
     { message: string; icon: JSX.Element; href: string }
   > = {
     LIKE: {
-      message: `liked your post.`,
+      message: t(notificationsTranslations.messages.like),
       icon: <HeartIcon className="size-7 fill-red-500 text-red-500" />,
       href: `/users/${notification.issuer.username}`,
     },
     FOLLOW: {
-      message: `followed you.`,
+      message: t(notificationsTranslations.messages.follow),
       icon: <User2 className="size-7 text-primary" />,
       href: `/users/${notification.issuer.username}`,
     },
     COMMENT: {
-      message: `comment on your post.`,
+      message: t(notificationsTranslations.messages.comment),
       icon: <MessageCircle className="size-7 fill-primary text-primary" />,
       href: `/posts/${notification.postId}`,
     },
