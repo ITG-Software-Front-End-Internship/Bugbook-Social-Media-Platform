@@ -260,5 +260,10 @@
         }
       }
     }
+  },
+  "chat": {
+    "users": {
+      "notFound": "No user"
+    }
   }
 }

@@ -6,8 +6,6 @@ export const metadata: Metadata = {
 };
 
 export default function page() {
-  /**
-   * Chat has to be a clinent component.
-   */
+  /* Chat has to be a clinent component. */
   return <Chat />;
 }

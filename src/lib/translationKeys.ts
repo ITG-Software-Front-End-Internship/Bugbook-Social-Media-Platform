@@ -267,3 +267,9 @@ export const profileTranslations = {
     },
   },
 };
+
+export const chatTranslations = {
+  users: {
+    notFound: "chat.users.notFound",
+  },
+};

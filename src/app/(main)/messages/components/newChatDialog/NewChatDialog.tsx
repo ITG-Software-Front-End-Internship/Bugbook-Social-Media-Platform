@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import useDebounce from "@/hooks/useDebounce";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Loader2, SearchIcon, X } from "lucide-react";
+import { Loader2, SearchIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { UserResponse } from "stream-chat";

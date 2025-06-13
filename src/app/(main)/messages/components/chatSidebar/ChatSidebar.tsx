@@ -1,14 +1,13 @@
+"use client";
+
+import { chatTranslations } from "@/lib/translationKeys";
 import { cn } from "@/lib/utils";
-import { useQueryClient } from "@tanstack/react-query";
-import { useCallback, useEffect } from "react";
-import {
-  ChannelList,
-  ChannelPreviewMessenger,
-  ChannelPreviewUIComponentProps,
-  useChatContext,
-} from "stream-chat-react";
+import { useTranslations } from "next-intl";
+import { ChannelList, ChannelPreviewUIComponentProps } from "stream-chat-react";
 import { useSession } from "../../../SessionProvider";
+import { ChannelPreviewCustom } from "./components/ChannelPreviewCustom";
 import MenuHeader from "./components/MenuHeader";
+import { useInvalidateUnreadMessages } from "./hooks/useInvalidateUnreadMessages";
 
 interface ChatSidebarProps {
   isOpen: boolean;
@@ -18,44 +17,16 @@ interface ChatSidebarProps {
 export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
   const { user } = useSession();
 
-  const queryClient = useQueryClient();
+  useInvalidateUnreadMessages();
 
-  const { channel } = useChatContext();
+  const CustomPreviewWrapper = (props: ChannelPreviewUIComponentProps) => {
+    return <ChannelPreviewCustom props={props} onClose={onClose} />;
+  };
 
-  useEffect(() => {
-    /*
-    * Invalidate the unread message, when we click on the channel to show the real unread count from ourserver.
-    
-     * We can have different unread messages in different chats and we might not have read all of them when we open the messages page.
-     
-    */
-    const isAChannelSelected = channel?.id;
-
-    if (isAChannelSelected) {
-      queryClient.invalidateQueries({
-        queryKey: ["unread-messages-count"],
-      });
-    }
-  }, [channel?.id, queryClient]);
-
-  const ChannelPreviewCustom = useCallback(
-    (props: ChannelPreviewUIComponentProps) => {
-      return (
-        <ChannelPreviewMessenger
-          {...props}
-          onSelect={() => {
-            /** We override the default behavior to open the chat channel that we click on and close the sidebar */
-            props.setActiveChannel?.(props.channel, props.watchers);
-            onClose();
-          }}
-        />
-      );
-    },
-    [onClose],
-  );
+  const t = useTranslations();
 
   if (!user) {
-    return <p>No user</p>;
+    return <p>{t(chatTranslations.users.notFound)}</p>;
   }
 
   return (
@@ -91,7 +62,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
             },
           },
         }}
-        Preview={ChannelPreviewCustom}
+        Preview={CustomPreviewWrapper}
       />
     </div>
   );
