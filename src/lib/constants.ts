@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
   getPostCommentsEndPoint: (postId: string) => `/api/posts/${postId}/comments`,
   getUserDataEndpoint: (username: string) => `/api/users/username/${username}`,
   search: "/api/search",
+  getUserPostsEndpoint: (userId: string) => `/api/users/${userId}/posts`,
 } as const;
 
 export const MAX_ATTACHMENT_NUMBER = 5;

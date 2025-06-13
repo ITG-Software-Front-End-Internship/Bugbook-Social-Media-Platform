@@ -1,16 +1,6 @@
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export default function PostsLoadingSkeleton() {
-  return (
-    <div className="space-y-5">
-      <PostLoadingSkeleton />
-      <PostLoadingSkeleton />
-      <PostLoadingSkeleton />
-    </div>
-  );
-}
-
-function PostLoadingSkeleton() {
+export default function PostLoadingSkeleton() {
   return (
     <div className="w-full animate-pulse space-y-3 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex flex-wrap gap-3">

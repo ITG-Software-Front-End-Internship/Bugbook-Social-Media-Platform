@@ -5,7 +5,7 @@ import { profileTranslations } from "@/lib/translationKeys";
 import { UserData } from "@/lib/types";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import EditProfileDialog from "./editProfileDialog/EditProfileDialog";
+import EditProfileDialog from "../editProfileDialog/EditProfileDialog";
 
 interface EditProfileButtonProps {
   user: UserData;

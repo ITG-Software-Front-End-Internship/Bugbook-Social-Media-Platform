@@ -236,6 +236,8 @@ export const searchTranslations = {
 export const profileTranslations = {
   posts: {
     title: "profile.posts.title",
+    notFound: "profile.posts.notFound",
+    error: "profile.posts.error",
   },
   edit: {
     title: "profile.edit.title",

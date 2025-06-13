@@ -10,7 +10,7 @@ import { formatNumber, getMappedLocale, SupportedLang } from "@/lib/utils";
 import { formatDate } from "date-fns";
 import { getTranslations } from "next-intl/server";
 import FollowerCount from "../../../components/followingFeed/followerCount/FollowerCount";
-import EditProfileButton from "../editProfile/EditProfileButton";
+import EditProfileButton from "../editProfile/editProfileButton/EditProfileButton";
 
 interface UserProfileProps {
   user: UserData;

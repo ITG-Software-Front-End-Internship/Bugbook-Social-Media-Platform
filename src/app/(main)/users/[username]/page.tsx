@@ -6,9 +6,9 @@ import { getLocaleSettings } from "@/hooks/useLocaleSettings";
 import { profileTranslations } from "@/lib/translationKeys";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import UserPosts from "./components/userPosts/UserPosts";
 import UserProfile from "./components/userProfile/UserProfile";
 import getUser from "./helpers/getUser";
-import UserPosts from "./UserPosts";
 
 interface PageParamsProps {
   username: string;

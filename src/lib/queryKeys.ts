@@ -14,4 +14,5 @@ export const QUERY_KEYS = {
   getUserData: (username: string) => ["user-data", username],
   followingPostFeed: ["post-feed", "following"],
   postFeedSearch: (query: string) => ["post-feed", "search", query],
+  userForYouPostFeed: (userId: string) => ["post-feed", "for-you", userId],
 } as const;

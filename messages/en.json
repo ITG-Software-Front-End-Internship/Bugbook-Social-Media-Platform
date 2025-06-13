@@ -229,7 +229,9 @@
   },
   "profile": {
     "posts": {
-      "title": "Posts"
+      "title": "Posts",
+      "notFound": "This user has not posted anything yet.",
+      "error": "An error occurred while loading posts"
     },
     "edit": {
       "title": "Edit profile",

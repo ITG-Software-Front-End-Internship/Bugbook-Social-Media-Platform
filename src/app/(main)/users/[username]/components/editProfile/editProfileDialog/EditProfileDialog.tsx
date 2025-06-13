@@ -14,8 +14,8 @@ import { profileTranslations } from "@/lib/translationKeys";
 import { UserData } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-import { useUpdateProfileMutation } from "../../../mutations";
 import ProfileUpdateForm from "./components/ProfileUpdateForm";
+import { useUpdateProfileMutation } from "./hooks/useUpdateProfileMutation";
 interface EditProfileDialogProps {
   user: UserData;
   isOpen: boolean;

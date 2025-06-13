@@ -1,5 +1,5 @@
 import TrendsSidebar from "@/components/customComponents/TrendsSidebar/TrendsSidebar";
-import PostEditor from "@/components/posts/editor/PostEditor";
+import PostEditor from "@/components/posts/components/editor/PostEditor";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getLocaleSettings } from "@/hooks/useLocaleSettings";
 import {
