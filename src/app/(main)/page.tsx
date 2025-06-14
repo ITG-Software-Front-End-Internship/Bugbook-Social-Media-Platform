@@ -17,27 +17,26 @@ export default async function Home() {
   return (
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
-        {/*<PostEditor />*/}
-        {
-          <Tabs defaultValue="for-you" dir={direction}>
-            <TabsList>
-              <TabsTrigger value="for-you">
-                {t(forYouFeedTranslations.title)}
-              </TabsTrigger>
-              <TabsTrigger value="following">
-                {t(followingFeedTranslations.title)}
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="for-you">{/* <ForYouFeed />*/}</TabsContent>
-            {
-              <TabsContent value="following">
-                <FollowingFeed />
-              </TabsContent>
-            }
-          </Tabs>
-        }
+        <PostEditor />
+        <Tabs defaultValue="for-you" dir={direction}>
+          <TabsList>
+            <TabsTrigger value="for-you">
+              {t(forYouFeedTranslations.title)}
+            </TabsTrigger>
+            <TabsTrigger value="following">
+              {t(followingFeedTranslations.title)}
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="for-you">
+            {" "}
+            <ForYouFeed />
+          </TabsContent>
+          <TabsContent value="following">
+            <FollowingFeed />
+          </TabsContent>
+        </Tabs>
       </div>
-      {/*<TrendsSidebar />*/}
+      <TrendsSidebar />
     </main>
   );
 }

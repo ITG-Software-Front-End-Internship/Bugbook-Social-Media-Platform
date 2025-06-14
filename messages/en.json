@@ -36,7 +36,12 @@
         "light": "Light",
         "dark": "Dark"
       },
-      "logout": "Logout"
+      "logout": "Logout",
+      "language": {
+        "title": "Language",
+        "arabic": "Arabic",
+        "english": "English"
+      }
     }
   },
   "menubar": {

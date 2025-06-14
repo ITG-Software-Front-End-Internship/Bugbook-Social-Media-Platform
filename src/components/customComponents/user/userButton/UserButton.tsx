@@ -16,9 +16,10 @@ import { useLocaleSettings } from "@/hooks/useLocaleSettings";
 import { headerTranslations } from "@/lib/translationKeys";
 import { cn } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
-import { LogOutIcon, Monitor, UserIcon } from "lucide-react";
+import { Languages, LogOutIcon, Monitor, UserIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import LanguageDropdownMenu from "../../language/LanguageDropdownMenu";
 import ThemeDropdownMenu from "../../theme/ThemeDropdownMenu";
 import UserAvatar from "../userAvatar/UserAvatar";
 
@@ -68,6 +69,15 @@ export default function UserButton({ className }: UserButtonProps) {
             {t(headerTranslations.userButton.theme.title)}
           </DropdownMenuSubTrigger>
           <ThemeDropdownMenu />
+        </DropdownMenuSub>
+        <DropdownMenuSeparator />
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>
+            <Languages className="mr-2 size-4" />
+            &nbsp;&nbsp;
+            {t(headerTranslations.userButton.language.title)}
+          </DropdownMenuSubTrigger>
+          <LanguageDropdownMenu />
         </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={onLogoutPress} className="cursor-pointer">

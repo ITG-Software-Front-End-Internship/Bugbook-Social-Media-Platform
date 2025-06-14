@@ -110,6 +110,11 @@ export const headerTranslations = {
     placeholder: "header.searchField.placeholder",
   },
   userButton: {
+    language: {
+      title: "header.userButton.language.title",
+      arabic: "header.userButton.language.arabic",
+      english: "header.userButton.language.english",
+    },
     loggedInAs: "header.userButton.loggedInAs",
     profile: "header.userButton.profile",
     theme: {

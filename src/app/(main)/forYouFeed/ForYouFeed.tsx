@@ -1,8 +1,8 @@
 "use client";
 
 import InfiniteScrollContainer from "@/components/customComponents/InfiniteScrollContainer";
+import PostsLoadingSkeleton from "@/components/posts/components/loadingSkeleton/PostsLoadingSkeleton";
 import Post from "@/components/posts/components/post/Post";
-import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 import { forYouFeedTranslations } from "@/lib/translationKeys";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -53,7 +53,7 @@ export default function ForYouFeed() {
       onBottomReached={handleOnBottomReached}
       className="space-y-5"
     >
-      {posts.slice(0, 1).map((post) => {
+      {posts.map((post) => {
         return <Post key={post.id} post={post} />;
       })}
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
