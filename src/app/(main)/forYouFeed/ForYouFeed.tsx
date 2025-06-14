@@ -1,14 +1,16 @@
 "use client";
 
 import InfiniteScrollContainer from "@/components/customComponents/InfiniteScrollContainer";
-import Post from "@/components/posts/Post";
-import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
+import PostsLoadingSkeleton from "@/components/posts/components/loadingSkeleton/PostsLoadingSkeleton";
+import Post from "@/components/posts/components/post/Post";
 import { forYouFeedTranslations } from "@/lib/translationKeys";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForYouFeedInfiniteQuery } from "./hooks/useForYouFeedInfiniteQuery";
 
 export default function ForYouFeed() {
+  console.log(`ForYouFeed render ...`);
+
   const t = useTranslations();
   const {
     data,

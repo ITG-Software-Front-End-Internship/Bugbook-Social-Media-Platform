@@ -110,6 +110,11 @@ export const headerTranslations = {
     placeholder: "header.searchField.placeholder",
   },
   userButton: {
+    language: {
+      title: "header.userButton.language.title",
+      arabic: "header.userButton.language.arabic",
+      english: "header.userButton.language.english",
+    },
     loggedInAs: "header.userButton.loggedInAs",
     profile: "header.userButton.profile",
     theme: {
@@ -146,11 +151,157 @@ export const trendingTopicsTranslations = {
 export const forYouFeedTranslations = {
   noPosts: "forYouFeed.noPosts",
   error: "forYouFeed.error",
+  title: "forYouFeed.title",
+} as const;
+
+export const followingFeedTranslations = {
+  noPosts: "followingFeed.noPosts",
+  error: "followingFeed.error",
+  title: "followingFeed.title",
 } as const;
 
 export const postTranslations = {
+  header: {
+    delete: {
+      title: "post.header.delete.title",
+      description: "post.header.delete.description",
+      buttonLabel: "post.header.delete.buttonLabel",
+      cancelButtonLabel: "post.header.delete.cancelButtonLabel",
+      success: {
+        title: "post.header.delete.success.title",
+        description: "post.header.delete.success.description",
+      },
+      failed: {
+        title: "post.header.delete.failed.title",
+        description: "post.header.delete.failed.description",
+      },
+    },
+  },
+  media: {
+    unsupported: "post.media.unsupported",
+  },
   footer: {
     likes: "post.footer.likes",
-    comments: "post.footer.comments",
+    comments: {
+      title: "post.footer.comments.title",
+      writeAComment: "post.footer.comments.writeAComment",
+      loadPrevComment: "post.footer.comments.loadPrevComment",
+      noComments: "post.footer.comments.noComments",
+      error: "post.footer.comments.error",
+      delete: {
+        deleteComment: "post.footer.comments.delete.deleteComment",
+        title: "post.footer.comments.delete.title",
+        cancel: "post.footer.comments.delete.cancel",
+        description: "post.footer.comments.delete.description",
+        failed: {
+          title: "post.footer.comments.delete.failed.title",
+          description: "post.footer.comments.delete.failed.description",
+        },
+        success: {
+          title: "post.footer.comments.delete.success.title",
+          description: "post.footer.comments.delete.success.description",
+        },
+      },
+    },
+    bookmarks: {
+      bookmark: {
+        success: {
+          title: "post.footer.bookmarks.bookmark.success.title",
+          description: "post.footer.bookmarks.bookmark.success.description",
+        },
+        failed: {
+          title: "post.footer.bookmarks.bookmark.failed.title",
+          description: "post.footer.bookmarks.bookmark.failed.description",
+        },
+      },
+      unBookmark: {
+        success: {
+          title: "post.footer.bookmarks.unBookmark.success.title",
+          description: "post.footer.bookmarks.unBookmark.success.description",
+        },
+        failed: {
+          title: "post.footer.bookmarks.unBookmark.failed.title",
+          description: "post.footer.bookmarks.unBookmark.failed.description",
+        },
+      },
+    },
+  },
+};
+
+export const followersTranslations = {
+  title: "followers.title",
+};
+
+export const searchTranslations = {
+  notFound: "search.notFound",
+  error: "search.error",
+  title: "search.title",
+};
+
+export const profileTranslations = {
+  posts: {
+    title: "profile.posts.title",
+    notFound: "profile.posts.notFound",
+    error: "profile.posts.error",
+  },
+  edit: {
+    title: "profile.edit.title",
+    description: "profile.edit.description",
+    memberSince: "profile.edit.memberSince",
+    save: "profile.edit.save",
+    success: {
+      title: "profile.edit.success.title",
+      description: "profile.edit.success.description",
+    },
+    failed: {
+      title: "profile.edit.failed.title",
+      description: "profile.edit.failed.description",
+    },
+    user: {
+      avatar: {
+        title: "profile.edit.user.avatar.title",
+      },
+      displayName: {
+        title: "profile.edit.user.displayName.title",
+        placeholder: "profile.edit.user.displayName.placeholder",
+      },
+      bio: {
+        title: "profile.edit.user.bio.title",
+        placeholder: "profile.edit.user.bio.placeholder",
+      },
+    },
+  },
+};
+
+export const chatTranslations = {
+  messages: {
+    title: "chat.messages.title",
+    newChat: {
+      start: "chat.messages.newChat.start",
+    },
+  },
+  users: {
+    notFound: "chat.users.notFound",
+  },
+  newChat: {
+    title: "chat.newChat.title",
+    startChat: "chat.newChat.startChat",
+    dialogDescription: "chat.newChat.dialogDescription",
+    searchUsers: "chat.newChat.searchUsers",
+    error: {
+      title: "chat.newChat.error.title",
+      description: "chat.newChat.error.description",
+    },
+  },
+};
+
+export const notificationsTranslations = {
+  title: "notifications.title",
+  notFound: "notifications.notFound",
+  error: "notifications.error",
+  messages: {
+    like: "notifications.messages.like",
+    follow: "notifications.messages.follow",
+    comment: "notifications.messages.comment",
   },
 };

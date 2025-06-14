@@ -1,13 +1,13 @@
 "use client";
 
-import FollowerCount from "@/app/(main)/FollowerCount";
 import { useSession } from "@/app/(main)/SessionProvider";
+import FollowerCount from "@/app/(main)/users/components/followingFeed/followerCount/FollowerCount";
 import { FollowerInfo, UserData } from "@/lib/types";
 import Link from "next/link";
 import { memo, PropsWithChildren, useEffect, useMemo } from "react";
 import FollowButton from "../customComponents/TrendsSidebar/components/whoToFollow/components/FollowButton";
-import UserAvatar from "../customComponents/UserAvatar";
-import Linkify from "../Linkify";
+import UserAvatar from "../customComponents/user/userAvatar/UserAvatar";
+import Linkify from "../linkify/Linkify";
 import {
   Tooltip,
   TooltipContent,

@@ -1,12 +1,11 @@
 import { cachedValidateRequest } from "@/auth";
 import FollowButton from "@/components/customComponents/TrendsSidebar/components/whoToFollow/components/FollowButton";
-import UserAvatar from "@/components/customComponents/UserAvatar";
-import Linkify from "@/components/Linkify";
-import Post from "@/components/posts/Post";
-import UserToolTip from "@/components/UserTooltip/UserTooltip";
+import UserAvatar from "@/components/customComponents/user/userAvatar/UserAvatar";
+import Linkify from "@/components/linkify/Linkify";
+import Post from "@/components/posts/components/post/Post";
+import UserToolTip from "@/components/userTooltip/UserTooltip";
 import prisma from "@/lib/prisma";
 import { getPostDataInclude, UserData } from "@/lib/types";
-import { log } from "console";
 import { Loader2 } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";

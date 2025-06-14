@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
+import type { Locale } from "date-fns";
 import { formatDate, formatDistanceToNow } from "date-fns";
 import { ar, enUS } from "date-fns/locale";
 import { twMerge } from "tailwind-merge";
@@ -58,4 +59,15 @@ export function slugify(input: string): string {
     .toLowerCase()
     .replace(/ /g, "-")
     .replace(/[^a-z0-9-]/g, "");
+}
+
+export type SupportedLang = "ar" | "en";
+
+export function getMappedLocale(locale: SupportedLang): Locale {
+  const mappedLocale: Record<SupportedLang, Locale> = {
+    ar: ar,
+    en: enUS,
+  };
+
+  return mappedLocale[locale];
 }

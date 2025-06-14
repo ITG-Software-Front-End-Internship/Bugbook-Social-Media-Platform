@@ -1,7 +1,7 @@
 "use server";
 
 import FollowButton from "@/components/customComponents/TrendsSidebar/components/whoToFollow/components/FollowButton";
-import UserToolTip from "@/components/UserTooltip/UserTooltip";
+import UserToolTip from "@/components/userTooltip/UserTooltip";
 import { UserData } from "@/lib/types";
 import UserToFollowSidebarInfo from "./UserToFollowSidebarInfo";
 
