@@ -22,7 +22,6 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useUpdateProfileMutation } from "../hooks/useUpdateProfileMutation";
-import avatarPlaceHolder from "./../../../../../../../../assets/avatar-placeholder.png";
 import AvatarInput from "./AvatarInput";
 
 interface ProfileUpdateFormProps {
@@ -105,7 +104,7 @@ export default function ProfileUpdateForm({
           src={
             croppedAvatar
               ? URL.createObjectURL(croppedAvatar)
-              : userAvatarUrl || avatarPlaceHolder
+              : userAvatarUrl || "/avatar-placeholder.png"
           }
           onImageCropped={setCroppedAvatar}
         />

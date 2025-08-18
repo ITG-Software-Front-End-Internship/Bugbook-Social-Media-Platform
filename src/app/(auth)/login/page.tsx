@@ -1,4 +1,3 @@
-import loginImage from "@/assets/login-image.jpg";
 import { loginPageTranslations } from "@/lib/translationKeys";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -40,7 +39,7 @@ export default async function Page() {
           </div>
         </div>
         <Image
-          src={loginImage}
+          src="/login-image.jpg"
           alt="Login bugbook"
           className="hidden w-1/2 object-cover md:block"
           priority={true}

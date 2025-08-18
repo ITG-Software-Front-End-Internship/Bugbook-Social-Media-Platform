@@ -1,7 +1,5 @@
 import { Metadata } from "next";
 import React from "react";
-
-import signupImage from "@/assets/signup-image.jpg";
 import { signupPageTranslations } from "@/lib/translationKeys";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
@@ -37,7 +35,7 @@ async function page() {
           </div>
         </div>
         <Image
-          src={signupImage}
+          src="/signup-image.jpg"
           alt="Signup bugbook"
           className="hidden w-1/2 object-cover md:block"
           priority={true}
