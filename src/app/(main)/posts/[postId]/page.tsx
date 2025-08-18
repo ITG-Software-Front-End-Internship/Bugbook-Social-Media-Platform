@@ -32,7 +32,7 @@ const getPost = async (postId: string, loggedInUserId: string) => {
 };
 const cachedGetPost = cache(getPost);
 
-export async function generateMetaData({
+export async function generateMetadata({
   params,
 }: {
   params: Promise<PageParamsProps>;

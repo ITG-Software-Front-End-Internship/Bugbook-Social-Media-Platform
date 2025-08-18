@@ -14,7 +14,7 @@ interface PageParamsProps {
   username: string;
 }
 
-export async function generateMetaData({
+export async function generateMetadata({
   params,
 }: {
   params: Promise<PageParamsProps>;
