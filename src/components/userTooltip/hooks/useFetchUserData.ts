@@ -1,7 +1,7 @@
 import { QUERY_KEYS } from "@/lib/queryKeys";
 import { useQuery } from "@tanstack/react-query";
 import { HTTPError } from "ky";
-import { getUserData } from "../services/toolTipServices";
+import { getUserData } from "../services/tooltipServices";
 
 interface UseFetchUserData {
   username: string;
