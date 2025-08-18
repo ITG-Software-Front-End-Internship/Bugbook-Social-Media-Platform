@@ -60,7 +60,7 @@
         "googleLabel": "Sign in with google"
       },
       "account": {
-        "signup": "Don&apos;t have an account? Sign up",
+        "signup": "Don't have an account? Sign up",
         "or": "OR"
       }
     },
@@ -77,7 +77,7 @@
     "signup": {
       "bugbook": {
         "title": "Sign up to bugbook",
-        "subTitle": "A place where even <span class=\"italic\">you</span> can find friends"
+        "subTitle": "A place where even <italic>you</italic> can find friends"
       },
       "button": {
         "label": "Create an account"
