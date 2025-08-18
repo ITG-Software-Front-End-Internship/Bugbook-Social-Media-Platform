@@ -7,21 +7,21 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import SearchResults from "./components/SearchResults";
 
-export async function generateMetadata({ searchParams }: { searchParams: { q: string } }): Promise<Metadata> {
+interface PageProps {
+  searchParams: { q: string };
+}
+
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const { q } = searchParams;
-
   const { user: loggedInUser } = await cachedValidateRequest();
-
   if (!loggedInUser) return {};
-
   return {
     title: `Search results for ${q}`,
   };
 }
 
-export default async function Page({ searchParams }: { searchParams: { q: string } }) {
+export default async function Page({ searchParams }: PageProps) {
   const { q } = searchParams;
-
   const t = await getTranslations();
 
   return (
