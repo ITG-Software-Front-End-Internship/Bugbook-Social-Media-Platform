@@ -2,7 +2,7 @@
 
 import InfiniteScrollContainer from "@/components/customComponents/InfiniteScrollContainer";
 import Post from "@/components/posts/components/post/Post";
-import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
+import PostsLoadingSkeleton from "@/components/posts/components/loadingSkeleton/PostLoadingSkeleton";
 import { searchTranslations } from "@/lib/translationKeys";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
