@@ -32,9 +32,9 @@ export async function generateMetadata({
 export default async function page({
   searchParams,
 }: {
-  searchParams: Promise<PageProps>;
+  searchParams: PageProps;
 }) {
-  const { q } = await searchParams;
+  const { q } = searchParams;
 
   const t = await getTranslations();
 
