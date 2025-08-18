@@ -1,4 +1,3 @@
-import avatarPlaceHolder from "@/assets/avatar-placeholder.png";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { memo } from "react";
@@ -15,7 +14,7 @@ function UserAvatar({ avatarUrl, size, className }: UserAvatarProps) {
   const DEFAULT_USER_AVATAR_SIZE = 48;
   return (
     <Image
-      src={avatarUrl || avatarPlaceHolder}
+      src={avatarUrl || "/avatar-placeholder.png"}
       alt="User avatar image"
       width={size ?? DEFAULT_USER_AVATAR_SIZE}
       height={size ?? DEFAULT_USER_AVATAR_SIZE}
