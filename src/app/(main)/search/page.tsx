@@ -16,7 +16,7 @@ export async function generateMetadata({
 }: {
   searchParams: { q: string };
 }): Promise<Metadata> {
-  const { q } = await searchParams;
+  const { q } = searchParams;
 
   const { user: loggedInUser } = await cachedValidateRequest();
 
