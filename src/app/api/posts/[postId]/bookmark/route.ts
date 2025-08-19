@@ -52,6 +52,7 @@ export async function GET(
 
 
 export async function POST(
+  req: Request,
   { params }: { params: Promise<{ postId: string }> },
 ) {
   try {
