@@ -12,13 +12,6 @@ import { redirect } from "next/navigation";
 
 type LoginReturnType = { error: string };
 
-const ARGON2_OPTIONS = {
-  memoryCost: 19456,
-  timeCost: 2,
-  outputLen: 32,
-  parallelism: 1,
-};
-
 export async function login(
   credentials: LoginValuesType,
 ): Promise<LoginReturnType> {
@@ -51,7 +44,6 @@ export async function login(
     const validPassword = await argon2.verify(
       existingUser.passwordHash,
       unHashedPassword,
-      ARGON2_OPTIONS,
     );
 
     if (!validPassword) {
