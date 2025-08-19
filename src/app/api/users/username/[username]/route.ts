@@ -7,7 +7,7 @@ interface UsernameParams {
 }
 
 export async function GET(
-  req: Request,
+  _req: Request,
   { params }: { params: Promise<UsernameParams> },
 ) {
   const { username } = await params;
