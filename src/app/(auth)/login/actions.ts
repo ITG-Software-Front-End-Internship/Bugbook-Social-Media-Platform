@@ -79,7 +79,7 @@ export async function login(
     const t = await getTranslations("errors");
 
     return {
-      error: t(errorsMessages.general),
+      error: t(errorsMessages.general.title),
     };
   }
 }

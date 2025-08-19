@@ -104,7 +104,7 @@ export async function signUp(
     if (isRedirectError(error)) throw error;
     const t = await getTranslations("errors");
     return {
-      error: t(errorsMessages.general),
+      error: t(errorsMessages.general.title),
     };
   }
 }

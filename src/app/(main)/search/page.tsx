@@ -3,7 +3,7 @@
 import { cachedValidateRequest } from "@/auth";
 import TrendsSidebar from "@/components/customComponents/TrendsSidebar/TrendsSidebar";
 import { searchTranslations } from "@/lib/translationKeys";
-import { Metadata, PageProps } from "next"; // Import PageProps
+import { Metadata, PageProps } from "next"; 
 import { getTranslations } from "next-intl/server";
 import SearchResults from "./components/SearchResults";
 
