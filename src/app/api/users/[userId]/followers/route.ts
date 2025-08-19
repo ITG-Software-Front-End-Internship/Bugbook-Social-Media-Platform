@@ -8,10 +8,10 @@ interface RouteParams {
 
 export async function GET(
   req: Request,
-  { params }: { params: Promise<RouteParams> },
+  { params }: { params: RouteParams},
 ) {
   try {
-    const { userId } = await params;
+    const { userId } = params;
 
     const { user: loggedInUser } = await cachedValidateRequest();
     if (!loggedInUser) {
