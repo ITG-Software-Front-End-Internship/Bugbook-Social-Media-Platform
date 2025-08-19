@@ -2,15 +2,11 @@ import { cachedValidateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 import { FollowerInfo } from "@/lib/types";
 
-interface RouteParams {
-  userId: string;
-}
-
 export async function GET(
-  { params }: { params: RouteParams},
+  { params }: { params: Promise<{userId: string}>},
 ) {
   try {
-    const { userId } = params;
+    const { userId } = await params;
 
     const { user: loggedInUser } = await cachedValidateRequest();
     if (!loggedInUser) {
@@ -77,7 +73,7 @@ export async function GET(
 
 export async function POST(
   req: Request,
-  { params }: { params: Promise<RouteParams> },
+  { params }: { params: Promise<{userId: string}> },
 ) {
   try {
     const { userId } = await params;
@@ -135,7 +131,7 @@ export async function POST(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: Promise<RouteParams> },
+  { params }: { params: Promise<{userId: string}> },
 ) {
   try {
     const { userId } = await params;
