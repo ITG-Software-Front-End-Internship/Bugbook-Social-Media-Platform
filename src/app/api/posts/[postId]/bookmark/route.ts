@@ -2,16 +2,13 @@ import { cachedValidateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 import { BookmarkInfo } from "@/lib/types";
 
-interface RouteParams {
-  postId: string;
-}
 
 export async function GET(
   _req: Request,
-  { params }: { params: RouteParams},
+  context: { params: { postId: string } }
 ) {
   try {
-    const { postId } = params;
+    const { postId } = context.params;
 
     const { user: loggedInUser } = await cachedValidateRequest();
 
