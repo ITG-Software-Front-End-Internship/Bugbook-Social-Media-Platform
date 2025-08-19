@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
 import streamServerClient from "@/lib/stream";
 import { errorsMessages, validationsMessages } from "@/lib/translationKeys";
 import { getSignUpSchema, SignUpValuesType } from "@/lib/validations";
-import { hash } from "@node-rs/argon2";
+import argon2 from "argon2";
 import { generateIdFromEntropySize } from "lucia";
 import { getTranslations } from "next-intl/server";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
@@ -67,7 +67,7 @@ export async function signUp(
       };
     }
 
-    const passwordHash = await hash(password, HASH_OPTIONS);
+    const passwordHash = await argon2.hash(password, HASH_OPTIONS);
     const userId = generateIdFromEntropySize(10);
 
     await prisma.$transaction(async (tx) => {
