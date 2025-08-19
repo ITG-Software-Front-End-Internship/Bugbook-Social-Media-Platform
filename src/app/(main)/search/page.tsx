@@ -3,27 +3,19 @@
 import { cachedValidateRequest } from "@/auth";
 import TrendsSidebar from "@/components/customComponents/TrendsSidebar/TrendsSidebar";
 import { searchTranslations } from "@/lib/translationKeys";
-import { Metadata } from "next"; 
+import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import SearchResults from "./components/SearchResults";
 
-interface PageProps {
-  searchParams: {
-    q?: string;
-  };
-}
-
-export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
-  const q = searchParams.q;
+export async function generateMetadata({ searchParams }: { searchParams?: { q?: string } }): Promise<Metadata> {
+  const q = searchParams?.q;
   const { user: loggedInUser } = await cachedValidateRequest();
   if (!loggedInUser || !q) return {};
-  return {
-    title: `Search results for ${q}`,
-  };
+  return { title: `Search results for ${q}` };
 }
 
-export default async function Page({ searchParams }: PageProps) {
-  const q = searchParams.q;
+export default async function Page({ searchParams }: { searchParams?: { q?: string } }) {
+  const q = searchParams?.q;
   const t = await getTranslations();
 
   return (
