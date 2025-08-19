@@ -4,7 +4,6 @@ import { useSession } from "@/app/(main)/SessionProvider";
 import { postEditorTranslations } from "@/lib/translationKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 import submitPost from "../actions";
 import { onErrorCreatePostMutation } from "./helpers/onErrorCreatePostMutation";
 import { onSuccessCreatePostMutation } from "./helpers/onSuccessCreatePostMutation";
