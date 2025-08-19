@@ -100,6 +100,7 @@ export async function POST(
 }
 
 export async function DELETE(
+  req: Request,
   { params }: { params: Promise<{ postId: string }> },
 ) {
   try {
