@@ -7,14 +7,12 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import SearchResults from "./components/SearchResults";
 
-type SearchPageProps = {
-  searchParams?: {
-    q?: string;
-  };
+type SearchParams = {
+  q?: string;
 };
 
-export async function generateMetadata({ searchParams }: SearchPageProps): Promise<Metadata> {
-  const q = searchParams?.q;
+export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
+  const q = searchParams.q;
   const { user: loggedInUser } = await cachedValidateRequest();
 
   if (!loggedInUser || !q) return {};
@@ -24,8 +22,8 @@ export async function generateMetadata({ searchParams }: SearchPageProps): Promi
   };
 }
 
-export default async function Page({ searchParams }: SearchPageProps) {
-  const q = searchParams?.q;
+export default async function Page({ searchParams }: { searchParams: SearchParams }) {
+  const q = searchParams.q;
   const t = await getTranslations();
 
   return (
