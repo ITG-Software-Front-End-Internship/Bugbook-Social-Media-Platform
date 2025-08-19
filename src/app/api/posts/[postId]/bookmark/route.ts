@@ -7,10 +7,10 @@ interface RouteParams {
 }
 
 export async function GET(
-  { params }: { params: Promise<RouteParams> },
+  { params }: { params: RouteParams},
 ) {
   try {
-    const { postId } = await params;
+    const { postId } = params;
 
     const { user: loggedInUser } = await cachedValidateRequest();
 

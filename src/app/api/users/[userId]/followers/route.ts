@@ -7,7 +7,6 @@ interface RouteParams {
 }
 
 export async function GET(
-  req: Request,
   { params }: { params: RouteParams},
 ) {
   try {
