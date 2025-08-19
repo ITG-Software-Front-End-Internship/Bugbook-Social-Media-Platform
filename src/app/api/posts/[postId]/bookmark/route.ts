@@ -1,55 +1,55 @@
 import { cachedValidateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 import { BookmarkInfo } from "@/lib/types";
-import { NextRequest } from "next/server";
 
 
 export async function GET(
-  _req: NextRequest,
-  context: { params: { postId: string } }
+  _req: Request,
+  { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
-    const { postId } = context.params;
+    // Await the dynamic route params
+    const { postId } = await params;
 
+    // Validate user
     const { user: loggedInUser } = await cachedValidateRequest();
 
     if (!loggedInUser) {
-      return Response.json(
-        {
-          error: "Unauthorized",
-        },
-        {
-          status: 401,
-        },
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401 }
       );
     }
 
+    // Find bookmark
     const bookmark = await prisma.bookmark.findUnique({
       where: {
         postId_userId: {
           userId: loggedInUser.id,
-          postId: postId,
+          postId,
         },
       },
     });
 
+    // Prepare response
     const data: BookmarkInfo = {
       isBookedmarkByUser: !!bookmark,
     };
 
-    return Response.json(data);
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+
   } catch (error) {
     console.error(error);
-    return Response.json(
-      {
-        error: "Internal server error",
-      },
-      {
-        status: 500,
-      },
+    return new Response(
+      JSON.stringify({ error: "Internal server error" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 }
+
 
 export async function POST(
   { params }: { params: Promise<{ postId: string }> },
