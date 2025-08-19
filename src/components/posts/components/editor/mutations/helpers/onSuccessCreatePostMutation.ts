@@ -1,8 +1,6 @@
 import { QUERY_KEYS } from "@/lib/queryKeys";
 import { PostData, PostsPage } from "@/lib/types";
 import { InfiniteData, QueryClient, QueryFilters } from "@tanstack/react-query";
-import { useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
 import { toast } from "sonner";
 import { updatedCacheWithNewPost } from "./updatedCacheWithNewPost";
 
