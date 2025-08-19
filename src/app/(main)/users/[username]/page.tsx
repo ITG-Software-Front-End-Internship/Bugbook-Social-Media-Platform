@@ -72,9 +72,9 @@ export default async function page({
         <div className="rounded-2xl bg-card p-5 shadow-sm">
           <h2 className="text-center text-2xl font-bold">{userPostTitle}</h2>
         </div>
-        {/*<UserPosts userId={user.id} />*/}
+        <UserPosts userId={user.id} />
       </div>
-      {/*<TrendsSidebar />*/}
+      <TrendsSidebar />
     </main>
   );
 }
