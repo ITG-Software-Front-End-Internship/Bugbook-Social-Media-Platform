@@ -21,7 +21,7 @@ const getPost = async (postId: string, loggedInUserId: string) => {
     where: {
       id: postId,
     },
-    include: getPostDataInclude(postId),
+    include: getPostDataInclude(loggedInUserId),
   });
 
   if (!post) {
