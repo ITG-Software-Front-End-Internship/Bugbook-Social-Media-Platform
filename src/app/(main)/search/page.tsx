@@ -1,5 +1,6 @@
 "use server";
 
+import { use } from "react";
 import { cachedValidateRequest } from "@/auth";
 import TrendsSidebar from "@/components/customComponents/TrendsSidebar/TrendsSidebar";
 import { searchTranslations } from "@/lib/translationKeys";
@@ -7,11 +8,10 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import SearchResults from "./components/SearchResults";
 
-type SearchParams = {
-  q?: string;
-};
+type SearchParams = Promise<{ q?: string }>;
 
-export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
+export async function generateMetadata(props: { searchParams: SearchParams }): Promise<Metadata> {
+  const searchParams = await props.searchParams;
   const q = searchParams.q;
   const { user: loggedInUser } = await cachedValidateRequest();
 
@@ -22,7 +22,8 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
   };
 }
 
-export default async function Page({ searchParams }: { searchParams: SearchParams }) {
+export default async function Page(props: { searchParams: SearchParams }) {
+  const searchParams = await props.searchParams;
   const q = searchParams.q;
   const t = await getTranslations();
 
