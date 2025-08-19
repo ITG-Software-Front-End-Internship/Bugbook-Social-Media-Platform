@@ -1,6 +1,5 @@
 "use server";
 
-import { use } from "react";
 import { cachedValidateRequest } from "@/auth";
 import TrendsSidebar from "@/components/customComponents/TrendsSidebar/TrendsSidebar";
 import { searchTranslations } from "@/lib/translationKeys";
