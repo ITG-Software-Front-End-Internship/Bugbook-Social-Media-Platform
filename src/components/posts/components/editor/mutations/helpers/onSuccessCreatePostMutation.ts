@@ -1,5 +1,4 @@
 import { QUERY_KEYS } from "@/lib/queryKeys";
-import { postEditorTranslations } from "@/lib/translationKeys";
 import { PostData, PostsPage } from "@/lib/types";
 import { InfiniteData, QueryClient, QueryFilters } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
