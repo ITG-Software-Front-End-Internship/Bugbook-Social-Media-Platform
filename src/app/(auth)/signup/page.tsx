@@ -23,7 +23,7 @@ async function page() {
             </h1>
             <p className="text-muted-foreground">
               {t.rich(signupPageTranslations.signup.subTitle, {
-                italic: (chunks) => <span className="italic">{chunks}</span>,
+                italic: (chunks: React.ReactNode) => <span className="italic">{chunks}</span>,
               })}
             </p>
           </div>
