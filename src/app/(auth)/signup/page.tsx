@@ -10,8 +10,6 @@ export const metadata: Metadata = {
   title: "SignUp",
 };
 
-export const runtime = "nodejs";
-
 async function page() {
   const t = await getTranslations();
 

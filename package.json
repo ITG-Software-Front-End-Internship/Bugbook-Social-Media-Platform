@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "tw:init": "npx tailwindcss init",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate && npm rebuild @node-rs/argon2"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
