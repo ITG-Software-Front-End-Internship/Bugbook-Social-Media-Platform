@@ -4,7 +4,7 @@ import { BookmarkInfo } from "@/lib/types";
 
 
 export async function GET(
-  _req: Request,
+  req: Request,
   { params }: { params: Promise<{ postId: string }> }
 ) {
   try {
