@@ -14,6 +14,8 @@ import { redirect } from "next/navigation";
 
 type SignUpReturnType = { error: string };
 
+export const runtime = "nodejs";
+
 const HASH_OPTIONS = {
   memoryCost: 19456,
   timeCost: 2,
