@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 import { FollowerInfo } from "@/lib/types";
 
 export async function GET(
-  req: Request,
+  _req: Request,
   { params }: { params: Promise<{userId: string}>},
 ) {
   try {
