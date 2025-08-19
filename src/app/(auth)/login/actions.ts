@@ -4,7 +4,7 @@ import { lucia } from "@/auth";
 import prisma from "@/lib/prisma";
 import { errorsMessages, validationsMessages } from "@/lib/translationKeys";
 import { getLoginSchema, LoginValuesType } from "@/lib/validations";
-import { verify } from "@node-rs/argon2";
+import argon2 from "argon2";
 import { getTranslations } from "next-intl/server";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { cookies } from "next/headers";
@@ -48,7 +48,7 @@ export async function login(
       };
     }
 
-    const validPassword = await verify(
+    const validPassword = await argon2.verify(
       existingUser.passwordHash,
       unHashedPassword,
       ARGON2_OPTIONS,
