@@ -1,5 +1,5 @@
 import { useDropzone } from "@uploadthing/react";
-import { ClipboardEvent, useCallback, useMemo } from "react";
+import { ClipboardEvent, useCallback } from "react";
 
 export default function usePostEditorDropzone(
   startUpload: (files: File[]) => void,
