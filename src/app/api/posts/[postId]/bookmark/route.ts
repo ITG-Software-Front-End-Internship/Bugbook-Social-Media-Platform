@@ -1,10 +1,11 @@
 import { cachedValidateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 import { BookmarkInfo } from "@/lib/types";
+import { NextRequest } from "next/server";
 
 
 export async function GET(
-  _req: Request,
+  _req: NextRequest,
   context: { params: { postId: string } }
 ) {
   try {
