@@ -2,13 +2,9 @@ import { cachedValidateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 import { BookmarkInfo } from "@/lib/types";
 
-interface RouteParams {
-  postId: string;
-}
-
 export async function GET(
   _req: Request,
-  { params }: { params: RouteParams},
+  { params }: { params: { postId: string }},
 ) {
   try {
     const { postId } = params;
@@ -54,7 +50,7 @@ export async function GET(
 }
 
 export async function POST(
-  { params }: { params: Promise<RouteParams> },
+  { params }: { params: Promise<{ postId: string }> },
 ) {
   try {
     const { postId } = await params;
@@ -102,7 +98,7 @@ export async function POST(
 }
 
 export async function DELETE(
-  { params }: { params: Promise<RouteParams> },
+  { params }: { params: Promise<{ postId: string }> },
 ) {
   try {
     const { postId } = await params;
