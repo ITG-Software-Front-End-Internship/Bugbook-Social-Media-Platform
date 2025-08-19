@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { memo, useCallback, useEffect } from "react";
+import { memo, useEffect } from "react";
 import { Attachment } from "../hooks/useMediaUpload";
 import AttachmentPreview from "./AttachmentPreview";
 
