@@ -1,4 +1,3 @@
-import kyInstance from "@/lib/ky";
 import { BookmarkInfo } from "@/lib/types";
 import { QueryKey, useQuery } from "@tanstack/react-query";
 import { getPostBookmarks } from "../services/bookmarksService";
